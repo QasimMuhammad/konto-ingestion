@@ -1,0 +1,12 @@
+[project]
+name = "konto-ingestion"
+version = "0.1.0"
+description = "Ingestion pipeline for Norwegian legal and regulatory texts data"
+requires-python = ">=3.10"
+dependencies = [
+  "beautifulsoup4>=4.12",
+  "lxml>=5.2",
+  "requests>=2.32",
+  "pydantic>=2.8",
+  "python-dateutil>=2.9",
+]
