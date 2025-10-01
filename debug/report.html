@@ -1,0 +1,2302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silver Layer Data Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        .section-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: #fafafa;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .section-id {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .section-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .section-text {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #28a745;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .tag {
+            display: inline-block;
+            background: #e9ecef;
+            color: #495057;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+        .domain-tax { background: #d4edda; color: #155724; }
+        .domain-accounting { background: #cce5ff; color: #004085; }
+        .domain-reporting { background: #fff3cd; color: #856404; }
+        .domain-unknown { background: #f8d7da; color: #721c24; }
+        .chart-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Silver Layer Data Report</h1>
+        <p>Generated on 2025-10-01 21:13:24</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">934</div>
+                <div class="stat-label">Total Sections</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">104,574</div>
+                <div class="stat-label">Total Tokens</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">112</div>
+                <div class="stat-label">Avg Tokens/Section</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1</div>
+                <div class="stat-label">Domains</div>
+            </div>
+        </div>
+        
+        <h2>📈 Data Distribution</h2>
+        <div class="chart-container">
+            <h3>By Domain</h3>
+            <div style='display: flex; flex-wrap: wrap; gap: 10px;'>
+        <div style="flex: 1; min-width: 200px; background: #f8f9fa; padding: 15px; border-radius: 5px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span class="tag domain-unknown">unknown</span>
+                <span style="font-weight: bold;">934</span>
+            </div>
+            <div style="background: #e9ecef; height: 8px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #007bff; height: 100%; width: 100.0%;"></div>
+            </div>
+            <div style="font-size: 0.8em; color: #666; margin-top: 5px;">100.0%</div>
+        </div>
+        </div>
+            
+            <h3>By Source Type</h3>
+            <div style='display: flex; flex-wrap: wrap; gap: 10px;'>
+        <div style="flex: 1; min-width: 150px; background: #f8f9fa; padding: 15px; border-radius: 5px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>law</span>
+                <span style="font-weight: bold;">934</span>
+            </div>
+            <div style="background: #e9ecef; height: 8px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #28a745; height: 100%; width: 100.0%;"></div>
+            </div>
+            <div style="font-size: 0.8em; color: #666; margin-top: 5px;">100.0%</div>
+        </div>
+        </div>
+            
+            <h3>By Publisher</h3>
+            <div style='display: flex; flex-wrap: wrap; gap: 10px;'>
+        <div style="flex: 1; min-width: 150px; background: #f8f9fa; padding: 15px; border-radius: 5px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>unknown</span>
+                <span style="font-weight: bold;">934</span>
+            </div>
+            <div style="background: #e9ecef; height: 8px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #ffc107; height: 100%; width: 100.0%;"></div>
+            </div>
+            <div style="font-size: 0.8em; color: #666; margin-top: 5px;">100.0%</div>
+        </div>
+        </div>
+        </div>
+        
+        <h2>🔍 Sample Sections</h2>
+        <input type="text" class="search-box" placeholder="Search sections..." id="searchBox" onkeyup="filterSections()">
+        
+        <div id="sections">
+            
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_1-1</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    44 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 1 PARAGRAF_1-1</div>
+            <div><strong>Heading:</strong> § 1-1. Saklig virkeområde</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 1-1. Saklig virkeområde (1) Denne loven gjelder merverdiavgift. Merverdiavgift er en avgift til staten som skal beregnes ved omsetning, uttak og innførsel av varer og tjenester. (2) Stortinget pålegger merverdiavgiften og fastsetter de satser som skal gjelde, jf. Grunnloven § 75 bokstav a.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_1-2</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    32 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 1 PARAGRAF_1-2</div>
+            <div><strong>Heading:</strong> § 1-2. Geografisk virkeområde</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 1-2. Geografisk virkeområde (1) Denne loven får anvendelse i merverdiavgiftsområdet. (2) Med merverdiavgiftsområdet menes det norske fastlandet og alt område innenfor territorialgrensen, men ikke Svalbard, Jan Mayen eller de norske bilandene.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_1-3</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    301 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 1 PARAGRAF_1-3</div>
+            <div><strong>Heading:</strong> § 1-3. Definisjoner</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 1-3. Definisjoner (1) I denne loven menes med a. omsetning: levering av varer og tjenester mot vederlag, b. varer: fysiske gjenstander, herunder fast eiendom, og elektrisk kraft, vann fra vannverk, gass, varme og kulde, c. tjenester: det som kan omsettes og som ikke er varer etter bokstav b, herun...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_2-1</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    437 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 2 PARAGRAF_2-1</div>
+            <div><strong>Heading:</strong> § 2-1. Registreringsplikt</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 2-1. Registreringsplikt (1) Næringsdrivende og offentlig virksomhet skal registreres i Merverdiavgiftsregisteret når omsetning og uttak som er omfattet av loven til sammen har oversteget 50.000 kroner i en periode på tolv måneder. For veldedige og allmennyttige institusjoner og organisasjoner er b...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_2-2</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    127 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 2 PARAGRAF_2-2</div>
+            <div><strong>Heading:</strong> § 2-2. En registreringsenhet</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 2-2. En registreringsenhet (1) Flere virksomheter som drives av samme eier, skal registreres i Merverdiavgiftsregisteret som ett avgiftssubjekt. (2) En del av et avgiftssubjekt kan registreres som et eget avgiftssubjekt dersom denne delen fysisk og formelt er skilt ut. Ved vurderingen av om slik r...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_2-3</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    238 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 2 PARAGRAF_2-3</div>
+            <div><strong>Heading:</strong> § 2-3. Frivillig registrering</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 2-3. Frivillig registrering (1) Næringsdrivende og offentlig virksomhet som leier ut bygg eller anlegg, kan frivillig registreres i Merverdiavgiftsregisteret dersom bygget eller anlegget brukes a. i virksomhet som er registrert etter denne loven, b. av offentlig virksomhet der øverste myndighet er...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_2-4</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    57 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 2 PARAGRAF_2-4</div>
+            <div><strong>Heading:</strong> § 2-4. Forhåndsregistrering</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 2-4. Forhåndsregistrering (1) Den som ikke har nådd beløpsgrensen for registrering, kan forhåndsregistreres i Merverdiavgiftsregisteret dersom a. vedkommende har foretatt betydelige anskaffelser som har direkte sammenheng med senere merverdiavgiftspliktig omsetning, b. merverdiavgiftspliktig omset...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_2-5</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    30 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 2 PARAGRAF_2-5</div>
+            <div><strong>Heading:</strong> § 2-5. Lottfiske</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 2-5. Lottfiske Ved lottfiske skal den reder, høvedsmann eller fisker som leverer fisken til kjøperen eller som på fartøyets eller fiskerens vegne mottar oppgjøret for fisken, registreres i Merverdiavgiftsregisteret.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-1</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    179 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-1</div>
+            <div><strong>Heading:</strong> § 3-1. Varer og tjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-1. Varer og tjenester (1) Det skal beregnes merverdiavgift ved omsetning av varer og tjenester. (2) Det skal også beregnes merverdiavgift ved levering av varer med lav verdi som innføres til andre mottakere enn næringsdrivende og offentlig virksomhet i merverdiavgiftsområdet. Dette gjelder likev...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-2</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    339 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-2</div>
+            <div><strong>Heading:</strong> § 3-2. Helsetjenester mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-2. Helsetjenester mv. (1) Omsetning og formidling av helsetjenester er unntatt fra loven, herunder tjenester som a. omfattes av helse- og omsorgstjenesteloven og spesialisthelsetjenesteloven b. omfattes av tannhelsetjenesteloven , samt tanntekniske tjenester c. omfattes av folketrygdloven kapitt...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-3</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    50 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-3</div>
+            <div><strong>Heading:</strong> § 3-3. (Opphevet)</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-3. (Opphevet) 0 Opphevet ved lov 21 des 2020 nr. 168 (ikr. 1 jan 2021, se endringlovens del II som endret ved lover 18 juni 2021 nr. 114 og 22 des 2021 nr. 160 for overgangsbestemmelse). Første ledd annet punktum opphevet fra 1 jan 2011, se § 22-2 (3).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-4</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    142 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-4</div>
+            <div><strong>Heading:</strong> § 3-4. Sosiale tjenester mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-4. Sosiale tjenester mv. (1) Omsetning og formidling av sosiale tjenester er unntatt fra loven, herunder sosiale tjenester a. etter helse- og omsorgstjenesteloven og barnevernsloven b. som ytes i barne- og ungdomsinstitusjoner, fritidsklubber, feriekolonier og lignende c. som gjelder pass av bar...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-5</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    55 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-5</div>
+            <div><strong>Heading:</strong> § 3-5. Undervisningstjenester mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-5. Undervisningstjenester mv. (1) Omsetning og formidling av undervisningstjenester er unntatt fra loven. (2) Unntaket omfatter også andre varer og tjenester som omsettes som et naturlig ledd i ytelsen av undervisningstjenester. (3) Utleie av arbeidskraft der arbeidstakeren skal utøve undervisni...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-6</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    51 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-6</div>
+            <div><strong>Heading:</strong> § 3-6. Finansielle tjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-6. Finansielle tjenester Omsetning og formidling av finansielle tjenester er unntatt fra loven, herunder a. omsetning av forsikringstjenester b. omsetning av finansieringstjenester, likevel ikke finansiell leasing c. utføring av betalingsoppdrag d. omsetning av gyldige betalingsmidler e. omsetni...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-7</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    217 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-7</div>
+            <div><strong>Heading:</strong> § 3-7. Kunst og kultur mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-7. Kunst og kultur mv. (1) Omsetning og formidling av tjenester i form av adgang til teater-, opera- og ballettforestillinger, konserter, sirkus, omreisende tivolier, dansetilstelninger med levende musikk samt datatreff og lignende arrangementer som er rettet mot barn og ungdom er unntatt fra lo...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-8</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    125 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-8</div>
+            <div><strong>Heading:</strong> § 3-8. Idrett mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-8. Idrett mv. (1) Omsetning av tjenester i form av adgang til enkeltstående idrettsarrangement er unntatt fra loven. Med enkeltstående idrettsarrangement menes idrettsarrangement som av den enkelte arrangør ikke blir arrangert mer enn én gang per år, og ikke i to eller flere år på rad. Det er et...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-9</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    55 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-9</div>
+            <div><strong>Heading:</strong> § 3-9. Offentlig myndighetsutøvelse mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-9. Offentlig myndighetsutøvelse mv. (1) Omsetning av tjenester som ledd i offentlig myndighetsutøvelse er unntatt fra loven. (2) Omsetning av tjenester mellom deltagere i offentlige servicekontorer er unntatt fra loven dersom tjenesten gjelder etablering eller drift av servicekontoret. (3) Omset...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-10</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    43 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-10</div>
+            <div><strong>Heading:</strong> § 3-10. Tjenester innen staten</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-10. Tjenester innen staten Omsetning av tjenester fra en statlig enhet til en annen statlig enhet er unntatt fra loven dersom leverandøren ikke driver økonomisk aktivitet. Unntaket omfatter også omsetning av varer som leveres som et naturlig ledd i ytelsen av tjenesten.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-11</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    271 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-11</div>
+            <div><strong>Heading:</strong> § 3-11. Fast eiendom</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-11. Fast eiendom (1) Omsetning og utleie av fast eiendom og rettighet til fast eiendom er unntatt fra loven. Unntaket omfatter også omsetning av varer og tjenester som leveres som ledd i utleien. (2) Følgende omsetning er likevel omfattet av loven: a. utleie av rom mv. og lokaler som nevnt i § 5...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-12</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    195 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-12</div>
+            <div><strong>Heading:</strong> § 3-12. Veldedige og allmennyttige institusjoner og organisasjoner</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-12. Veldedige og allmennyttige institusjoner og organisasjoner (1) Omsetning fra veldedige og allmennyttige institusjoner og organisasjoner av følgende varer og tjenester er unntatt fra loven: a. varer av bagatellmessig verdi b. varer til betydelig overpris c. annonser i medlemsblader og lignend...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-13</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    182 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-13</div>
+            <div><strong>Heading:</strong> § 3-13. Ideelle organisasjoner og foreninger</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-13. Ideelle organisasjoner og foreninger (1) Omsetning av varer og tjenester fra ideelle organisasjoner og foreninger er unntatt fra loven dersom vederlaget mottas i form av medlemskontingent. Det er et vilkår at omsetningen er ledd i organisasjonens ideelle virksomhet. Unntaket omfatter ikke tj...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-14</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    34 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-14</div>
+            <div><strong>Heading:</strong> § 3-14. Pengespilltjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-14. Pengespilltjenester Omsetning og formidling av pengespilltjenester er unntatt fra loven. 0 Endret ved lov 18 mars 2022 nr. 12 (i kraft 1 jan 2023 iflg. res. 18 mars 2022 nr. 414 ).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-15</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    18 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-15</div>
+            <div><strong>Heading:</strong> § 3-15. Seremonielle tjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-15. Seremonielle tjenester Omsetning av seremonielle tjenester i tilknytning til begravelser og bisettelser er unntatt fra loven.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-16</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    16 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-16</div>
+            <div><strong>Heading:</strong> § 3-16. (Opphevet)</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-16. (Opphevet) 0 Opphevet ved lov 19 des 2014 nr. 84 (ikr. 1 jan 2015).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-17</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    39 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-17</div>
+            <div><strong>Heading:</strong> § 3-17. Tjenester som medlem av styre mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-17. Tjenester som medlem av styre mv. Omsetning av tjenester i form av å være medlem av styre, representantskap, utvalg, råd og lignende er unntatt fra loven dersom vederlaget for tjenesten inngår i grunnlaget for beregning av arbeidsgiveravgift.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-18</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    18 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-18</div>
+            <div><strong>Heading:</strong> § 3-18. Frimerker, sedler og mynter</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-18. Frimerker, sedler og mynter Omsetning av frimerker, sedler og mynter som samleobjekt er unntatt fra loven.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-19</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    30 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-19</div>
+            <div><strong>Heading:</strong> § 3-19. Varer brukt privat mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-19. Varer brukt privat mv. Omsetning av varer som har vært brukt privat eller til andre formål som ikke har gitt fradragsrett for inngående merverdiavgift er unntatt fra loven.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-20</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    18 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_3-20</div>
+            <div><strong>Heading:</strong> § 3-20. Sletting av klimakvoter</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-20. Sletting av klimakvoter Omsetning av tjenester i form av sletting av klimakvoter er unntatt fra loven.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-21</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    87 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-21</div>
+            <div><strong>Heading:</strong> § 3-21. Varer</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-21. Varer (1) Det skal beregnes merverdiavgift når en vare tas ut fra den registrerte eller registreringspliktige virksomheten. Det skal likevel ikke beregnes merverdiavgift for kapitalvare som nevnt i § 9-1 dersom varen tas ut til formål innenfor den samlede virksomheten. (2) Det skal beregnes ...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-22</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    76 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-22</div>
+            <div><strong>Heading:</strong> § 3-22. Tjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-22. Tjenester (1) Det skal beregnes merverdiavgift når en tjeneste tas ut fra den registrerte eller registreringspliktige virksomheten til privat bruk eller til andre formål utenfor den samlede virksomheten. (2) For tjenester som nevnt i § 3-23 og tjenester som består i oppføring, oppussing, mod...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-23</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    70 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-23</div>
+            <div><strong>Heading:</strong> § 3-23. Særlige formål</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-23. Særlige formål Det skal beregnes merverdiavgift når varer og tjenester fra den registrerte eller registreringspliktige virksomheten brukes i virksomheten til a. kost til eller naturalavlønning av virksomhetens innehaver, ledelse, ansatte og pensjonister b. oppføring, vedlikehold, innleie og ...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-24</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    67 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-24</div>
+            <div><strong>Heading:</strong> § 3-24. Motorkjøretøy</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-24. Motorkjøretøy Det skal beregnes merverdiavgift når en bilforhandler registrerer et kjøretøy på eget navn i motorvognregisteret selv om kjøretøyet ikke tas i bruk. Dette gjelder likevel ikke dersom kjøretøyet a. tas i bruk som utleiekjøretøy i yrkesmessig utleievirksomhet b. tas i bruk som mi...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-25</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    59 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-25</div>
+            <div><strong>Heading:</strong> § 3-25. Varer og tjenester til vedlikehold, bruk og drift av personkjøretøy</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-25. Varer og tjenester til vedlikehold, bruk og drift av personkjøretøy Det skal beregnes merverdiavgift når varer og tjenester fra en registrert eller registreringspliktig virksomhet brukes til vedlikehold, bruk og drift av personkjøretøy. Første punktum gjelder ikke dersom kjøretøyet brukes so...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-26</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    55 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-26</div>
+            <div><strong>Heading:</strong> § 3-26. Oppføring av bygg eller anlegg for egen regning</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-26. Oppføring av bygg eller anlegg for egen regning Det skal beregnes merverdiavgift når næringsdrivende tar i bruk varer og tjenester i virksomhet med oppføring, oppussing, modernisering mv. av bygg eller anlegg for salg eller utleie, herunder byggeledelse, byggeadministrasjon og annen administ...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-27</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    24 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-27</div>
+            <div><strong>Heading:</strong> § 3-27. Tilsvarende unntak som ved omsetning</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-27. Tilsvarende unntak som ved omsetning Uttak av varer og tjenester er unntatt fra loven dersom tilsvarende omsetning er unntatt etter dette kapitlet.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-28</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    57 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-28</div>
+            <div><strong>Heading:</strong> § 3-28. Offentlig virksomhet</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-28. Offentlig virksomhet Uttak av varer og tjenester fra offentlige virksomheter som hver for seg eller i fellesskap driver virksomhet som hovedsakelig har til formål å tilgodese egne behov, er unntatt fra loven dersom merverdiavgiftspliktig omsetning av tilsvarende varer og tjenester over en pe...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-29</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    64 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-29</div>
+            <div><strong>Heading:</strong> § 3-29. Varer</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-29. Varer (1) Det skal beregnes merverdiavgift ved innførsel av varer til merverdiavgiftsområdet. Tollavgiftsloven § 2-1 om når tollavgift skal beregnes gjelder tilsvarende for merverdiavgift ved innførsel. (2) Tollavgiftsloven § 2-2 om tidfesting gjelder tilsvarende ved beregning av merverdiavg...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-30</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    168 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-30</div>
+            <div><strong>Heading:</strong> § 3-30. Tjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-30. Tjenester (1) Det skal beregnes merverdiavgift av fjernleverbare tjenester som er kjøpt utenfor merverdiavgiftsområdet når mottakeren er hjemmehørende i merverdiavgiftsområdet og tjenesten er merverdiavgiftspliktig ved omsetning i merverdiavgiftsområdet. Dette gjelder likevel ikke dersom tje...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-31</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    32 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-31</div>
+            <div><strong>Heading:</strong> § 3-31. Dispensasjon</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-31. Dispensasjon Dersom det foreligger særlige forhold, kan departementet treffe enkeltvedtak om helt eller delvis unntak fra loven. 0 Tilføyd ved lov 20 des 2016 nr. 116 (ikr. 1 jan 2017).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-32</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    52 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-32</div>
+            <div><strong>Heading:</strong> § 3-32. Våpensystemet F-35</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-32. Våpensystemet F-35 Departementet kan treffe enkeltvedtak om unntak fra loven ved omsetning av varer og tjenester til vedlikehold av våpensystemet F-35. Departementet kan gi forskrift om utfylling og gjennomføring av denne paragrafen, herunder fastsette vilkår for unntak. 0 Tilføyd ved lov 20...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_3-33</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    59 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 3 PARAGRAF_3-33</div>
+            <div><strong>Heading:</strong> § 3-33. Leveranser til militære enheter fra USA</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 3-33. Leveranser til militære enheter fra USA Departementet kan treffe enkeltvedtak om unntak fra loven ved omsetning av varer og tjenester fra næringsdrivende som ikke har forretningssted eller hjemsted i merverdiavgiftsområdet til militære enheter fra USA. 0 Tilføyd ved lov 10 juni 2022 nr. 36 (...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-1</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    75 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-1</div>
+            <div><strong>Heading:</strong> § 4-1. Hovedregel</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-1. Hovedregel (1) Ved omsetning av varer og tjenester er beregningsgrunnlaget for merverdiavgiften vederlaget, herunder tilskudd som utgjør en del av prisen på varen eller tjenesten. Selve merverdiavgiften regnes ikke med i beregningsgrunnlaget. (2) Som en del av vederlaget anses blant annet ikk...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-2</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    124 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-2</div>
+            <div><strong>Heading:</strong> § 4-2. Hva inngår i beregningsgrunnlaget</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-2. Hva inngår i beregningsgrunnlaget (1) I beregningsgrunnlaget inngår alle kostnader ved oppfyllelsen av avtalen, enten de inngår i vederlaget eller det kreves særskilt betaling, herunder a. tollavgift og andre avgifter fastsatt med hjemmel i lov eller Stortingets plenarvedtak, unntatt engangsa...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-3</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    100 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-3</div>
+            <div><strong>Heading:</strong> § 4-3. Byttehandel mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-3. Byttehandel mv. (1) Består vederlaget helt eller delvis av annet enn vanlige betalingsmidler, er beregningsgrunnlaget prisen på den leverte ytelsen. Dersom prisen i slike tilfeller er lavere enn den alminnelige omsetningsverdien for tilsvarende varer eller tjenester som omsettes i virksomhete...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-4</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    68 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-4</div>
+            <div><strong>Heading:</strong> § 4-4. Interessefellesskap</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-4. Interessefellesskap (1) Består det et interessefellesskap mellom leverandør og mottaker av varer og tjenester, og dette interessefellesskap må antas å kunne føre til en annen fastsettelse av vederlaget enn om det ikke hadde foreligget, kan beregningsgrunnlaget ikke settes lavere enn den almin...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-5</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    132 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-5</div>
+            <div><strong>Heading:</strong> § 4-5. Videresalg av brukte varer mv. – enkeltstående kjøp og salg</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-5. Videresalg av brukte varer mv. – enkeltstående kjøp og salg (1) Når brukte varer, kunstverk, samleobjekter eller antikviteter er kjøpt for videresalg, herunder salg i kommisjon eller ved auksjon, kan beregningsgrunnlaget ved videresalget settes til differansen mellom innkjøpsprisen og salgspr...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-6</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    104 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-6</div>
+            <div><strong>Heading:</strong> § 4-6. Videresalg av brukte varer mv. – samlet kjøp og salg</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-6. Videresalg av brukte varer mv. – samlet kjøp og salg Dersom kjøpet eller videresalget som nevnt i § 4-5 skjer samlet og prisen på den enkelte varen ikke er kjent, er beregningsgrunnlaget ved videresalget differansen mellom innkjøpsprisen og salgsprisen for varene samlet for hele terminen. Der...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-7</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    60 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-7</div>
+            <div><strong>Heading:</strong> § 4-7. Tap på utestående fordringer og heving</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-7. Tap på utestående fordringer og heving (1) Beregningsgrunnlaget kan korrigeres dersom en utestående fordring som det tidligere er beregnet utgående merverdiavgift av, på grunn av skyldnerens manglende betalingsevne anses endelig konstatert tapt. (2) Beregningsgrunnlaget skal korrigeres dersom...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-8</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    16 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-8</div>
+            <div><strong>Heading:</strong> § 4-8. (Opphevet)</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-8. (Opphevet) 0 Opphevet ved lov 7 des 2012 nr. 78 (ikr. 1 jan 2013).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-9</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    38 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-9</div>
+            <div><strong>Heading:</strong> § 4-9. Hovedregel</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-9. Hovedregel (1) Ved uttak av varer og tjenester er beregningsgrunnlaget den alminnelige omsetningsverdien for tilsvarende varer og tjenester. (2) Departementet kan gi forskrift om hva som menes med alminnelig omsetningsverdi ved uttak av varer og tjenester.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-10</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    27 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-10</div>
+            <div><strong>Heading:</strong> § 4-10. Brukte varer, kunstverk, samleobjekter og antikviteter</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-10. Brukte varer, kunstverk, samleobjekter og antikviteter Ved uttak av brukte varer, kunstverk, samleobjekter og antikviteter kan beregningsgrunnlaget fastsettes etter § 4-5 eller § 4-6 .
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-11</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    164 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-11</div>
+            <div><strong>Heading:</strong> § 4-11. Varer</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-11. Varer (1) Ved innførsel av varer skal beregningsgrunnlaget fastsettes etter vareførselsloven §§ 6-2 flg. om tollverdi. Tollavgift og andre avgifter som skal beregnes ved innførsel av varer, skal inngå i beregningsgrunnlaget. (2) Ved innførsel av kunstverk, samleobjekter og antikviteter er be...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_4-12</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    60 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 4 PARAGRAF_4-12</div>
+            <div><strong>Heading:</strong> § 4-12. Tjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 4-12. Tjenester (1) Ved kjøp av tjenester som nevnt i § 3-30 er beregningsgrunnlaget for merverdiavgiften vederlaget. Bestemmelsene om beregningsgrunnlag ved omsetning gjelder tilsvarende. (2) Vederlag som er angitt i utenlandsk valuta, omregnes til norske kroner ut fra omregningskursen på leverin...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-1</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    119 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-1</div>
+            <div><strong>Heading:</strong> § 5-1. Alminnelig og redusert sats</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-1. Alminnelig og redusert sats (1) Det skal beregnes merverdiavgift med alminnelig sats, med mindre omsetningen eller uttaket er fritatt for merverdiavgift eller det ikke skal beregnes merverdiavgift ved innførselen. (2) Lovens §§ 5-2 til 5-12 gjelder i den utstrekning det følger av Stortingets ...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-2</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    84 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-2</div>
+            <div><strong>Heading:</strong> § 5-2. Næringsmidler</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-2. Næringsmidler (1) Det skal beregnes merverdiavgift med redusert sats ved omsetning, uttak og innførsel av næringsmidler. Det skal likevel beregnes merverdiavgift med alminnelig sats for næringsmidler som omsettes som del av en serveringstjeneste. (2) Som næringsmiddel anses enhver mat- eller ...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-3</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    28 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-3</div>
+            <div><strong>Heading:</strong> § 5-3. Persontransport mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-3. Persontransport mv. Det skal beregnes merverdiavgift med redusert sats ved omsetning og uttak av tjenester som gjelder persontransport og ved formidling av tjenester som gjelder persontransport.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-4</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    101 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-4</div>
+            <div><strong>Heading:</strong> § 5-4. Transport av kjøretøy på fartøy</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-4. Transport av kjøretøy på fartøy (1) Det skal beregnes merverdiavgift med redusert sats ved omsetning og uttak av tjenester som gjelder transport av kjøretøy på ferge eller annet fartøy på innenlands veisamband. Det er et vilkår at kjøretøyet er i bruk som kjøretøy når det tas om bord og sette...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-5</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    155 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-5</div>
+            <div><strong>Heading:</strong> § 5-5. Romutleie i hotellvirksomhet mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-5. Romutleie i hotellvirksomhet mv. (1) Det skal beregnes merverdiavgift med redusert sats ved omsetning og uttak av tjenester som gjelder utleie av a. rom i hotellvirksomhet og lignende virksomhet b. fast eiendom til camping c. hytter, ferieleiligheter og annen fritidseiendom (2) Det skal bereg...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-6</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    24 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-6</div>
+            <div><strong>Heading:</strong> § 5-6. Kinoforestillinger</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-6. Kinoforestillinger Det skal beregnes merverdiavgift med redusert sats ved omsetning og uttak av tjenester i form av rett til å overvære kinoforestilinger.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-7</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    43 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-7</div>
+            <div><strong>Heading:</strong> § 5-7. Allmennkringkasting</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-7. Allmennkringkasting Det skal beregnes merverdiavgift med redusert sats på statlige tilskudd for å finansiere allmennkringkastingstjenester, jf. kringkastingsloven § 6-4 . Det samme gjelder ved uttak av slike tjenester. 0 Endret ved lov 20 des 2019 nr. 98 (ikr. 1 jan 2020).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-8</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    69 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-8</div>
+            <div><strong>Heading:</strong> § 5-8. Viltlevende marine ressurser</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-8. Viltlevende marine ressurser Det skal beregnes merverdiavgift med redusert sats ved fiskeres omsetning til eller gjennom fiskesalgslag som er opprettet i medhold av fiskesalslagslova . Det skal beregnes merverdiavgift med redusert sats ved fiskesalgslagets formidling eller godkjenning av slik...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-9</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    41 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-9</div>
+            <div><strong>Heading:</strong> § 5-9. Museer mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-9. Museer mv. Det skal beregnes merverdiavgift med redusert sats ved omsetning, uttak og formidling av tjenester i form av adgang til utstillinger i museer og gallerier. 0 Tilføyd ved lov 25 juni 2010 nr. 32 (ikr. 1 juli 2010).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-10</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    39 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-10</div>
+            <div><strong>Heading:</strong> § 5-10. Fornøyelsesparker mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-10. Fornøyelsesparker mv. Det skal beregnes merverdiavgift med redusert sats ved omsetning, uttak og formidling av tjenester i form av adgang til fornøyelsesparker og opplevelsessentre. 0 Tilføyd ved lov 25 juni 2010 nr. 32 (ikr. 1 juli 2010).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-11</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    77 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-11</div>
+            <div><strong>Heading:</strong> § 5-11. Idrettsarrangementer mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-11. Idrettsarrangementer mv. (1) Det skal beregnes merverdiavgift med redusert sats ved omsetning, uttak og formidling av tjenester som gir noen rett til å overvære idrettsarrangementer. (2) Det skal beregnes merverdiavgift med redusert sats ved utleie av lokaler i idrettsanlegg til konferanser ...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_5-12</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    70 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 5 PARAGRAF_5-12</div>
+            <div><strong>Heading:</strong> § 5-12. Vann fra vannverk og avløpstjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 5-12. Vann fra vannverk og avløpstjenester (1) Det skal beregnes merverdiavgift med redusert sats ved omsetning og uttak av vann fra vannverk og avløpstjenester. (2) Departementet kan gi forskrift til utfylling og gjennomføring av første ledd, herunder om hva som anses som vann fra vannverk og avl...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-1</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    61 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-1</div>
+            <div><strong>Heading:</strong> § 6-1. Aviser</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-1. Aviser (1) Omsetning av aviser, herunder elektroniske aviser, som inneholder en overveiende andel tekst og stillbilder, er fritatt for merverdiavgift. (2) Departementet kan gi forskrift om hva som menes med aviser, herunder om vilkår for fritak. 0 Endret ved lover 23 juni 2020 nr. 107 (ikr. 1...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-2</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    49 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-2</div>
+            <div><strong>Heading:</strong> § 6-2. (Opphevet)</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-2. (Opphevet) 0 Tilføyd ved lov 18 des 2015 nr. 118 (ikr. 1 mars 2016 iflg. res. 19 feb 2016 nr. 164 ), endret ved lov 23 juni 2020 nr. 107 (ikr. 1 juli 2020), opphevet ved lov 20 des 2022 nr. 108 (i kraft 1 jan 2023).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-3</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    138 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-3</div>
+            <div><strong>Heading:</strong> § 6-3. Tidsskrift</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-3. Tidsskrift (1) Omsetning av tidsskrift, herunder elektroniske tidsskrift, som hovedsakelig omsettes til faste abonnenter eller som hovedsakelig deles ut til eller på annen måte gjøres tilgjengelig for foreningsmedlemmer, er fritatt for merverdiavgift i siste omsetningsledd. (2) Omsetning av t...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-4</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    171 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-4</div>
+            <div><strong>Heading:</strong> § 6-4. Bøker</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-4. Bøker (1) Omsetning av bøker, herunder elektroniske bøker, er fritatt for merverdiavgift i siste omsetningsledd. Fritaket gjelder tilsvarende for lydbøker som er parallellutgaver av bøker og elektroniske bøker. (2) Fritaket gjelder ikke publikasjoner som selges sammen med en vare av annet sla...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-5</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    65 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-5</div>
+            <div><strong>Heading:</strong> § 6-5. Andre publikasjoner</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-5. Andre publikasjoner (1) Trykking av menighetsblad, skoleaviser og gatemagasin, er fritatt for merverdiavgift dersom oppdragsgiveren ikke er et avgiftssubjekt. Med gatemagasin menes et magasin som omsettes av vanskeligstilte. (2) Utgiveres omsetning av gatemagasin til vanskeligstilte er fritat...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-6</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    144 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-6</div>
+            <div><strong>Heading:</strong> § 6-6. Elektrisk kraft mv. til husholdningsbruk i Nord-Norge</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-6. Elektrisk kraft mv. til husholdningsbruk i Nord-Norge (1) Omsetning av elektrisk kraft og energi levert fra alternative energikilder til husholdningsbruk i fylkene Finnmark, Troms og Nordland, er fritatt for merverdiavgift. (2) Når elektrisk kraft og energi levert fra alternative energikilder...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-7</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    148 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-7</div>
+            <div><strong>Heading:</strong> § 6-7. Kjøretøy som omfattes av Stortingets vedtak om omregistreringsavgift</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-7. Kjøretøy som omfattes av Stortingets vedtak om omregistreringsavgift (1) Omsetning av kjøretøy som omfattes av Stortingets vedtak om omregistreringsavgift, er fritatt for merverdiavgift dersom kjøretøyet har vært registrert her i landet. Fritaket omfatter også kjøretøy som nevnt i vedtaket § ...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-8</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    182 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-8</div>
+            <div><strong>Heading:</strong> § 6-8. Kjøretøy som bare bruker elektrisitet til framdrift</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-8. Kjøretøy som bare bruker elektrisitet til framdrift (1) Omsetning av personkjøretøy som bare bruker elektrisitet til framdrift, og hvor elektrisiteten leveres fra batteripakke som kan lades fra ekstern strømkilde, er fritatt for merverdiavgift for vederlag til og med 500 000 kroner. (2) Leasi...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-9</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    243 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-9</div>
+            <div><strong>Heading:</strong> § 6-9. Fartøy mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-9. Fartøy mv. (1) Omsetning av følgende fartøy er fritatt for merverdiavgift: a. fartøy på minst 15 meter til bruk for persontransport mot vederlag, varetransport, sleping, isbryting eller fangstvirksomhet b. spesialfartøy til bruk i petroleumsvirksomhet til havs c. skolefartøy d. fartøy på mins...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-10</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    110 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-10</div>
+            <div><strong>Heading:</strong> § 6-10. Luftfartøy mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-10. Luftfartøy mv. (1) Omsetning og utleie av luftfartøy til yrkesmessig luftfartsvirksomhet og militære luftfartøy, er fritatt for merverdiavgift. Fritaket omfatter også driftsutstyr som leveres sammen med slike luftfartøy. (2) Omsetning av tjenester som står i direkte forbindelse med bygging, ...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-11</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    156 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-11</div>
+            <div><strong>Heading:</strong> § 6-11. Plattformer, rørledninger mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-11. Plattformer, rørledninger mv. (1) Omsetning og utleie av oljeboringsplattformer og andre flyttbare plattformer til bruk i petroleumsvirksomhet, er fritatt for merverdiavgift. Fritaket omfatter også driftsutstyr som leveres sammen med slike plattformer. (2) Omsetning av tjenester som står i d...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-12</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    85 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-12</div>
+            <div><strong>Heading:</strong> § 6-12. Fremmede lands ambassader og konsulater</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-12. Fremmede lands ambassader og konsulater (1) Omsetning av tjenester som står i direkte forbindelse med oppføring av ambassadebygg, er fritatt for merverdiavgift i siste omsetningsledd. Med ambassadebygg menes bygg som eies av senderstaten og som er til offisiell bruk som kanselli. Fritaket om...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-13</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    93 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-13</div>
+            <div><strong>Heading:</strong> § 6-13. Internasjonale militære styrker og kommandoenheter</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-13. Internasjonale militære styrker og kommandoenheter Departementet kan på grunnlag av traktater og andre internasjonale avtaler gi forskrift om at omsetning av varer og tjenester til bestemte internasjonale militære styrker og kommandoenheter, er fritatt for merverdiavgift. Det samme gjelder o...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-14</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    29 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-14</div>
+            <div><strong>Heading:</strong> § 6-14. Overdragelse av virksomhet</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-14. Overdragelse av virksomhet Omsetning av varer og tjenester som ledd i overdragelse av en virksomhet eller del av denne til en ny innehaver, er fritatt for merverdiavgift.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-15</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    24 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-15</div>
+            <div><strong>Heading:</strong> § 6-15. Biologisk materiale</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-15. Biologisk materiale Omsetning av menneskeorganer, blod og lignende til sykehus eller medisinske laboratorier for bruk, undersøkelse eller kontroll, er fritatt for merverdiavgift.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-16</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    35 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-16</div>
+            <div><strong>Heading:</strong> § 6-16. Begravelsestjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-16. Begravelsestjenester (1) Begravelsesbyråers omsetning av tjenester som gjelder transport av avdøde, er fritatt for merverdiavgift. (2) Begravelsesbyråers omsetning av tjenester som gjelder pakking og forsendelse av urner etter bisettelser, er fritatt for merverdiavgift.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-17</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    24 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-17</div>
+            <div><strong>Heading:</strong> § 6-17. Tilsvarende fritak som ved omsetning</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-17. Tilsvarende fritak som ved omsetning Uttak av varer og tjenester er fritatt for merverdiavgift dersom tilsvarende omsetning er fritatt etter dette kapitlet.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-18</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    32 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-18</div>
+            <div><strong>Heading:</strong> § 6-18. Bedriftskantiner mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-18. Bedriftskantiner mv. Uttak av varer og tjenester for oppføring eller vedlikehold av kantiner til bruk i egen virksomhet, er fritatt for merverdiavgift. Fritaket omfatter også løst inventar til slike kantiner.
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-19</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    104 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-19</div>
+            <div><strong>Heading:</strong> § 6-19. Veldedige formål mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-19. Veldedige formål mv. (1) Tjenester som ytes vederlagsfritt på veldedig grunnlag, er fritatt for merverdiavgift. (2) Næringsmidler som leveres vederlagsfritt til mottaker for utdeling på veldedig grunnlag, er fritatt for merverdiavgift. Mottakeren må være registrert i Enhetsregisteret. Depart...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-20</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    74 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-20</div>
+            <div><strong>Heading:</strong> § 6-20. Primærnæringer</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-20. Primærnæringer (1) Uttak av produkter fra eget fiske, skogbruk eller jordbruk med binæringer, er fritatt for merverdiavgift dersom produktene skal brukes privat eller til formål innenfor rammen av disse næringene. (2) Departementet kan gi forskrift om utfylling og gjennomføring av første led...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-21</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    32 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-21</div>
+            <div><strong>Heading:</strong> § 6-21. Utførsel av varer</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-21. Utførsel av varer Omsetning av varer ut av merverdiavgiftsområdet, er fritatt for merverdiavgift. Fritaket gjelder likevel ikke dersom varene er tatt med i samlet terminvis oppgjør etter § 4-6 .
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-22</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    89 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-22</div>
+            <div><strong>Heading:</strong> § 6-22. Utførsel av tjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-22. Utførsel av tjenester (1) Omsetning av tjenester som helt ut er til bruk utenfor merverdiavgiftsområdet, er fritatt for merverdiavgift. (2) Omsetning av fjernleverbare tjenester er fritatt for merverdiavgift når mottakeren er hjemmehørende utenfor merverdiavgiftsområdet. (3) Annet ledd gjeld...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-23</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    49 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-23</div>
+            <div><strong>Heading:</strong> § 6-23. Varer som legges inn på tollager</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-23. Varer som legges inn på tollager Omsetning av varer som etter vareførselsloven § 4-4 legges inn på kjøpers tollager for utførsel, er fritatt for merverdiavgift. 0 Endret ved lov 11 mars 2022 nr. 8 (i kraft 1 jan 2023 iflg. res. 16 sep 2022 nr. 1575 ).
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-24</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    43 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-24</div>
+            <div><strong>Heading:</strong> § 6-24. Varer som videreselges ut av merverdiavgiftsområdet</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-24. Varer som videreselges ut av merverdiavgiftsområdet Omsetning av varer til et registrert avgiftssubjekt, er fritatt for merverdiavgift dersom kjøperen videreselger varene ut av merverdiavgiftsområdet før varene er levert. Det er et vilkår for fritak at kjøperen umiddelbart tollekspederer var...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-25</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    108 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-25</div>
+            <div><strong>Heading:</strong> § 6-25. Varer til turister</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-25. Varer til turister (1) Omsetning av varer til personer som er bosatt utenfor merverdiavgiftsområdet, er fritatt for merverdiavgift dersom varene føres ut av merverdiavgiftsområdet som reisegods. Fritaket gjennomføres ved at selgeren beregner merverdiavgift ved omsetningen, men tilbakefører a...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-26</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    66 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-26</div>
+            <div><strong>Heading:</strong> § 6-26. Utsalg på lufthavn ved utreise</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-26. Utsalg på lufthavn ved utreise (1) Omsetning av alkoholholdige drikkevarer, tobakkvarer, sjokolade- og sukkervarer, parfymer, kosmetikk og toalettpreparater fra avgiftsfritt utsalg på lufthavn (tollager C) ved utreise fra merverdiavgiftsområdet, er fritatt for merverdiavgift. (2) Omsetning a...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-27</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    53 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-27</div>
+            <div><strong>Heading:</strong> § 6-27. Utsalg på lufthavn ved ankomst</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-27. Utsalg på lufthavn ved ankomst (1) Omsetning av alkoholholdige drikkevarer, tobakkvarer, sjokolade- og sukkervarer, parfymer, kosmetikk og toalettpreparater fra avgiftsfritt utsalg på lufthavn (tollager C) ved ankomst fra andre land, er fritatt for merverdiavgift. (2) Departementet kan gi fo...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-28</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    141 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-28</div>
+            <div><strong>Heading:</strong> § 6-28. Transporttjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-28. Transporttjenester (1) Omsetning av transporttjenester som finner sted i merverdiavgiftsområdet, er fritatt for merverdiavgift dersom transporten skal skje direkte til eller fra steder utenfor merverdiavgiftsområdet. Transporten anses å skje direkte til eller fra steder utenfor merverdiavgif...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-29</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    130 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-29</div>
+            <div><strong>Heading:</strong> § 6-29. Formidlingstjenester</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-29. Formidlingstjenester (1) Formidling av persontransport er fritatt for merverdiavgift dersom transporten skjer utenfor merverdiavgiftsområdet eller direkte til eller fra steder utenfor merverdiavgiftsområdet. (2) Formidling av følgende tjenester er fritatt for merverdiavgift dersom tjenestene...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-30</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    167 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-30</div>
+            <div><strong>Heading:</strong> § 6-30. Varer og tjenester til fartøy</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-30. Varer og tjenester til fartøy (1) Omsetning av nærmere bestemte varer og tjenester til bruk for utenlandske fartøy som nevnt i § 6-9 første ledd, er fritatt for merverdiavgift. (2) Omsetning av nærmere bestemte varer og tjenester til bruk for fartøy på minst 15 meter, er fritatt for merverdi...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-31</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    85 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-31</div>
+            <div><strong>Heading:</strong> § 6-31. Varer og tjenester til luftfartøy</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-31. Varer og tjenester til luftfartøy (1) Omsetning av nærmere bestemte varer og tjenester til bruk for luftfartøy til yrkesmessig luftfartsvirksomhet, er fritatt for merverdiavgift når luftfartøyet går i utenriks fart. (2) Departementet kan gi forskrift om hvilke varer og tjenester som omfattes...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-32</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    128 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-32</div>
+            <div><strong>Heading:</strong> § 6-32. Varer og tjenester til petroleumsvirksomheten</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-32. Varer og tjenester til petroleumsvirksomheten (1) Omsetning av nærmere bestemte varer og tjenester til bruk i havområder utenfor merverdiavgiftsområdet i forbindelse med utforsking og utnytting av undersjøiske naturforekomster, er fritatt for merverdiavgift dersom omsetningen skjer til retti...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-33</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    57 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-33</div>
+            <div><strong>Heading:</strong> § 6-33. Reklamepublikasjoner på fremmed språk mv.</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-33. Reklamepublikasjoner på fremmed språk mv. Omsetning av reklamepublikasjoner på fremmed språk og reklamefilmer med utenlandsk tale, er fritatt for merverdiavgift i siste omsetningsledd til oppdragsgiver i merverdiavgiftsområdet dersom publikasjonene og filmene er bestemt til bruk utenfor merv...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-34</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    57 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-34</div>
+            <div><strong>Heading:</strong> § 6-34. Garantireparasjoner</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-34. Garantireparasjoner Omsetning av garantireparasjoner for næringsdrivende hjemmehørende utenfor merverdiavgiftsområdet er fritatt for merverdiavgift. Fritaket gjelder reparasjon av vare eller anlegg den næringsdrivende har levert til kjøper i merverdiavgiftsområdet. Det er et vilkår at næring...
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <div>
+                    <span class="section-id">PARAGRAF_6-35</span>
+                    <span class="tag domain-unknown">unknown</span>
+                    <span class="tag">law</span>
+                </div>
+                <div class="section-meta">
+                    30 tokens | unknown
+                </div>
+            </div>
+            
+            <div><strong>Path:</strong> Kapittel 6 PARAGRAF_6-35</div>
+            <div><strong>Heading:</strong> § 6-35. Forskriftsfullmakt</div>
+            <div><strong>Law ID:</strong> mva_law_2009</div>
+            
+            <div class="section-text">
+                § 6-35. Forskriftsfullmakt Departementet kan gi forskrift om registrerings- og dokumentasjonsplikt mv. av regnskapsopplysninger. 0 Endret ved lov 9 des 2011 nr. 53 (ikr. 1 jan 2012, tidligere § 6-34).
+            </div>
+        </div>
+        
+        </div>
+    </div>
+    
+    <script>
+        function filterSections() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const sections = document.querySelectorAll('.section-card');
+            
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
