@@ -1,0 +1,16 @@
+source_id,title,url,version,jurisdiction,effective_from,effective_to,domain,source_type,publisher,crawl_freq
+mva_law_2009,Merverdiavgiftsloven (MVA-loven),https://lovdata.no/lov/2009-06-19-58,current,NO,2009-06-19,,tax,law,Lovdata,quarterly
+mva_forskrift_2009,Forskrift til merverdiavgiftsloven (Merverdiavgiftsforskriften),https://lovdata.no/forskrift/2009-12-15-1540,current,NO,2009-12-15,,tax,forskrift,Lovdata,quarterly
+mva_endring_2024,Forskrift om endring i merverdiavgiftsforskriften,https://lovdata.no/forskrift/2024-05-24-826,2024-05,NO,2024-05-24,,tax,forskrift,Lovdata,quarterly
+mva_lovendring_2024,Lov om endringer i merverdiavgiftsloven,https://lovdata.no/lov/2024-12-20-88,2024-12,NO,2024-12-20,,tax,law,Lovdata,quarterly
+skatteforvaltningsloven_2016,Skatteforvaltningsloven,https://lovdata.no/lov/2016-05-27-14,current,NO,2016-05-27,,tax,law,Lovdata,quarterly
+skatteloven_1999,Skatteloven,https://lovdata.no/lov/1999-03-26-14,current,NO,1999-03-26,,tax,law,Lovdata,quarterly
+regnskapsloven_1998,Regnskapsloven,https://lovdata.no/lov/1998-07-17-56,current,NO,1998-07-17,,accounting,law,Lovdata,quarterly
+bokforingsloven_2004,Bokføringsloven,https://lovdata.no/lov/2004-11-19-73,current,NO,2004-11-19,,accounting,law,Lovdata,quarterly
+bokforingsforskriften_2004,Forskrift om bokføring (Bokføringsforskriften),https://lovdata.no/forskrift/2004-12-01-1558,current,NO,2004-12-01,,accounting,forskrift,Lovdata,quarterly
+mva_rates,Merverdiavgift – satser (Skatteetaten),https://www.skatteetaten.no/satser/merverdiavgift/,current,NO,,,tax,rates,Skatteetaten,monthly
+mva_import,MVA ved import (Skatteetaten),https://www.skatteetaten.no/bedrift-og-organisasjon/avgifter/mva/utland/import/,current,NO,,,tax,guidance,Skatteetaten,monthly
+saft_v1_30,SAF-T Financial (main),https://www.skatteetaten.no/en/business-and-organisation/start-and-run/best-practices-accounting-and-cash-register-systems/saf-t-financial/,1.30,NO,2025-01-01,,reporting,spec,Skatteetaten,quarterly
+saft_v1_30_docs,SAF-T Financial – Documentation (v1.30),https://www.skatteetaten.no/en/business-and-organisation/start-and-run/best-practices-accounting-and-cash-register-systems/saf-t-financial/documentation/,1.30,NO,2025-01-01,,reporting,spec,Skatteetaten,quarterly
+amelding_overview_skatteetaten,A-meldingen – oversikt (Skatteetaten),https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/,current,NO,2015-01-01,,reporting,guidance,Skatteetaten,quarterly
+amelding_forms_altinn,A-melding – direkte registrering i Altinn (A01),https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/,current,NO,,,reporting,form,Altinn,quarterly

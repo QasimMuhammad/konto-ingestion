@@ -1,0 +1,13 @@
+{
+  "total_processed": 934,
+  "total_saved": 934,
+  "rejected_short_text": 0,
+  "total_tokens": 104574,
+  "domains": {
+    "unknown": {
+      "processed": 934,
+      "saved": 934,
+      "tokens": 104574
+    }
+  }
+}

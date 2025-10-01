@@ -1,0 +1,5 @@
+---
+description: always use conventional commit format for commit messages and keep commit message on liner
+globs:
+alwaysApply: True
+---
