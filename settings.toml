@@ -1,0 +1,44 @@
+# Konto Ingestion Configuration
+# This file contains default settings for the ingestion pipeline
+
+[default]
+# Data pipeline settings
+data_dir = "data"
+bronze_dir = "data/bronze"
+silver_dir = "data/silver"
+gold_dir = "data/gold"
+
+# Source configuration
+sources_file = "configs/sources.csv"
+
+# HTTP settings
+http_timeout = 30
+user_agent = "KontoIngestionBot/0.1 (+contact@example.com)"
+
+# Processing settings
+min_section_length = 10
+max_section_length = 10000
+
+# Logging
+log_level = "INFO"
+
+# Environment-specific overrides
+[development]
+log_level = "DEBUG"
+
+[production]
+log_level = "WARNING"
+http_timeout = 60
+
+# Azure settings (for future use)
+[azure]
+# These will be populated from environment variables or Azure Key Vault
+storage_account_name = ""
+storage_account_key = ""
+key_vault_url = ""
+postgres_connection_string = ""
+
+# Local development overrides
+[local]
+data_dir = "./data"
+log_level = "DEBUG"
