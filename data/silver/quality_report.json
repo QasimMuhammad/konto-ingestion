@@ -1,13 +1,25 @@
 {
-  "total_processed": 934,
-  "total_saved": 934,
+  "total_processed": 933,
+  "total_saved": 933,
   "rejected_short_text": 0,
-  "total_tokens": 104574,
+  "total_tokens": 101229,
   "domains": {
-    "unknown": {
-      "processed": 934,
-      "saved": 934,
-      "tokens": 104574
+    "tax": {
+      "processed": 625,
+      "saved": 625,
+      "tokens": 64034
+    },
+    "accounting": {
+      "processed": 308,
+      "saved": 308,
+      "tokens": 37195
     }
+  },
+  "source_types": {
+    "law": 524,
+    "forskrift": 409
+  },
+  "publishers": {
+    "Lovdata": 933
   }
 }
