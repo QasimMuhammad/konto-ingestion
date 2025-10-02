@@ -18,7 +18,7 @@ def sha256_bytes(content: bytes) -> str:
 def http_get(url: str, timeout: int = None) -> bytes:
     """Fetch content from URL with proper headers and error handling."""
     # Import here to avoid circular imports
-    from .config import settings
+    from .settings import settings
 
     if timeout is None:
         timeout = settings.http_timeout

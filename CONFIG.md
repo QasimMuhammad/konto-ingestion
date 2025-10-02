@@ -14,7 +14,7 @@ Template for environment variables. Copy to `.env` for local development.
 
 ### Basic Configuration
 ```python
-from modules.config import settings
+from modules.settings import settings
 
 # Access settings
 data_dir = settings.data_dir
@@ -33,7 +33,7 @@ ENV_FOR_DYNACONF=production
 
 ### Azure Integration (Future)
 ```python
-from modules.config import is_azure_mode, get_azure_config
+from modules.settings import is_azure_mode, get_azure_config
 
 if is_azure_mode():
     azure_config = get_azure_config()
