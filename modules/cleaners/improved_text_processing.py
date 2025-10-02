@@ -35,7 +35,35 @@ def clean_legal_text(text: str) -> str:
     text = re.sub(r"\[Neste\]", "", text)
     text = re.sub(r"\[Forrige\]", "", text)
 
-    # Clean up extra whitespace
+    # Remove menu and navigation text
+    text = re.sub(r"Rettskilder.*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"Business and organisation.*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"Hovedmeny.*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"Navigasjon.*", "", text, flags=re.IGNORECASE)
+    
+    # Remove amendment clutter that got concatenated
+    text = re.sub(r"Endret ved.*?🔗Del paragraf", "", text)
+    text = re.sub(r"Endret ved.*?$", "", text)
+    
+    # Remove common UI elements
+    text = re.sub(r"<svg[^>]*>.*?</svg>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<img[^>]*>", "", text)
+    text = re.sub(r"<a[^>]*>.*?</a>", "", text, flags=re.DOTALL)
+    
+    # Remove HTML tags
+    text = re.sub(r"<[^>]+>", "", text)
+    
+    # Remove remaining navigation/footer noise
+    text = re.sub(r"Del paragraf|🔗", "", text)
+    
+    # Remove footnote artifacts like "0 Opphevet..." and move to amendments
+    # This will be handled in the metadata extraction
+    text = re.sub(r"^\d+\s+", "", text)  # Remove leading digits
+    
+    # Remove trailing footnote artifacts like "0" at the end
+    text = re.sub(r"\s+\d+\s*$", "", text)  # Remove trailing digits
+    
+    # Remove extra whitespace and normalize
     text = re.sub(r"\s+", " ", text)
     text = text.strip()
 
@@ -163,10 +191,10 @@ def compute_stable_hash(text: str) -> str:
 
 
 def extract_legal_metadata(
-    html_content: str, metadata: Dict[str, Any]
+    html_content: str, metadata: Dict[str, Any], section_heading: str = "", section_path: str = "", cleaned_text: str = ""
 ) -> Dict[str, Any]:
     """
-    Extract legal metadata from HTML content.
+    Extract legal metadata from HTML content with improved parsing.
 
     Args:
         html_content: Raw HTML content
@@ -179,38 +207,128 @@ def extract_legal_metadata(
 
     legal_metadata = {}
 
-    # Extract law title
-    title_selectors = [
-        "h1.title",
-        "h1",
-        ".document-title",
-        ".law-title",
-        "title",
-        ".main-title",
-        ".page-title",
-    ]
+    # Extract law title - prioritize h1 over title, and clean it properly
+    law_title = ""
+    
+    # Try h1 first (usually the main law title)
+    h1_elem = soup.select_one("h1")
+    if h1_elem:
+        law_title = h1_elem.get_text().strip()
+        # Clean up common patterns
+        law_title = re.sub(r"\s*-\s*(Lovdata|Skatteetaten|Altinn)", "", law_title)
+        law_title = re.sub(r"\s*\([^)]*\)\s*$", "", law_title)  # Remove trailing parentheticals
+        law_title = re.sub(r"\s*\[[^\]]*\]\s*$", "", law_title)  # Remove trailing brackets
+    
+    # If h1 is empty or looks like menu text, try title tag
+    if not law_title or law_title.lower() in ["hovedmeny", "main menu", "navigasjon"]:
+        title_elem = soup.select_one("title")
+        if title_elem:
+            title_text = title_elem.get_text().strip()
+            # Extract the law name from title (usually before the first dash)
+            title_parts = title_text.split(" - ")
+            if len(title_parts) > 1:
+                law_title = title_parts[0].strip()
+            else:
+                law_title = title_text
+    
+    # Fallback to metadata title if still empty
+    if not law_title:
+        law_title = metadata.get("title", "")
+    
+    legal_metadata["law_title"] = law_title
 
-    for selector in title_selectors:
-        title_elem = soup.select_one(selector)
-        if title_elem and title_elem.get_text().strip():
-            legal_metadata["law_title"] = title_elem.get_text().strip()
-            break
+    # Extract chapter information from section path (most reliable)
+    chapter_no = ""
+    chapter_title = ""
+    
+    # Try to extract chapter from the section's path first
+    if section_path:
+        # Pattern: "Kapittel 5 PARAGRAF_3-1" -> extract "5"
+        path_match = re.match(r"Kapittel\s+(\d+)\s+", section_path)
+        if path_match:
+            chapter_no = path_match.group(1).strip()
+    
+    # If no chapter from path, try to find it in the HTML
+    if not chapter_no:
+        chapter_selectors = [
+            "h2:contains('Kapittel')",
+            "h3:contains('Kapittel')", 
+            ".chapter h2",
+            ".kapittel h2",
+            "h2[class*='chapter']",
+            "h2[class*='kapittel']"
+        ]
+        
+        for selector in chapter_selectors:
+            try:
+                chapter_elem = soup.select_one(selector)
+                if chapter_elem:
+                    chapter_text = chapter_elem.get_text().strip()
+                    # Extract chapter number and title
+                    chapter_match = re.match(r"Kapittel\s+(\d+)[\s\.]*([^§]*?)(?:§|$)", chapter_text)
+                    if chapter_match:
+                        chapter_no = chapter_match.group(1).strip()
+                        chapter_title = chapter_match.group(2).strip()
+                        # Clean up the title
+                        chapter_title = re.sub(r"\s+", " ", chapter_title)
+                        chapter_title = re.sub(r"\.$", "", chapter_title)  # Remove trailing period
+                        break
+            except:
+                continue
+    
+    # Store clean chapter info
+    legal_metadata["chapter_no"] = chapter_no
+    legal_metadata["chapter_title"] = chapter_title
+    if chapter_no and chapter_title:
+        legal_metadata["chapter"] = f"Kapittel {chapter_no}. {chapter_title}"
+    elif chapter_no:
+        legal_metadata["chapter"] = f"Kapittel {chapter_no}"
 
-    # Extract chapter information - look for actual chapter, not concatenated content
-    chapter_elem = soup.select_one(".chapter, .kapittel, h2")
-    if chapter_elem:
-        chapter_text = chapter_elem.get_text().strip()
-        if "kapittel" in chapter_text.lower() or "chapter" in chapter_text.lower():
-            legal_metadata["chapter"] = chapter_text
+    # Check for repealed status - look for explicit repeal markers
+    is_repealed = False
+    repeal_date = None
+    
+    # Check if heading contains "(Opphevet)" - this is a clear repeal indicator
+    if section_heading and "(Opphevet)" in section_heading:
+        is_repealed = True
+        # Try to extract repeal date from the cleaned text content
+        section_text = cleaned_text if cleaned_text else soup.get_text()
+        
+        # Look for "ikr." (i kraft) followed by date - case insensitive
+        ikr_match = re.search(r"ikr\.\s+(\d{1,2}\s+\w+\s+\d{4})", section_text, re.IGNORECASE)
+        if ikr_match:
+            repeal_date = ikr_match.group(1)
+        else:
+            # Look for "i kraft" followed by date
+            ikraft_match = re.search(r"i\s+kraft\s+(\d{1,2}\s+\w+\s+\d{4})", section_text, re.IGNORECASE)
+            if ikraft_match:
+                repeal_date = ikraft_match.group(1)
+            else:
+                # Fallback: look for any date in the text
+                date_match = re.search(r"(\d{1,2}\s+\w+\s+\d{4})", section_text)
+                if date_match:
+                    repeal_date = date_match.group(1)
+    
+    # Also check page title for repeal indicators
+    if not is_repealed:
+        page_title = soup.select_one("title, h1")
+        if page_title:
+            page_title_text = page_title.get_text().lower()
+            if "opphevet" in page_title_text and ("ved" in page_title_text or "forskrift" in page_title_text):
+                is_repealed = True
+                # Try to extract repeal date from title
+                date_match = re.search(r"(\d{1,2}\s+\w+\s+\d{4})", page_title_text)
+                if date_match:
+                    repeal_date = date_match.group(1)
+    
+    legal_metadata["repealed"] = is_repealed
+    if repeal_date:
+        # Normalize repeal date to ISO format
+        normalized_repeal_date = normalize_norwegian_date(repeal_date)
+        legal_metadata["repeal_date"] = normalized_repeal_date
 
-    # Check for repealed status
-    repealed_indicators = ["opphevet", "repealed", "ikrafttredelse", "endret"]
+    # Extract amendment dates with better parsing
     page_text = soup.get_text().lower()
-    legal_metadata["repealed"] = any(
-        indicator in page_text for indicator in repealed_indicators
-    )
-
-    # Extract amendment dates from footnotes or headers
     amendment_patterns = [
         r"endret ved (?:lov|forskrift)[^0-9]*(\d{1,2}\s+\w+\s+\d{4})",
         r"ikrafttredelse[^0-9]*(\d{1,2}\s+\w+\s+\d{4})",
@@ -223,7 +341,17 @@ def extract_legal_metadata(
         amendments.extend(matches)
 
     if amendments:
-        legal_metadata["amended_dates"] = list(set(amendments))  # Remove duplicates
+        # Normalize dates to ISO format and structure as amendments array
+        normalized_amendments = []
+        for date_str in set(amendments):  # Remove duplicates
+            normalized_date = normalize_norwegian_date(date_str)
+            normalized_amendments.append({
+                "date": normalized_date,
+                "note": f"Amended {date_str}"
+            })
+        legal_metadata["amendments"] = normalized_amendments
+    else:
+        legal_metadata["amendments"] = []
 
     return legal_metadata
 
@@ -340,3 +468,35 @@ def validate_section_quality(
         issues.append("Contains navigation artifacts")
 
     return len(issues) == 0, issues
+
+
+def normalize_norwegian_date(date_str: str) -> str:
+    """Convert Norwegian date to ISO format (YYYY-MM-DD)."""
+    if not date_str:
+        return ""
+    
+    # Norwegian month names to numbers
+    month_map = {
+        'jan': '01', 'januar': '01',
+        'feb': '02', 'februar': '02', 
+        'mar': '03', 'mars': '03',
+        'apr': '04', 'april': '04',
+        'mai': '05',
+        'jun': '06', 'juni': '06',
+        'jul': '07', 'juli': '07',
+        'aug': '08', 'august': '08',
+        'sep': '09', 'september': '09',
+        'okt': '10', 'oktober': '10',
+        'nov': '11', 'november': '11',
+        'des': '12', 'desember': '12'
+    }
+    
+    # Pattern: "1 jan 2021" or "16 juni 2023"
+    match = re.match(r'(\d{1,2})\s+(\w+)\s+(\d{4})', date_str.strip())
+    if match:
+        day, month, year = match.groups()
+        month_num = month_map.get(month.lower())
+        if month_num:
+            return f"{year}-{month_num}-{day.zfill(2)}"
+    
+    return date_str  # Return original if can't parse
