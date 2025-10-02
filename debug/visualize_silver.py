@@ -14,7 +14,7 @@ import argparse
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from modules.utils import log
+from modules.data_io import log
 
 
 class SilverDataInspector:

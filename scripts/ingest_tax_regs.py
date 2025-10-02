@@ -10,13 +10,13 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Any
 
-from modules.utils import (
+from modules.data_io import (
     http_get,
     write_bronze_if_changed,
     ensure_data_directories,
     log,
 )
-from modules.config import settings, get_sources_file, get_bronze_dir
+from modules.settings import settings, get_sources_file, get_bronze_dir
 
 
 def load_sources(sources_path: Path, domain: str = "tax") -> List[Dict[str, str]]:

@@ -16,8 +16,8 @@ from typing import Dict, List, Any
 sys.path.append(str(Path(__file__).parent.parent))
 
 from modules.parsers.lovdata_parser import parse_lovdata_html
-from modules.utils import ensure_data_directories, log
-from modules.cleaners.improved_text_processing import (
+from modules.data_io import ensure_data_directories, log
+from modules.cleaners.legal_text_cleaner import (
     clean_legal_text,
     normalize_text,
     compute_stable_hash,
@@ -85,19 +85,19 @@ def _build_section_url(section, source_metadata: Dict[str, Any]) -> str:
     base_url = section.source_url or source_metadata.get("url", "")
     if not base_url:
         return ""
-    
+
     # Extract section label for anchor (e.g., "§ 3-1" -> "#§-3-1")
     section_label = ""
     if section.heading:
         section_match = re.match(r"(§\s*[\d\-]+)", section.heading)
         if section_match:
             section_label = section_match.group(1).strip()
-    
+
     if section_label:
         # Convert "§ 3-1" to "#%C2%A73-1" for anchor (URL-encoded §)
         anchor = section_label.replace(" ", "").replace("§", "#%C2%A7")
         return f"{base_url}{anchor}"
-    
+
     return base_url
 
 
@@ -116,7 +116,13 @@ def enhance_section_metadata_cleaned(
     stable_hash = compute_stable_hash(normalized_text)
 
     # Extract legal metadata
-    legal_metadata = extract_legal_metadata(html_content, source_metadata, section.heading or "", section.path or "", normalized_text)
+    legal_metadata = extract_legal_metadata(
+        html_content,
+        source_metadata,
+        section.heading or "",
+        section.path or "",
+        normalized_text,
+    )
 
     # Get current timestamps
     from datetime import datetime, timezone
@@ -126,14 +132,14 @@ def enhance_section_metadata_cleaned(
 
     # Count tokens consistently using normalized text
     token_count = len(normalized_text.split()) if normalized_text else 0
-    
+
     # Extract section label from heading (e.g., "§ 1-1" from "§ 1-1. Saklig virkeområde")
     section_label = ""
     if section.heading:
         section_match = re.match(r"(§\s*[\d\-]+)", section.heading)
         if section_match:
             section_label = section_match.group(1).strip()
-    
+
     # Build enhanced metadata using source_metadata as authoritative source
     enhanced = {
         # Original section fields
@@ -153,7 +159,9 @@ def enhance_section_metadata_cleaned(
         "version": source_metadata.get("version", "current"),
         "jurisdiction": source_metadata.get("jurisdiction", "NO"),
         "effective_from": source_metadata.get("effective_from", ""),
-        "effective_to": legal_metadata.get("repeal_date", "") if legal_metadata.get("repealed", False) else source_metadata.get("effective_to", ""),
+        "effective_to": legal_metadata.get("repeal_date", "")
+        if legal_metadata.get("repealed", False)
+        else source_metadata.get("effective_to", ""),
         # Legal metadata (improved parsing)
         "law_title": legal_metadata.get("law_title", source_metadata.get("title", "")),
         "chapter": legal_metadata.get("chapter", ""),
@@ -162,7 +170,6 @@ def enhance_section_metadata_cleaned(
         "repealed": legal_metadata.get("repealed", False),
         "repeal_date": legal_metadata.get("repeal_date", ""),
         "amendments": legal_metadata.get("amendments", []),
-        
         # Status normalization
         "status": "repealed" if legal_metadata.get("repealed", False) else "active",
         # Lineage timestamps
@@ -177,7 +184,11 @@ def enhance_section_metadata_cleaned(
 
 
 def process_lovdata_files(
-    bronze_dir: Path, silver_dir: Path, sources_lookup: Dict[str, Dict[str, Any]], test_mode: bool = False, specific_files: List[str] = None
+    bronze_dir: Path,
+    silver_dir: Path,
+    sources_lookup: Dict[str, Dict[str, Any]],
+    test_mode: bool = False,
+    specific_files: List[str] = None,
 ) -> List[Dict[str, Any]]:
     """Process Lovdata HTML files into Silver format with cleaned text using sources.csv metadata."""
     sections = []
@@ -196,17 +207,23 @@ def process_lovdata_files(
 
     # Find all HTML files in Bronze layer
     html_files = list(bronze_dir.glob("*.html"))
-    
+
     # Filter files based on test mode or specific files
     if specific_files:
         html_files = [f for f in html_files if f.name in specific_files]
         log.info(f"Processing specific files: {[f.name for f in html_files]}")
     elif test_mode:
         # In test mode, process only 2-3 files for faster testing
-        test_files = ["mva_law_2009.html", "regnskapsloven_1998.html", "bokforingsloven_2004.html"]
+        test_files = [
+            "mva_law_2009.html",
+            "regnskapsloven_1998.html",
+            "bokforingsloven_2004.html",
+        ]
         html_files = [f for f in html_files if f.name in test_files]
-        log.info(f"Test mode: processing only {len(html_files)} files for faster testing")
-    
+        log.info(
+            f"Test mode: processing only {len(html_files)} files for faster testing"
+        )
+
     log.info(f"Found {len(html_files)} HTML files to process")
 
     for html_file in html_files:
@@ -271,9 +288,13 @@ def process_lovdata_files(
                 # Validate section quality
                 validation_issues = validate_section_quality(enhanced)
                 if validation_issues:
-                    log.warning(f"Section {section.section_id} has quality issues: {', '.join(validation_issues)}")
-                    quality_stats["validation_issues"] = quality_stats.get("validation_issues", 0) + len(validation_issues)
-                
+                    log.warning(
+                        f"Section {section.section_id} has quality issues: {', '.join(validation_issues)}"
+                    )
+                    quality_stats["validation_issues"] = quality_stats.get(
+                        "validation_issues", 0
+                    ) + len(validation_issues)
+
                 # Only reject if text is too short
                 if len(enhanced["text_plain"]) < min_text_length:
                     log.warning(
@@ -295,37 +316,51 @@ def process_lovdata_files(
 def validate_section_quality(section: Dict[str, Any]) -> List[str]:
     """Validate section quality and return list of issues."""
     issues = []
-    
+
     # Required fields that must be present and non-empty
     required_fields = [
-        "law_id", "section_id", "section_label", "heading", "text_plain",
-        "source_url", "domain", "source_type", "publisher", "version",
-        "jurisdiction", "status", "sha256", "ingested_at", "processed_at"
+        "law_id",
+        "section_id",
+        "section_label",
+        "heading",
+        "text_plain",
+        "source_url",
+        "domain",
+        "source_type",
+        "publisher",
+        "version",
+        "jurisdiction",
+        "status",
+        "sha256",
+        "ingested_at",
+        "processed_at",
     ]
-    
+
     for field in required_fields:
         if field not in section or not section[field] or section[field] == "":
             issues.append(f"Missing or empty required field: {field}")
-    
+
     # Validate specific field values
     if section.get("domain") not in ["tax", "accounting", "reporting", "compliance"]:
         issues.append(f"Invalid domain: {section.get('domain')}")
-    
+
     if section.get("status") not in ["active", "repealed", "superseded"]:
         issues.append(f"Invalid status: {section.get('status')}")
-    
+
     if section.get("source_type") not in ["law", "regulation", "guidance"]:
         issues.append(f"Invalid source_type: {section.get('source_type')}")
-    
+
     # Validate text quality
     if len(section.get("text_plain", "")) < 50:
         issues.append(f"Text too short: {len(section.get('text_plain', ''))} chars")
-    
+
     # Validate URL format
     source_url = section.get("source_url", "")
-    if source_url and not (source_url.startswith("http://") or source_url.startswith("https://")):
+    if source_url and not (
+        source_url.startswith("http://") or source_url.startswith("https://")
+    ):
         issues.append(f"Invalid URL format: {source_url}")
-    
+
     return issues
 
 
@@ -437,13 +472,15 @@ def save_silver_sections(sections: List[Dict[str, Any]], silver_dir: Path) -> No
 def main():
     """Main processing function."""
     import argparse
-    
+
     # Parse command line arguments
     parser = argparse.ArgumentParser(description="Process Bronze to Silver data")
-    parser.add_argument("--test", action="store_true", help="Run in test mode (process only 2-3 files)")
+    parser.add_argument(
+        "--test", action="store_true", help="Run in test mode (process only 2-3 files)"
+    )
     parser.add_argument("--files", nargs="+", help="Process specific files only")
     args = parser.parse_args()
-    
+
     # Setup paths
     project_root = Path(__file__).parent.parent
     data_dir = project_root / "data"
@@ -457,13 +494,19 @@ def main():
     # Load sources metadata from sources.csv
     log.info("Loading sources metadata from sources.csv")
     sources_lookup = load_sources_metadata(sources_file)
-    
+
     if not sources_lookup:
         log.error("Failed to load sources metadata. Cannot proceed.")
         return 1
 
     # Process Lovdata files with sources metadata
-    sections = process_lovdata_files(bronze_dir, silver_dir, sources_lookup, test_mode=args.test, specific_files=args.files)
+    sections = process_lovdata_files(
+        bronze_dir,
+        silver_dir,
+        sources_lookup,
+        test_mode=args.test,
+        specific_files=args.files,
+    )
 
     if not sections:
         log.warning("No sections extracted from Bronze layer")
