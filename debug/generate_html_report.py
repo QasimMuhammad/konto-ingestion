@@ -152,7 +152,7 @@ def generate_html_report(
 <body>
     <div class="container">
         <h1>📊 Silver Layer Data Report</h1>
-        <p>Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+        <p>Generated on {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
         
         <div class="stats-grid">
             <div class="stat-card">
@@ -307,18 +307,18 @@ def _generate_sections_html(sections: List[Dict[str, Any]]) -> str:
         <div class="section-card">
             <div class="section-header">
                 <div>
-                    <span class="section-id">{section.get('section_id', 'N/A')}</span>
+                    <span class="section-id">{section.get("section_id", "N/A")}</span>
                     <span class="tag domain-{domain}">{domain}</span>
-                    <span class="tag">{section.get('source_type', 'N/A')}</span>
+                    <span class="tag">{section.get("source_type", "N/A")}</span>
                 </div>
                 <div class="section-meta">
-                    {section.get('token_count', 0)} tokens | {section.get('publisher', 'N/A')}
+                    {section.get("token_count", 0)} tokens | {section.get("publisher", "N/A")}
                 </div>
             </div>
             
-            <div><strong>Path:</strong> {section.get('path', 'N/A')}</div>
-            <div><strong>Heading:</strong> {section.get('heading', 'N/A')}</div>
-            <div><strong>Law ID:</strong> {section.get('law_id', 'N/A')}</div>
+            <div><strong>Path:</strong> {section.get("path", "N/A")}</div>
+            <div><strong>Heading:</strong> {section.get("heading", "N/A")}</div>
+            <div><strong>Law ID:</strong> {section.get("law_id", "N/A")}</div>
             
             <div class="section-text">
                 {text_preview}

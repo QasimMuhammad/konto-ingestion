@@ -2,8 +2,10 @@
 """
 Process Bronze layer data into Silver layer format.
 Parses HTML content and extracts structured data with cleaned text.
+Uses sources.csv as the source of truth for metadata classification.
 """
 
+import csv
 import json
 import sys
 from pathlib import Path
@@ -12,41 +14,98 @@ from typing import Dict, List, Any
 # Add modules to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from modules.parsers.lovdata_parser import parse_lovdata_html, Section
+from modules.parsers.lovdata_parser import parse_lovdata_html
 from modules.utils import ensure_data_directories, log
 from modules.cleaners.improved_text_processing import (
-    clean_legal_text, normalize_text, compute_stable_hash,
-    extract_legal_metadata
+    clean_legal_text,
+    normalize_text,
+    compute_stable_hash,
+    extract_legal_metadata,
 )
 
 
-def enhance_section_metadata_cleaned(
-    section, metadata: Dict[str, Any], html_content: str
+def load_sources_metadata(sources_file: Path) -> Dict[str, Dict[str, Any]]:
+    """
+    Load sources.csv and create a lookup table by source_id.
+    Returns dict mapping source_id to full metadata.
+    """
+    sources_lookup: Dict[str, Dict[str, Any]] = {}
+
+    if not sources_file.exists():
+        log.error(f"Sources file not found: {sources_file}")
+        return sources_lookup
+
+    try:
+        with open(sources_file, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                source_id = row.get("source_id", "").strip()
+                if source_id:
+                    # Convert empty strings to None for optional fields
+                    sources_lookup[source_id] = {
+                        "source_id": source_id,
+                        "title": row.get("title", "").strip(),
+                        "url": row.get("url", "").strip(),
+                        "version": row.get("version", "").strip() or "current",
+                        "jurisdiction": row.get("jurisdiction", "").strip() or "NO",
+                        "effective_from": row.get("effective_from", "").strip(),
+                        "effective_to": row.get("effective_to", "").strip() or None,
+                        "domain": row.get("domain", "").strip(),
+                        "source_type": row.get("source_type", "").strip(),
+                        "publisher": row.get("publisher", "").strip(),
+                        "crawl_freq": row.get("crawl_freq", "").strip(),
+                    }
+
+        log.info(f"Loaded {len(sources_lookup)} sources from {sources_file}")
+        return sources_lookup
+
+    except Exception as e:
+        log.error(f"Error loading sources file {sources_file}: {e}")
+        return sources_lookup
+
+
+def get_source_metadata(
+    law_id: str, sources_lookup: Dict[str, Dict[str, Any]]
 ) -> Dict[str, Any]:
     """
-    Enhance section with comprehensive metadata using improved parsing.
-    More lenient about source URLs but strict about text cleaning.
+    Get source metadata for a given law_id from sources lookup table.
+    Raises ValueError if law_id not found (no fallback to unknown).
+    """
+    if law_id not in sources_lookup:
+        raise ValueError(
+            f"Source '{law_id}' not found in sources.csv. Available sources: {list(sources_lookup.keys())}"
+        )
+
+    return sources_lookup[law_id]
+
+
+def enhance_section_metadata_cleaned(
+    section, source_metadata: Dict[str, Any], html_content: str, ingested_at: str
+) -> Dict[str, Any]:
+    """
+    Enhance section with comprehensive metadata from sources.csv.
+    Uses source_metadata as the authoritative source for classification.
     """
     # Clean the text content
     cleaned_text = clean_legal_text(section.text_plain)
     normalized_text = normalize_text(cleaned_text)
-    
+
     # Compute stable hash
     stable_hash = compute_stable_hash(normalized_text)
-    
+
     # Extract legal metadata
-    legal_metadata = extract_legal_metadata(html_content, metadata)
-    
+    legal_metadata = extract_legal_metadata(html_content, source_metadata)
+
     # Get current timestamps
     from datetime import datetime, timezone
+
     now = datetime.now(timezone.utc)
     processed_at = now.isoformat()
-    ingested_at = metadata.get("ingested_at", now.isoformat())
-    
+
     # Count tokens (rough approximation)
     token_count = len(normalized_text.split()) if normalized_text else 0
-    
-    # Build enhanced metadata
+
+    # Build enhanced metadata using source_metadata as authoritative source
     enhanced = {
         # Original section fields
         "law_id": section.law_id,
@@ -54,53 +113,49 @@ def enhance_section_metadata_cleaned(
         "path": section.path,
         "heading": section.heading,
         "text_plain": normalized_text,
-        "source_url": section.source_url or metadata.get("url", ""),
+        "source_url": section.source_url or source_metadata.get("url", ""),
         "sha256": stable_hash,
-        
-        # Domain and categorization
-        "domain": metadata.get("domain", "unknown"),
-        "source_type": metadata.get("source_type", "unknown"),
-        "publisher": metadata.get("publisher", "unknown"),
-        
-        # Versioning and effectiveness
-        "version": metadata.get("version", "current"),
-        "jurisdiction": metadata.get("jurisdiction", "NO"),
-        "effective_from": metadata.get("effective_from", ""),
-        "effective_to": metadata.get("effective_to", ""),
-        
+        # Domain and categorization (from sources.csv)
+        "domain": source_metadata.get("domain", ""),
+        "source_type": source_metadata.get("source_type", ""),
+        "publisher": source_metadata.get("publisher", ""),
+        # Versioning and effectiveness (from sources.csv)
+        "version": source_metadata.get("version", "current"),
+        "jurisdiction": source_metadata.get("jurisdiction", "NO"),
+        "effective_from": source_metadata.get("effective_from", ""),
+        "effective_to": source_metadata.get("effective_to", ""),
         # Legal metadata
-        "law_title": legal_metadata.get("law_title", metadata.get("title", "")),
+        "law_title": legal_metadata.get("law_title", source_metadata.get("title", "")),
         "chapter": legal_metadata.get("chapter", ""),  # Clean chapter, not concatenated
         "repealed": legal_metadata.get("repealed", False),
         "amended_dates": legal_metadata.get("amended_dates", []),
-        
         # Lineage timestamps
         "ingested_at": ingested_at,
         "processed_at": processed_at,
-        
         # Quality metrics
         "token_count": token_count,
-        "crawl_freq": metadata.get("crawl_freq", "unknown"),
+        "crawl_freq": source_metadata.get("crawl_freq", ""),
     }
-    
+
     return enhanced
 
 
-def process_lovdata_files(bronze_dir: Path, silver_dir: Path) -> List[Dict[str, Any]]:
-    """Process Lovdata HTML files into Silver format with cleaned text."""
+def process_lovdata_files(
+    bronze_dir: Path, silver_dir: Path, sources_lookup: Dict[str, Dict[str, Any]]
+) -> List[Dict[str, Any]]:
+    """Process Lovdata HTML files into Silver format with cleaned text using sources.csv metadata."""
     sections = []
     min_text_length = 50  # Minimum characters for quality check
 
-    # Load metadata
+    # Load ingestion metadata for timestamps
     metadata_file = bronze_dir / "ingestion_metadata.json"
-    if not metadata_file.exists():
-        log.error("No ingestion metadata found")
-        return sections
-
-    with open(metadata_file, "r", encoding="utf-8") as f:
-        metadata_list = json.load(f)
-
-    log.info(f"Found {len(metadata_list)} sources to process")
+    ingestion_metadata = {}
+    if metadata_file.exists():
+        with open(metadata_file, "r", encoding="utf-8") as f:
+            metadata_list = json.load(f)
+            # Create lookup by source_id for ingested_at timestamps
+            for m in metadata_list:
+                ingestion_metadata[m.get("source_id", "")] = m.get("ingested_at", "")
 
     # Find all HTML files in Bronze layer
     html_files = list(bronze_dir.glob("*.html"))
@@ -119,52 +174,53 @@ def process_lovdata_files(bronze_dir: Path, silver_dir: Path) -> List[Dict[str, 
 
             # Quality check: ensure we have content
             if len(html_content.strip()) < min_text_length:
-                log.warning(f"Skipping {html_file.name}: content too short ({len(html_content)} chars)")
+                log.warning(
+                    f"Skipping {html_file.name}: content too short ({len(html_content)} chars)"
+                )
                 continue
 
             # Extract law_id from filename
             law_id = html_file.stem
 
-            # Find metadata for this file
-            file_metadata: Dict[str, Any] = next(
-                (m for m in metadata_list if m.get("source_id") == law_id), {}
-            )
+            # Get source metadata from sources.csv (this will raise ValueError if not found)
+            try:
+                source_metadata = get_source_metadata(law_id, sources_lookup)
+                log.info(
+                    f"Found metadata for {law_id}: {source_metadata['domain']} domain, {source_metadata['source_type']} type"
+                )
+            except ValueError as e:
+                log.error(f"Failed to find metadata for {law_id}: {e}")
+                continue
 
-            # If no metadata found, create basic metadata
-            if not file_metadata:
-                log.warning(f"No metadata found for {law_id}, creating basic metadata")
-                file_metadata = {
-                    "source_id": law_id,
-                    "url": "",  # Will be filled from section if available
-                    "sha256": "",
-                    "domain": "unknown",
-                    "source_type": "law",  # Default assumption
-                    "publisher": "unknown",
-                    "title": law_id.replace("_", " ").title(),
-                    "version": "current",
-                    "jurisdiction": "NO",
-                    "effective_from": "",
-                    "effective_to": "",
-                    "crawl_freq": "unknown"
-                }
+            # Get ingested_at timestamp
+            ingested_at = ingestion_metadata.get(law_id, "")
+            if not ingested_at:
+                from datetime import datetime, timezone
+
+                ingested_at = datetime.now(timezone.utc).isoformat()
+                log.warning(
+                    f"No ingested_at timestamp for {law_id}, using current time"
+                )
 
             # Parse HTML content
             parsed_sections = parse_lovdata_html(
                 html=html_content,
                 law_id=law_id,
-                source_url=file_metadata.get("url", ""),
-                sha256=file_metadata.get("sha256", ""),
+                source_url=source_metadata.get("url", ""),
+                sha256="",  # Will be computed in enhance_section_metadata_cleaned
             )
 
-            # Enhance each section with comprehensive metadata
+            # Enhance each section with comprehensive metadata from sources.csv
             for section in parsed_sections:
-                enhanced = enhance_section_metadata_cleaned(section, file_metadata, html_content)
+                enhanced = enhance_section_metadata_cleaned(
+                    section, source_metadata, html_content, ingested_at
+                )
 
                 # For sections without source_url, try to use the section's source_url if available
                 if not enhanced["source_url"] and section.source_url:
                     enhanced["source_url"] = section.source_url
 
-                # Only reject if text is too short - be more lenient about source URLs
+                # Only reject if text is too short
                 if len(enhanced["text_plain"]) < min_text_length:
                     log.warning(
                         f"Skipping section {section.section_id}: text too short ({len(enhanced['text_plain'])} chars)"
@@ -184,36 +240,54 @@ def process_lovdata_files(bronze_dir: Path, silver_dir: Path) -> List[Dict[str, 
 
 def save_silver_sections(sections: List[Dict[str, Any]], silver_dir: Path) -> None:
     """Save sections to Silver layer with quality reporting and domain grouping."""
-    quality_stats = {
-        'total_processed': len(sections),
-        'total_saved': 0,
-        'rejected_short_text': 0,
-        'total_tokens': 0,
-        'domains': {}
+    quality_stats: Dict[str, Any] = {
+        "total_processed": len(sections),
+        "total_saved": 0,
+        "rejected_short_text": 0,
+        "total_tokens": 0,
+        "domains": {},
+        "source_types": {},
+        "publishers": {},
     }
 
-    # Group sections by domain
-    domain_sections = {}
+    # Group sections by domain and collect statistics
+    domain_sections: Dict[str, List[Dict[str, Any]]] = {}
     for section in sections:
-        domain = section.get('domain', 'unknown')
+        domain = section.get("domain", "")
+        source_type = section.get("source_type", "")
+        publisher = section.get("publisher", "")
+
+        # Initialize domain tracking
         if domain not in domain_sections:
             domain_sections[domain] = []
-            quality_stats['domains'][domain] = {'processed': 0, 'saved': 0, 'tokens': 0}
+            quality_stats["domains"][domain] = {"processed": 0, "saved": 0, "tokens": 0}
 
-        quality_stats['domains'][domain]['processed'] += 1
+        # Initialize source type tracking
+        if source_type not in quality_stats["source_types"]:
+            quality_stats["source_types"][source_type] = 0
+
+        # Initialize publisher tracking
+        if publisher not in quality_stats["publishers"]:
+            quality_stats["publishers"][publisher] = 0
+
+        quality_stats["domains"][domain]["processed"] += 1
 
         # Basic quality check - only reject if text is too short
         if len(section.get("text_plain", "")) < 50:
-            quality_stats['rejected_short_text'] += 1
-            log.warning(f"Rejecting section {section.get('section_id', 'unknown')}: text too short")
+            quality_stats["rejected_short_text"] += 1
+            log.warning(
+                f"Rejecting section {section.get('section_id', 'unknown')}: text too short"
+            )
             continue
 
         # Add to collections
         domain_sections[domain].append(section)
-        quality_stats['total_saved'] += 1
-        quality_stats['domains'][domain]['saved'] += 1
-        quality_stats['total_tokens'] += section.get('token_count', 0)
-        quality_stats['domains'][domain]['tokens'] += section.get('token_count', 0)
+        quality_stats["total_saved"] += 1
+        quality_stats["domains"][domain]["saved"] += 1
+        quality_stats["total_tokens"] += section.get("token_count", 0)
+        quality_stats["domains"][domain]["tokens"] += section.get("token_count", 0)
+        quality_stats["source_types"][source_type] += 1
+        quality_stats["publishers"][publisher] += 1
 
     # Save combined sections
     all_sections = []
@@ -233,7 +307,9 @@ def save_silver_sections(sections: List[Dict[str, Any]], silver_dir: Path) -> No
             with open(domain_file, "w", encoding="utf-8") as f:
                 json.dump(domain_sections_list, f, indent=2, ensure_ascii=False)
 
-            log.info(f"Saved {len(domain_sections_list)} sections for domain '{domain}' to {domain_file}")
+            log.info(
+                f"Saved {len(domain_sections_list)} sections for domain '{domain}' to {domain_file}"
+            )
 
     # Save quality report
     quality_file = silver_dir / "quality_report.json"
@@ -241,9 +317,28 @@ def save_silver_sections(sections: List[Dict[str, Any]], silver_dir: Path) -> No
         json.dump(quality_stats, f, indent=2, ensure_ascii=False)
 
     log.info(f"Quality report saved to {quality_file}")
-    log.info(f"Quality stats: {quality_stats['total_saved']}/{quality_stats['total_processed']} sections saved")
+    log.info(
+        f"Quality stats: {quality_stats['total_saved']}/{quality_stats['total_processed']} sections saved"
+    )
     log.info(f"Total tokens: {quality_stats['total_tokens']:,}")
     log.info(f"Rejected - short text: {quality_stats['rejected_short_text']}")
+
+    # Log domain breakdown
+    for domain, stats in quality_stats["domains"].items():
+        if stats["saved"] > 0:
+            log.info(
+                f"Domain '{domain}': {stats['saved']} sections, {stats['tokens']:,} tokens"
+            )
+
+    # Log source type breakdown
+    for source_type, count in quality_stats["source_types"].items():
+        if count > 0:
+            log.info(f"Source type '{source_type}': {count} sections")
+
+    # Log publisher breakdown
+    for publisher, count in quality_stats["publishers"].items():
+        if count > 0:
+            log.info(f"Publisher '{publisher}': {count} sections")
 
 
 def main():
@@ -251,14 +346,23 @@ def main():
     # Setup paths
     project_root = Path(__file__).parent.parent
     data_dir = project_root / "data"
+    sources_file = project_root / "configs" / "sources.csv"
 
     # Ensure directories exist
     directories = ensure_data_directories(data_dir)
     bronze_dir = directories["bronze"]
     silver_dir = directories["silver"]
 
-    # Process Lovdata files
-    sections = process_lovdata_files(bronze_dir, silver_dir)
+    # Load sources metadata from sources.csv
+    log.info("Loading sources metadata from sources.csv")
+    sources_lookup = load_sources_metadata(sources_file)
+
+    if not sources_lookup:
+        log.error("Failed to load sources metadata. Cannot proceed.")
+        return 1
+
+    # Process Lovdata files with sources metadata
+    sections = process_lovdata_files(bronze_dir, silver_dir, sources_lookup)
 
     if not sections:
         log.warning("No sections extracted from Bronze layer")
@@ -270,7 +374,7 @@ def main():
     # Log summary by domain
     domain_counts = {}
     for section in sections:
-        domain = section.get('domain', 'unknown')
+        domain = section.get("domain", "")
         domain_counts[domain] = domain_counts.get(domain, 0) + 1
 
     log.info(f"Successfully processed {len(sections)} sections to Silver layer")
