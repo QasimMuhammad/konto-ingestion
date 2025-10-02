@@ -1,25 +1,26 @@
 {
-  "total_processed": 933,
-  "total_saved": 933,
+  "total_processed": 902,
+  "total_saved": 902,
   "rejected_short_text": 0,
-  "total_tokens": 101229,
+  "validation_issues": 0,
+  "total_tokens": 88831,
   "domains": {
     "tax": {
-      "processed": 625,
-      "saved": 625,
-      "tokens": 64034
+      "processed": 596,
+      "saved": 596,
+      "tokens": 57399
     },
     "accounting": {
-      "processed": 308,
-      "saved": 308,
-      "tokens": 37195
+      "processed": 306,
+      "saved": 306,
+      "tokens": 31432
     }
   },
   "source_types": {
-    "law": 524,
-    "forskrift": 409
+    "law": 499,
+    "forskrift": 403
   },
   "publishers": {
-    "Lovdata": 933
+    "Lovdata": 902
   }
 }
