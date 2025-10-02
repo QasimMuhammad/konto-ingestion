@@ -72,7 +72,7 @@ class SilverDataInspector:
         if token_counts:
             print("\nToken statistics:")
             print(f"  Total tokens: {sum(token_counts):,}")
-            print(f"  Average per section: {sum(token_counts)/len(token_counts):.1f}")
+            print(f"  Average per section: {sum(token_counts) / len(token_counts):.1f}")
             print(f"  Min tokens: {min(token_counts)}")
             print(f"  Max tokens: {max(token_counts)}")
 
@@ -81,7 +81,7 @@ class SilverDataInspector:
             1 for section in self.data if section.get("repealed", False)
         )
         print(
-            f"\nRepealed sections: {repealed_count:,} ({repealed_count/len(self.data)*100:.1f}%)"
+            f"\nRepealed sections: {repealed_count:,} ({repealed_count / len(self.data) * 100:.1f}%)"
         )
 
     def show_sample_sections(
@@ -102,7 +102,7 @@ class SilverDataInspector:
 
         # Show samples
         for i, section in enumerate(filtered_data[:count]):
-            print(f"\n--- SECTION {i+1} ---")
+            print(f"\n--- SECTION {i + 1} ---")
             print(f"Law ID: {section.get('law_id', 'N/A')}")
             print(f"Section ID: {section.get('section_id', 'N/A')}")
             print(f"Path: {section.get('path', 'N/A')}")
@@ -146,7 +146,7 @@ class SilverDataInspector:
         text_lengths = [len(section.get("text_plain", "")) for section in sample_data]
         if text_lengths:
             print("Text length statistics:")
-            print(f"  Average: {sum(text_lengths)/len(text_lengths):.0f} chars")
+            print(f"  Average: {sum(text_lengths) / len(text_lengths):.0f} chars")
             print(f"  Min: {min(text_lengths)} chars")
             print(f"  Max: {max(text_lengths)} chars")
 
@@ -207,7 +207,7 @@ class SilverDataInspector:
         # Check for empty source URLs
         empty_urls = sum(1 for section in self.data if not section.get("source_url"))
         print(
-            f"\nSections without source URL: {empty_urls:,} ({empty_urls/total*100:.1f}%)"
+            f"\nSections without source URL: {empty_urls:,} ({empty_urls / total * 100:.1f}%)"
         )
 
         # Check for very short text
@@ -215,7 +215,7 @@ class SilverDataInspector:
             1 for section in self.data if len(section.get("text_plain", "")) < 50
         )
         print(
-            f"Sections with very short text (<50 chars): {short_text:,} ({short_text/total*100:.1f}%)"
+            f"Sections with very short text (<50 chars): {short_text:,} ({short_text / total * 100:.1f}%)"
         )
 
         # Check amendment dates
@@ -223,7 +223,7 @@ class SilverDataInspector:
             1 for section in self.data if section.get("amended_dates")
         )
         print(
-            f"Sections with amendment dates: {with_amendments:,} ({with_amendments/total*100:.1f}%)"
+            f"Sections with amendment dates: {with_amendments:,} ({with_amendments / total * 100:.1f}%)"
         )
 
     def export_sample_json(self, output_file: Path, count: int = 10) -> None:
@@ -261,7 +261,7 @@ class SilverDataInspector:
         print("=" * 60)
 
         for i, section in enumerate(results[:limit]):
-            print(f"\n--- MATCH {i+1} ---")
+            print(f"\n--- MATCH {i + 1} ---")
             print(f"Law ID: {section.get('law_id', 'N/A')}")
             print(f"Section ID: {section.get('section_id', 'N/A')}")
             print(f"Domain: {section.get('domain', 'N/A')}")
