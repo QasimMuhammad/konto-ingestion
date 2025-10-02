@@ -290,6 +290,23 @@ class TestSilverProcessingIntegration(unittest.TestCase):
         with open(metadata_file, "w") as f:
             json.dump(metadata, f)
 
+        # Create sources_lookup for the test
+        sources_lookup = {
+            "test_law": {
+                "source_id": "test_law",
+                "url": "https://example.com",
+                "domain": "tax",
+                "source_type": "law",
+                "publisher": "Lovdata",
+                "title": "Test Law",
+                "version": "current",
+                "jurisdiction": "NO",
+                "effective_from": "2020-01-01",
+                "effective_to": "",
+                "crawl_freq": "quarterly",
+            }
+        }
+
         # Create test HTML file with proper Lovdata structure
         html_content = """
         <html>
@@ -316,7 +333,7 @@ class TestSilverProcessingIntegration(unittest.TestCase):
         # Test processing
         from scripts.process_bronze_to_silver import process_lovdata_files
 
-        sections = process_lovdata_files(self.bronze_dir, self.silver_dir)
+        sections = process_lovdata_files(self.bronze_dir, self.silver_dir, sources_lookup)
         self.assertGreater(len(sections), 0)
 
         # Check quality
@@ -325,9 +342,9 @@ class TestSilverProcessingIntegration(unittest.TestCase):
             self.assertTrue(section["source_url"])
             self.assertGreater(section["token_count"], 0)
 
-    def test_empty_metadata_handling(self):
-        """Test handling of files without metadata."""
-        # Create HTML file without corresponding metadata
+    def test_unknown_law_skipping(self):
+        """Test that files without metadata in sources_lookup are skipped."""
+        # Create HTML file without corresponding metadata in sources_lookup
         html_content = """
         <html>
         <body>
@@ -339,7 +356,7 @@ class TestSilverProcessingIntegration(unittest.TestCase):
                 </h3>
                 <div class="morTag_an avsnitt">
                     <span class="avsnittNummer">(1)</span>
-                    <span>This law has no metadata entry but should still be processed with basic metadata.</span>
+                    <span>This law has no metadata entry and should be skipped.</span>
                 </div>
             </div>
         </body>
@@ -355,17 +372,16 @@ class TestSilverProcessingIntegration(unittest.TestCase):
         with open(metadata_file, "w") as f:
             json.dump([], f)
 
+        # Create empty sources_lookup (no entries for unknown_law)
+        sources_lookup = {}
+
         # Test processing
         from scripts.process_bronze_to_silver import process_lovdata_files
 
-        sections = process_lovdata_files(self.bronze_dir, self.silver_dir)
+        sections = process_lovdata_files(self.bronze_dir, self.silver_dir, sources_lookup)
 
-        # Should create basic metadata for unknown files
-        self.assertGreater(len(sections), 0)
-        for section in sections:
-            self.assertEqual(section["domain"], "unknown")
-            self.assertEqual(section["source_type"], "law")
-            self.assertEqual(section["publisher"], "unknown")
+        # Should skip unknown files and return empty list
+        self.assertEqual(len(sections), 0)
 
 
 if __name__ == "__main__":
