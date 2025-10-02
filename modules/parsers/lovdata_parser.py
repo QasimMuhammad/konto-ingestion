@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 from bs4 import BeautifulSoup, Tag
 
-from ..cleaners.normalize_text import normalize_text
+from ..cleaners.norwegian_text_normalizer import normalize_text
 
 
 @dataclass

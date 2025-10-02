@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Any
 
-from modules.utils import (
+from modules.data_io import (
     http_get,
     write_bronze_if_changed,
     ensure_data_directories,

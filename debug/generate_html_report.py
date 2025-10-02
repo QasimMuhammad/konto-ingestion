@@ -15,7 +15,7 @@ from datetime import datetime
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from modules.utils import log
+from modules.data_io import log
 
 
 def generate_html_report(
