@@ -25,7 +25,6 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-This will verify Python version, install uv if needed, install dependencies, and verify the installation.
 
 ### Manual Setup
 
