@@ -60,7 +60,30 @@ uv run debug/generate_html_report.py --sample-size 200
 - 🎨 Modern, responsive design
 - 📱 Mobile-friendly interface
 
-### 3. `test_visualization.py` - Test All Tools
+### 3. `analyze_silver_data.py` - Comprehensive Data Analysis
+
+Advanced analysis tool for all Silver layer data types with schema validation.
+
+**Usage:**
+```bash
+# Basic analysis
+uv run debug/analyze_silver_data.py
+
+# Detailed analysis with schema validation
+uv run debug/analyze_silver_data.py --detailed --validate
+
+# Export analysis results
+uv run debug/analyze_silver_data.py --export debug/analysis_report.json
+```
+
+**Features:**
+- 📊 Comprehensive statistics for all data types
+- 🔍 Schema validation with detailed error reporting
+- 📈 Data quality metrics and completeness analysis
+- 📋 Top categories and distribution analysis
+- 💾 Export analysis results to JSON
+
+### 4. `test_visualization.py` - Test All Tools
 
 Runs all visualization tools to ensure they work correctly.
 
@@ -76,6 +99,7 @@ After running the tools, you'll find:
 - `debug/sample_sections.json` - Small sample of sections for inspection
 - `debug/silver_report.html` - Interactive HTML report (open in browser)
 - `debug/quality_report.json` - Processing quality statistics
+- `debug/analysis_report.json` - Comprehensive analysis results (if exported)
 
 ## Examples
 
