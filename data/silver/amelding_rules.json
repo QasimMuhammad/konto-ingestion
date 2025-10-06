@@ -1,0 +1,1221 @@
+[
+  {
+    "rule_id": "amelding_heading_001",
+    "title": "A-meldingen",
+    "description": "A-meldingen er en månedlig melding til NAV, SSB og Skatteetaten om inntekt, arbeidsforhold og forskuddstrekk, samt arbeidsgiveravgift og finansskatt for virksomheten.",
+    "category": "employer_obligations",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "high",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416720"
+  },
+  {
+    "rule_id": "amelding_heading_002",
+    "title": "For virksomheter uten lønnssystem",
+    "description": "For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn).",
+    "category": "employer_obligations",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "levere a-melding (tidligere a01 i altinn)"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "high",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416765"
+  },
+  {
+    "rule_id": "amelding_heading_003",
+    "title": "For privatpersoner",
+    "description": "Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring",
+    "category": "employer_obligations",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [
+      "barnepass eller rengjøring",
+      "barnepass eller rengjøring"
+    ],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "high",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416792"
+  },
+  {
+    "rule_id": "amelding_heading_004",
+    "title": "For virksomheter med lønnssystem",
+    "description": "For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02).",
+    "category": "employer_obligations",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "high",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416806"
+  },
+  {
+    "rule_id": "amelding_heading_005",
+    "title": "For veldedige og allmennyttige organisasjoner",
+    "description": "Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson",
+    "category": "salary_reporting",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "medium",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416818"
+  },
+  {
+    "rule_id": "amelding_heading_006",
+    "title": "Veiledning",
+    "description": "Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416826"
+  },
+  {
+    "rule_id": "amelding_heading_007",
+    "title": "Usikker på om du må sende a-melding",
+    "description": "For deg som lurer på om du har opplysningsplikt og må levere a-melding",
+    "category": "general_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "levere a-melding"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416838"
+  },
+  {
+    "rule_id": "amelding_heading_008",
+    "title": "Avstemmingsinformasjon",
+    "description": "Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416846"
+  },
+  {
+    "rule_id": "amelding_heading_009",
+    "title": "Frister og betaling i a-meldingen",
+    "description": "Når du skal levere og hvordan du betaler",
+    "category": "submission_deadlines",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "high",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416855"
+  },
+  {
+    "rule_id": "amelding_heading_010",
+    "title": "Spesielt for deg som",
+    "description": "Ønsker å kontakte a-ordningen Har fått feilmelding Har fått vedtak om tvangsmulkt Skal lage en årlig sammenstilling til dine ansatte Er usikker på hvilken a-melding du skal levere Er ansatt og lurer på hvilke opplysninger din arbeidsgiver har gitt om deg i a-meldingen Vil vite hva som er registrert om deg i Arbeidsgiver- og arbeidstakerregisteret Vil vite mer om a-ordningen",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "lage en årlig sammenstilling til dine ansatte er usikker på hvilken a-melding du skal levere er ansatt og lurer på hvilke opplysninger din arbeidsgiver har gitt om deg i a-meldingen vil vite hva som er registrert om deg i arbeidsgiver- og arbeidstakerregisteret vil vite mer om a-ordningen"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416884"
+  },
+  {
+    "rule_id": "amelding_heading_011",
+    "title": "Siste fra a-ordningen",
+    "description": " Rapporter med riktig ansettelsesform Hvordan oppgi feriepenger i a-meldingen Nye kontroller på ny informasjon i a-meldingen Se alle sakene fra a-ordningen",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416898"
+  },
+  {
+    "rule_id": "amelding_list_001",
+    "title": "Regel 1: For virksomheter uten lønnssystem For deg som ikke...",
+    "description": "For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn).",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "levere a-melding (tidligere a01 i altinn)"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416911"
+  },
+  {
+    "rule_id": "amelding_list_002",
+    "title": "Regel 2: For privatpersoner Forenklet a-melding for deg som...",
+    "description": "For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416925"
+  },
+  {
+    "rule_id": "amelding_list_003",
+    "title": "Regel 3: For virksomheter med lønnssystem For deg som lever...",
+    "description": "For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02).",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416938"
+  },
+  {
+    "rule_id": "amelding_list_004",
+    "title": "Regel 4: For veldedige og allmennyttige organisasjoner Fore...",
+    "description": "For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416946"
+  },
+  {
+    "rule_id": "amelding_list_005",
+    "title": "Regel 1: Veiledning Informasjon om hva skal du oppgi i a-me...",
+    "description": "Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416953"
+  },
+  {
+    "rule_id": "amelding_list_006",
+    "title": "Regel 2: Usikker på om du må sende a-melding For deg som lu...",
+    "description": "Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "sende a-melding for deg som lurer på om du har opplysningsplikt og må levere a-melding"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416969"
+  },
+  {
+    "rule_id": "amelding_list_007",
+    "title": "Regel 3: Avstemmingsinformasjon Bestill avstemmingsinformas...",
+    "description": "Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416976"
+  },
+  {
+    "rule_id": "amelding_list_008",
+    "title": "Regel 4: Frister og betaling i a-meldingen Når du skal leve...",
+    "description": "Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416986"
+  },
+  {
+    "rule_id": "amelding_list_009",
+    "title": "Regel 1: Rapporter med riktig ansettelsesform...",
+    "description": "Rapporter med riktig ansettelsesform",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416992"
+  },
+  {
+    "rule_id": "amelding_list_010",
+    "title": "Regel 2: Hvordan oppgi feriepenger i a-meldingen...",
+    "description": "Hvordan oppgi feriepenger i a-meldingen",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.416998"
+  },
+  {
+    "rule_id": "amelding_list_011",
+    "title": "Regel 3: Nye kontroller på ny informasjon i a-meldingen...",
+    "description": "Nye kontroller på ny informasjon i a-meldingen",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.417006"
+  },
+  {
+    "rule_id": "amelding_link_001",
+    "title": "Lenkeregel: For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn).",
+    "description": "Levere a-melding For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn). For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02). For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson Hjelp til å gjøre riktig Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil. Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "sende a-melding for deg som lurer på om du har opplysningsplikt og må levere a-melding avstemmingsinformasjon bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen frister og betaling i a-meldingen når du skal levere og hvordan du betaler",
+      "levere a-melding (tidligere a01 i altinn)",
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil",
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "medium",
+    "last_updated": "2025-10-06T17:38:37.417051"
+  },
+  {
+    "rule_id": "amelding_link_002",
+    "title": "Lenkeregel: For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring",
+    "description": "Levere a-melding For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn). For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02). For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson Hjelp til å gjøre riktig Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil. Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "sende a-melding for deg som lurer på om du har opplysningsplikt og må levere a-melding avstemmingsinformasjon bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen frister og betaling i a-meldingen når du skal levere og hvordan du betaler",
+      "levere a-melding (tidligere a01 i altinn)",
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil",
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "medium",
+    "last_updated": "2025-10-06T17:38:37.417089"
+  },
+  {
+    "rule_id": "amelding_link_003",
+    "title": "Lenkeregel: For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02).",
+    "description": "Levere a-melding For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn). For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02). For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson Hjelp til å gjøre riktig Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil. Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "sende a-melding for deg som lurer på om du har opplysningsplikt og må levere a-melding avstemmingsinformasjon bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen frister og betaling i a-meldingen når du skal levere og hvordan du betaler",
+      "levere a-melding (tidligere a01 i altinn)",
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil",
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "medium",
+    "last_updated": "2025-10-06T17:38:37.417123"
+  },
+  {
+    "rule_id": "amelding_link_004",
+    "title": "Lenkeregel: For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson",
+    "description": "Levere a-melding For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn). For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02). For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson Hjelp til å gjøre riktig Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil. Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "sende a-melding for deg som lurer på om du har opplysningsplikt og må levere a-melding avstemmingsinformasjon bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen frister og betaling i a-meldingen når du skal levere og hvordan du betaler",
+      "levere a-melding (tidligere a01 i altinn)",
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil",
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "medium",
+    "last_updated": "2025-10-06T17:38:37.417160"
+  },
+  {
+    "rule_id": "amelding_link_005",
+    "title": "Lenkeregel: Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil.",
+    "description": "Levere a-melding For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn). For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02). For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson Hjelp til å gjøre riktig Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil. Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "sende a-melding for deg som lurer på om du har opplysningsplikt og må levere a-melding avstemmingsinformasjon bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen frister og betaling i a-meldingen når du skal levere og hvordan du betaler",
+      "levere a-melding (tidligere a01 i altinn)",
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil",
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "medium",
+    "last_updated": "2025-10-06T17:38:37.417202"
+  },
+  {
+    "rule_id": "amelding_link_006",
+    "title": "Lenkeregel: Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding",
+    "description": "Levere a-melding For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn). For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02). For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson Hjelp til å gjøre riktig Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil. Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "sende a-melding for deg som lurer på om du har opplysningsplikt og må levere a-melding avstemmingsinformasjon bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen frister og betaling i a-meldingen når du skal levere og hvordan du betaler",
+      "levere a-melding (tidligere a01 i altinn)",
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil",
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "medium",
+    "last_updated": "2025-10-06T17:38:37.417241"
+  },
+  {
+    "rule_id": "amelding_link_007",
+    "title": "Lenkeregel: Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen",
+    "description": "Levere a-melding For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn). For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02). For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson Hjelp til å gjøre riktig Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil. Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "sende a-melding for deg som lurer på om du har opplysningsplikt og må levere a-melding avstemmingsinformasjon bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen frister og betaling i a-meldingen når du skal levere og hvordan du betaler",
+      "levere a-melding (tidligere a01 i altinn)",
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil",
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "medium",
+    "last_updated": "2025-10-06T17:38:37.417286"
+  },
+  {
+    "rule_id": "amelding_link_008",
+    "title": "Lenkeregel: Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "description": "Levere a-melding For virksomheter uten lønnssystem For deg som ikke har lønnssystem og skal levere a-melding (tidligere A01 i Altinn). For privatpersoner Forenklet a-melding for deg som betaler lønn til personer som utfører arbeid i hjemme ditt som for eksempel barnepass eller rengjøring For virksomheter med lønnssystem For deg som leverer a-melding fra et system som er helt eller delvis integrert med Altinn (A02). For veldedige og allmennyttige organisasjoner Forenklet a-melding for veldedige eller allmennyttige organisasjon som engasjerer en privatperson Hjelp til å gjøre riktig Veiledning Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil. Usikker på om du må sende a-melding For deg som lurer på om du har opplysningsplikt og må levere a-melding Avstemmingsinformasjon Bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen Frister og betaling i a-meldingen Når du skal levere og hvordan du betaler",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "sende a-melding for deg som lurer på om du har opplysningsplikt og må levere a-melding avstemmingsinformasjon bestill avstemmingsinformasjon og se hvilke opplysninger du har gitt i a-meldingen frister og betaling i a-meldingen når du skal levere og hvordan du betaler",
+      "levere a-melding (tidligere a01 i altinn)",
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil",
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "medium",
+    "last_updated": "2025-10-06T17:38:37.417331"
+  },
+  {
+    "rule_id": "amelding_link_009",
+    "title": "Lenkeregel: Er usikker på hvilken a-melding du skal levere",
+    "description": "Er usikker på hvilken a-melding du skal levere",
+    "category": "general_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [
+      "levere"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.417342"
+  },
+  {
+    "rule_id": "amelding_link_010",
+    "title": "Lenkeregel: Er ansatt og lurer på hvilke opplysninger din arbeidsgiver har gitt om deg i a-meldingen",
+    "description": "Er ansatt og lurer på hvilke opplysninger din arbeidsgiver har gitt om deg i a-meldingen",
+    "category": "employer_obligations",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "high",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.417355"
+  },
+  {
+    "rule_id": "amelding_link_011",
+    "title": "Lenkeregel: Hvordan oppgi feriepenger i a-meldingen",
+    "description": "Hvordan oppgi feriepenger i a-meldingen",
+    "category": "general_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.417365"
+  },
+  {
+    "rule_id": "amelding_link_012",
+    "title": "Lenkeregel: Nye kontroller på ny informasjon i a-meldingen",
+    "description": "Nye kontroller på ny informasjon i a-meldingen",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.417377"
+  },
+  {
+    "rule_id": "amelding_validation_001",
+    "title": "Valideringsregel: Informasjon om hva skal du oppgi i a-meldingen og ...",
+    "description": "Informasjon om hva skal du oppgi i a-meldingen og hvordan du endrer og retter feil.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding data"
+    ],
+    "requirements": [
+      "du oppgi i a-meldingen og hvordan du endrer og retter feil"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.417387"
+  },
+  {
+    "rule_id": "amelding_submission_001",
+    "title": "Innleveringsregel: A-meldingen er en månedlig melding til NAV, SSB og...",
+    "description": "A-meldingen er en månedlig melding til NAV, SSB og Skatteetaten om inntekt, arbeidsforhold og forskuddstrekk, samt arbeidsgiveravgift og finansskatt for virksomheten.",
+    "category": "submission_deadlines",
+    "applies_to": [
+      "A-melding innlevering"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "high",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.417409"
+  },
+  {
+    "rule_id": "amelding_submission_002",
+    "title": "Innleveringsregel: Når du skal levere og hvordan du betaler...",
+    "description": "Når du skal levere og hvordan du betaler",
+    "category": "submission_deadlines",
+    "applies_to": [
+      "A-melding innlevering"
+    ],
+    "requirements": [
+      "levere og hvordan du betaler"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "high",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.417421"
+  },
+  {
+    "rule_id": "amelding_submission_003",
+    "title": "Innleveringsregel: Skal lage en årlig sammenstilling til dine ansatte...",
+    "description": "Skal lage en årlig sammenstilling til dine ansatte",
+    "category": "submission_deadlines",
+    "applies_to": [
+      "A-melding innlevering"
+    ],
+    "requirements": [
+      "lage en årlig sammenstilling til dine ansatte"
+    ],
+    "examples": [],
+    "source_url": "https://www.skatteetaten.no/bedrift-og-organisasjon/arbeidsgiver/a-meldingen/",
+    "sha256": "1302c30ced1c264838f49a6617d3bea43ce7d93f73975eb2d3edfb6fdbfdbf45",
+    "domain": "reporting",
+    "source_type": "guidance",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "2015-01-01",
+    "effective_to": "",
+    "priority": "high",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.417452"
+  },
+  {
+    "rule_id": "amelding_list_001",
+    "title": "Regel 1: Søk etter innhold Søk...",
+    "description": "Søk etter innhold Søk",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444393"
+  },
+  {
+    "rule_id": "amelding_list_002",
+    "title": "Regel 2: language Bokmål Alt innhold er tilgjengelig på bok...",
+    "description": "language Bokmål Alt innhold er tilgjengelig på bokmål. English Some content is available in English. Nynorsk Noko av innhaldet er tilgjengeleg på nynorsk.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444420"
+  },
+  {
+    "rule_id": "amelding_list_003",
+    "title": "Regel 3: Bokmål Alt innhold er tilgjengelig på bokmål....",
+    "description": "Bokmål Alt innhold er tilgjengelig på bokmål.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444429"
+  },
+  {
+    "rule_id": "amelding_list_004",
+    "title": "Regel 4: English Some content is available in English....",
+    "description": "English Some content is available in English.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444440"
+  },
+  {
+    "rule_id": "amelding_list_005",
+    "title": "Regel 5: Nynorsk Noko av innhaldet er tilgjengeleg på nynor...",
+    "description": "Nynorsk Noko av innhaldet er tilgjengeleg på nynorsk.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444449"
+  },
+  {
+    "rule_id": "amelding_list_006",
+    "title": "Regel 8: alle skjema...",
+    "description": "alle skjema",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444454"
+  },
+  {
+    "rule_id": "amelding_list_007",
+    "title": "Regel 10: starte og drive bedrift...",
+    "description": "starte og drive bedrift",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444459"
+  },
+  {
+    "rule_id": "amelding_list_008",
+    "title": "Regel 12: hjelp og kontakt...",
+    "description": "hjelp og kontakt",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444465"
+  },
+  {
+    "rule_id": "amelding_list_009",
+    "title": "Regel 1: Bokmål Alt innhold er tilgjengelig på bokmål....",
+    "description": "Bokmål Alt innhold er tilgjengelig på bokmål.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444472"
+  },
+  {
+    "rule_id": "amelding_list_010",
+    "title": "Regel 2: English Some content is available in English....",
+    "description": "English Some content is available in English.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444478"
+  },
+  {
+    "rule_id": "amelding_list_011",
+    "title": "Regel 3: Nynorsk Noko av innhaldet er tilgjengeleg på nynor...",
+    "description": "Nynorsk Noko av innhaldet er tilgjengeleg på nynorsk.",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444485"
+  },
+  {
+    "rule_id": "amelding_link_001",
+    "title": "Lenkeregel: alle skjema",
+    "description": "Søk etter innhold Søk language Bokmål Alt innhold er tilgjengelig på bokmål. English Some content is available in English. Nynorsk Noko av innhaldet er tilgjengeleg på nynorsk. innboks alle skjema profil starte og drive bedrift Om Altinn hjelp og kontakt",
+    "category": "form_guidance",
+    "applies_to": [
+      "A-melding generelt"
+    ],
+    "requirements": [],
+    "examples": [],
+    "source_url": "https://info.altinn.no/skjemaoversikt/a-ordningen/a-melding/",
+    "sha256": "d3107cd2fcdae99f769f0ecc4a30976747c1ea9506dacb5ceb4bec985ecaf08d",
+    "domain": "reporting",
+    "source_type": "form",
+    "publisher": "Altinn",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "effective_from": "",
+    "effective_to": "",
+    "priority": "low",
+    "complexity": "low",
+    "last_updated": "2025-10-06T17:38:37.444508"
+  }
+]

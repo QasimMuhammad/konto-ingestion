@@ -55,8 +55,16 @@ def write_bronze_if_changed(path: Path, content: bytes) -> Dict[str, Any]:
     }
 
 
-def ensure_data_directories(base_path: Path) -> Dict[str, Path]:
+def compute_stable_hash(content: str) -> str:
+    """Generate stable hash for text content."""
+    return hashlib.sha256(content.encode("utf-8")).hexdigest()
+
+
+def ensure_data_directories(base_path: Path = None) -> Dict[str, Path]:
     """Ensure Bronze, Silver, and Gold directories exist."""
+    if base_path is None:
+        base_path = Path(__file__).parent.parent / "data"
+
     bronze = base_path / "bronze"
     silver = base_path / "silver"
     gold = base_path / "gold"
