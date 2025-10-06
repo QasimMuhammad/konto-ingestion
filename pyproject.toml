@@ -13,6 +13,9 @@ dependencies = [
   "types-requests>=2.32.4.20250913",
   "dynaconf>=3.2.11",
   "mypy>=1.18.2",
+  "pypdf2>=3.0.1",
+  "pdfplumber>=0.11.7",
+  "pymupdf>=1.26.4",
 ]
 
 [project.scripts]
