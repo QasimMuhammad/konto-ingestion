@@ -8,13 +8,10 @@ Uses sources.csv as the source of truth for metadata classification.
 import csv
 import json
 import re
-import sys
 from pathlib import Path
 from typing import Dict, List, Any
 
-# Add modules to path
-sys.path.append(str(Path(__file__).parent.parent))
-
+from modules.base_script import BaseScript, register_script
 from modules.parsers.lovdata_parser import parse_lovdata_html
 from modules.data_io import ensure_data_directories, log
 from modules.cleaners.legal_text_cleaner import (
@@ -469,64 +466,83 @@ def save_silver_sections(sections: List[Dict[str, Any]], silver_dir: Path) -> No
             log.info(f"Publisher '{publisher}': {count} sections")
 
 
+@register_script("process-bronze-to-silver")
+class ProcessBronzeToSilverScript(BaseScript):
+    """Script to process Bronze layer data to Silver layer."""
+
+    def __init__(self):
+        super().__init__("process_bronze_to_silver")
+
+    def _parse_args(self):
+        """Parse command line arguments."""
+        import argparse
+
+        parser = argparse.ArgumentParser(description="Process Bronze to Silver data")
+        parser.add_argument(
+            "--test",
+            action="store_true",
+            help="Run in test mode (process only 2-3 files)",
+        )
+        parser.add_argument("--files", nargs="+", help="Process specific files only")
+        return parser.parse_args()
+
+    def _execute(self) -> int:
+        """Execute the Bronze to Silver processing."""
+        # Parse command line arguments
+        args = self._parse_args()
+
+        # Setup paths
+        project_root = Path(__file__).parent.parent
+        data_dir = project_root / "data"
+        sources_file = project_root / "configs" / "sources.csv"
+
+        # Ensure directories exist
+        directories = ensure_data_directories(data_dir)
+        bronze_dir = directories["bronze"]
+        silver_dir = directories["silver"]
+
+        # Load sources metadata from sources.csv
+        log.info("Loading sources metadata from sources.csv")
+        sources_lookup = load_sources_metadata(sources_file)
+
+        if not sources_lookup:
+            log.error("Failed to load sources metadata. Cannot proceed.")
+            return 1
+
+        # Process Lovdata files with sources metadata
+        sections = process_lovdata_files(
+            bronze_dir,
+            silver_dir,
+            sources_lookup,
+            test_mode=args.test,
+            specific_files=args.files,
+        )
+
+        if not sections:
+            log.warning("No sections extracted from Bronze layer")
+            return 1
+
+        # Save to Silver layer
+        save_silver_sections(sections, silver_dir)
+
+        # Log summary by domain
+        domain_counts = {}
+        for section in sections:
+            domain = section.get("domain", "")
+            domain_counts[domain] = domain_counts.get(domain, 0) + 1
+
+        log.info(f"Successfully processed {len(sections)} sections to Silver layer")
+        for domain, count in domain_counts.items():
+            log.info(f"Domain '{domain}': {count} sections")
+
+        return 0
+
+
 def main():
-    """Main processing function."""
-    import argparse
-
-    # Parse command line arguments
-    parser = argparse.ArgumentParser(description="Process Bronze to Silver data")
-    parser.add_argument(
-        "--test", action="store_true", help="Run in test mode (process only 2-3 files)"
-    )
-    parser.add_argument("--files", nargs="+", help="Process specific files only")
-    args = parser.parse_args()
-
-    # Setup paths
-    project_root = Path(__file__).parent.parent
-    data_dir = project_root / "data"
-    sources_file = project_root / "configs" / "sources.csv"
-
-    # Ensure directories exist
-    directories = ensure_data_directories(data_dir)
-    bronze_dir = directories["bronze"]
-    silver_dir = directories["silver"]
-
-    # Load sources metadata from sources.csv
-    log.info("Loading sources metadata from sources.csv")
-    sources_lookup = load_sources_metadata(sources_file)
-
-    if not sources_lookup:
-        log.error("Failed to load sources metadata. Cannot proceed.")
-        return 1
-
-    # Process Lovdata files with sources metadata
-    sections = process_lovdata_files(
-        bronze_dir,
-        silver_dir,
-        sources_lookup,
-        test_mode=args.test,
-        specific_files=args.files,
-    )
-
-    if not sections:
-        log.warning("No sections extracted from Bronze layer")
-        return 1
-
-    # Save to Silver layer
-    save_silver_sections(sections, silver_dir)
-
-    # Log summary by domain
-    domain_counts = {}
-    for section in sections:
-        domain = section.get("domain", "")
-        domain_counts[domain] = domain_counts.get(domain, 0) + 1
-
-    log.info(f"Successfully processed {len(sections)} sections to Silver layer")
-    for domain, count in domain_counts.items():
-        log.info(f"Domain '{domain}': {count} sections")
-
-    return 0
+    """Main entry point."""
+    script = ProcessBronzeToSilverScript()
+    return script.main()
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

@@ -5,14 +5,11 @@ Extracts specification nodes from SAF-T documentation.
 """
 
 import json
-import sys
 from pathlib import Path
 from typing import List, Dict, Any
 from datetime import datetime
 
-# Add modules to path
-sys.path.append(str(Path(__file__).parent.parent))
-
+from modules.base_script import BaseScript, register_script
 from modules.parsers.saft_parser import parse_saft_page, parse_saft_documentation
 from modules.data_io import ensure_data_directories, log, compute_stable_hash
 
@@ -131,56 +128,70 @@ def is_leaf_node(node_path: str) -> bool:
     return any(indicator in node_path.lower() for indicator in leaf_indicators)
 
 
+@register_script("process-saft-to-silver")
+class ProcessSaftToSilverScript(BaseScript):
+    """Script to process SAF-T from Bronze to Silver layer."""
+
+    def __init__(self):
+        super().__init__("process_saft_to_silver")
+
+    def _execute(self) -> int:
+        """Execute the SAF-T processing."""
+        # Setup paths
+        script_dir = Path(__file__).parent
+        project_root = script_dir.parent
+        bronze_dir = project_root / "data" / "bronze"
+        silver_dir = project_root / "data" / "silver"
+        sources_file = project_root / "configs" / "sources.csv"
+
+        # Ensure directories exist
+        ensure_data_directories()
+
+        # Load SAF-T sources
+        import csv
+
+        saft_sources = []
+
+        with open(sources_file, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if (
+                    row.get("domain") == "reporting"
+                    and "saft" in row.get("source_id", "").lower()
+                ):
+                    saft_sources.append(row)
+
+        if not saft_sources:
+            log.error("No SAF-T sources found in sources.csv")
+            return 1
+
+        log.info(f"Found {len(saft_sources)} SAF-T sources")
+
+        # Process sources
+        stats = process_saft_sources(saft_sources, bronze_dir, silver_dir)
+
+        # Print summary
+        print("\n" + "=" * 50)
+        print("SAF-T PROCESSING SUMMARY")
+        print("=" * 50)
+        print(f"Total sources: {stats['total_sources']}")
+        print(f"Processed sources: {stats['processed_sources']}")
+        print(f"Total nodes extracted: {stats['total_nodes']}")
+        print(f"Errors: {len(stats['errors'])}")
+
+        if stats["errors"]:
+            print("\nErrors:")
+            for error in stats["errors"]:
+                print(f"  • {error}")
+
+        print("=" * 50)
+        return 0
+
+
 def main():
-    """Main processing function."""
-    # Setup paths
-    script_dir = Path(__file__).parent
-    project_root = script_dir.parent
-    bronze_dir = project_root / "data" / "bronze"
-    silver_dir = project_root / "data" / "silver"
-    sources_file = project_root / "configs" / "sources.csv"
-
-    # Ensure directories exist
-    ensure_data_directories()
-
-    # Load SAF-T sources
-    import csv
-
-    saft_sources = []
-
-    with open(sources_file, "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            if (
-                row.get("domain") == "reporting"
-                and "saft" in row.get("source_id", "").lower()
-            ):
-                saft_sources.append(row)
-
-    if not saft_sources:
-        log.error("No SAF-T sources found in sources.csv")
-        sys.exit(1)
-
-    log.info(f"Found {len(saft_sources)} SAF-T sources")
-
-    # Process sources
-    stats = process_saft_sources(saft_sources, bronze_dir, silver_dir)
-
-    # Print summary
-    print("\n" + "=" * 50)
-    print("SAF-T PROCESSING SUMMARY")
-    print("=" * 50)
-    print(f"Total sources: {stats['total_sources']}")
-    print(f"Processed sources: {stats['processed_sources']}")
-    print(f"Total nodes extracted: {stats['total_nodes']}")
-    print(f"Errors: {len(stats['errors'])}")
-
-    if stats["errors"]:
-        print("\nErrors:")
-        for error in stats["errors"]:
-            print(f"  • {error}")
-
-    print("=" * 50)
+    """Main entry point."""
+    script = ProcessSaftToSilverScript()
+    return script.main()
 
 
 if __name__ == "__main__":
