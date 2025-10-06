@@ -1,18 +1,8 @@
 [
   {
     "kind": "reduced",
-    "value": "15 %",
     "percentage": 15.0,
-    "valid_from": null,
-    "valid_to": null,
     "description": "Redusert MVA-sats for næringsmidler: 15 % - gjelder matvarer, drikkevarer og andre næringsmidler",
-    "source_url": "https://www.skatteetaten.no/satser/merverdiavgift/",
-    "sha256": "a7c232f669b5f4fc5d8f6141c00fd99d543b4163728a9557d279c8de13f61e74",
-    "domain": "tax",
-    "source_type": "rates",
-    "publisher": "Skatteetaten",
-    "jurisdiction": "NO",
-    "is_current": true,
     "category": "food_products",
     "applies_to": [
       "Matvarer og drikkevarer",
@@ -22,22 +12,17 @@
     ],
     "exceptions": [],
     "notes": "",
-    "last_updated": "2025-10-06T17:29:35.788774"
-  },
-  {
-    "kind": "reduced",
-    "value": "15 %",
-    "percentage": 15.0,
-    "valid_from": null,
-    "valid_to": null,
-    "description": "Redusert MVA-sats for vann- og avløpstjenester: 15 % - gjelder drikkevann, avløpshåndtering og vannforsyning",
     "source_url": "https://www.skatteetaten.no/satser/merverdiavgift/",
-    "sha256": "a7c232f669b5f4fc5d8f6141c00fd99d543b4163728a9557d279c8de13f61e74",
-    "domain": "tax",
-    "source_type": "rates",
+    "sha256": "bronze_hash",
     "publisher": "Skatteetaten",
     "jurisdiction": "NO",
     "is_current": true,
+    "last_updated": "2025-10-06T19:47:40.135295"
+  },
+  {
+    "kind": "reduced",
+    "percentage": 15.0,
+    "description": "Redusert MVA-sats for vann- og avløpstjenester: 15 % - gjelder drikkevann, avløpshåndtering og vannforsyning",
     "category": "water_services",
     "applies_to": [
       "Drikkevann og vannforsyning",
@@ -47,22 +32,17 @@
     ],
     "exceptions": [],
     "notes": "",
-    "last_updated": "2025-10-06T17:29:35.788857"
-  },
-  {
-    "kind": "reduced",
-    "value": "12 %",
-    "percentage": 12.0,
-    "valid_from": null,
-    "valid_to": null,
-    "description": "Redusert MVA-sats for persontransport og underholdning: 12 % - gjelder persontransport, kinobilletter, hotellrom, idrettsarrangementer",
     "source_url": "https://www.skatteetaten.no/satser/merverdiavgift/",
-    "sha256": "a7c232f669b5f4fc5d8f6141c00fd99d543b4163728a9557d279c8de13f61e74",
-    "domain": "tax",
-    "source_type": "rates",
+    "sha256": "bronze_hash",
     "publisher": "Skatteetaten",
     "jurisdiction": "NO",
     "is_current": true,
+    "last_updated": "2025-10-06T19:47:40.135373"
+  },
+  {
+    "kind": "reduced",
+    "percentage": 12.0,
+    "description": "Redusert MVA-sats for persontransport og underholdning: 12 % - gjelder persontransport, kinobilletter, hotellrom, idrettsarrangementer",
     "category": "transport_entertainment",
     "applies_to": [
       "Persontransport (buss, tog, fly)",
@@ -74,22 +54,17 @@
       "Godstransport har standard sats"
     ],
     "notes": "",
-    "last_updated": "2025-10-06T17:29:35.788912"
-  },
-  {
-    "kind": "reduced",
-    "value": "25 %",
-    "percentage": 25.0,
-    "valid_from": null,
-    "valid_to": null,
-    "description": "Redusert MVA-sats for næringsmidler: 25 % - gjelder matvarer, drikkevarer og andre næringsmidler",
     "source_url": "https://www.skatteetaten.no/satser/merverdiavgift/",
-    "sha256": "a7c232f669b5f4fc5d8f6141c00fd99d543b4163728a9557d279c8de13f61e74",
-    "domain": "tax",
-    "source_type": "rates",
+    "sha256": "bronze_hash",
     "publisher": "Skatteetaten",
     "jurisdiction": "NO",
     "is_current": true,
+    "last_updated": "2025-10-06T19:47:40.135426"
+  },
+  {
+    "kind": "reduced",
+    "percentage": 25.0,
+    "description": "Redusert MVA-sats for næringsmidler: 25 % - gjelder matvarer, drikkevarer og andre næringsmidler",
     "category": "food_products",
     "applies_to": [
       "Matvarer og drikkevarer",
@@ -101,6 +76,11 @@
       "Godstransport har standard sats"
     ],
     "notes": "",
-    "last_updated": "2025-10-06T17:29:35.789289"
+    "source_url": "https://www.skatteetaten.no/satser/merverdiavgift/",
+    "sha256": "bronze_hash",
+    "publisher": "Skatteetaten",
+    "jurisdiction": "NO",
+    "is_current": true,
+    "last_updated": "2025-10-06T19:47:40.135795"
   }
 ]
