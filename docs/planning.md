@@ -74,18 +74,44 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 
 ---
 
-## 5. Step-by-Step Implementation
+## 5. Current Progress Summary
 
-### Week 1–2: Ingestion Foundations
-- Finalize `sources.csv` with laws/specs (MVA, Regnskapsloven, Bokføringsloven, SAF-T, A-melding, rates).
-- Implement fetchers (requests), parsers (BeautifulSoup/lxml), and normalizers.
-- Produce Bronze & Silver outputs for at least one tax law and one accounting law.
+### ✅ **Completed (Week 1-2 + Extensions)**
+- **Bronze Layer**: 4 PDF documents + HTML sources with SHA256 tracking
+- **Silver Layer**: 7 JSON files with 2,514+ validated records
+  - `law_sections.json`: 902 legal sections
+  - `tax_sections.json`: 596 tax sections  
+  - `accounting_sections.json`: 306 accounting sections
+  - `saft_v1_3_nodes.json`: 142 SAF-T specification nodes
+  - `rate_table.json`: 4 VAT rates with categories
+  - `amelding_rules.json`: 50 A-meldingen business rules
+  - `quality_report.json`: Processing statistics
+- **Parsers**: Lovdata HTML, SAF-T PDF, VAT rates, A-meldingen
+- **Validation**: 100% Pydantic schema validation success
+- **Data Quality**: Real technical specifications from official sources
 
-### Week 3–4: Knowledge Base & Rules
-- Normalize section paths and extract citations.
-- Build VAT `rate_table` scraper with valid_from/to.
-- Seed Chart of Accounts and VAT codes.
-- Create Rules Registry (`rules.jsonl`): condition, action, source_ids.
+### 🔄 **Next Steps (Week 3-4)**
+- Generate Gold layer JSONL training datasets
+- Create Rules Registry with business logic
+- Implement Chart of Accounts and VAT code mappings
+- Begin LoRA training pipeline
+
+---
+
+## 6. Step-by-Step Implementation
+
+### Week 1–2: Ingestion Foundations ✅ COMPLETED
+- ✅ Finalize `sources.csv` with laws/specs (MVA, Regnskapsloven, Bokføringsloven, SAF-T, A-melding, rates).
+- ✅ Implement fetchers (requests), parsers (BeautifulSoup/lxml), and normalizers.
+- ✅ Produce Bronze & Silver outputs for tax laws, accounting laws, SAF-T, VAT rates, and A-meldingen.
+- ✅ **BONUS**: Implemented comprehensive PDF parsing for SAF-T technical specifications.
+- ✅ **BONUS**: Added A-meldingen business rules extraction (50 detailed rules).
+
+### Week 3–4: Knowledge Base & Rules 🔄 IN PROGRESS
+- ✅ Normalize section paths and extract citations.
+- ✅ Build VAT `rate_table` scraper with valid_from/to.
+- 🔄 Seed Chart of Accounts and VAT codes.
+- 🔄 Create Rules Registry (`rules.jsonl`): condition, action, source_ids.
 
 ### Week 5–6: Training Data & Fine-Tuning
 - Export Gold datasets: `tax_glossary.jsonl`, `accounting_glossary.jsonl`, `client_synth_chat.jsonl`.
@@ -108,7 +134,7 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 
 ---
 
-## 6. Risks & Mitigations
+## 7. Risks & Mitigations
 - **Legal text drift**: nightly diffs, effective_from/to fields, re-index pipeline.
 - **Outdated VAT rates**: never bake numbers into LLM; runtime lookup via rate_table.
 - **Parser fragility**: snapshot tests, resilient selectors, CI checks.
@@ -116,7 +142,7 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 
 ---
 
-## 7. Acceptance Criteria (Phase 1 MVP)
+## 8. Acceptance Criteria (Phase 1 MVP)
 - Bronze+Silver outputs for ≥2 laws and SAF-T.
 - Gold datasets: 150–300 glossary entries, 100+ synthetic chats.
 - Rules engine covers top 10 expense/sales scenarios with citations.
@@ -125,7 +151,7 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 
 ---
 
-## 8. Next Steps
+## 9. Next Steps
 1. Upload `konto-ingestion` to GitHub with stubs + plan.
 2. Expand `sources.csv` for coverage.
 3. Implement real fetch & parse logic.

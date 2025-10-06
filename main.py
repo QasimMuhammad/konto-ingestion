@@ -8,8 +8,8 @@ import argparse
 import sys
 from typing import List, Dict, Any
 
-from modules.utils import log
-from modules.config import get_sources_file
+from modules.data_io import log
+from modules.settings import get_sources_file
 
 
 def parse_args():

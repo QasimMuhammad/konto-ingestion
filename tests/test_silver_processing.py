@@ -12,7 +12,7 @@ import sys
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from modules.cleaners.silver_text_processing import (
+from modules.cleaners.text_normalizer import (
     normalize_text,
     compute_stable_hash,
     extract_legal_metadata,
@@ -333,7 +333,9 @@ class TestSilverProcessingIntegration(unittest.TestCase):
         # Test processing
         from scripts.process_bronze_to_silver import process_lovdata_files
 
-        sections = process_lovdata_files(self.bronze_dir, self.silver_dir, sources_lookup)
+        sections = process_lovdata_files(
+            self.bronze_dir, self.silver_dir, sources_lookup
+        )
         self.assertGreater(len(sections), 0)
 
         # Check quality
@@ -378,7 +380,9 @@ class TestSilverProcessingIntegration(unittest.TestCase):
         # Test processing
         from scripts.process_bronze_to_silver import process_lovdata_files
 
-        sections = process_lovdata_files(self.bronze_dir, self.silver_dir, sources_lookup)
+        sections = process_lovdata_files(
+            self.bronze_dir, self.silver_dir, sources_lookup
+        )
 
         # Should skip unknown files and return empty list
         self.assertEqual(len(sections), 0)
