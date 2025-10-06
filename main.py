@@ -8,7 +8,7 @@ import argparse
 import sys
 from typing import List, Dict, Any
 
-from modules.data_io import log
+from modules.logger import logger as log
 from modules.settings import get_sources_file
 
 
