@@ -9,7 +9,7 @@ from pathlib import Path
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from modules.cleaners.improved_text_processing import clean_legal_text, normalize_text
+from modules.cleaners.legal_text_cleaner import clean_legal_text, normalize_text
 
 
 def test_text_cleaning():
