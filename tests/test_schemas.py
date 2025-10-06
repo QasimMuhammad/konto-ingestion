@@ -3,7 +3,6 @@
 Unit tests for Pydantic schemas.
 """
 
-import json
 import unittest
 from pathlib import Path
 import sys
@@ -12,10 +11,7 @@ from datetime import datetime
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from modules.schemas import (
-    LawSection, SpecNode, VatRate, AmeldingRule, 
-    QualityReport, SilverMetadata
-)
+from modules.schemas import LawSection, SpecNode, VatRate, AmeldingRule, QualityReport
 
 
 class TestLawSectionSchema(unittest.TestCase):
@@ -43,9 +39,9 @@ class TestLawSectionSchema(unittest.TestCase):
             "version": "current",
             "law_title": "Merverdiavgiftsloven",
             "chapter": "Kapittel 8",
-            "chapter_no": "8"
+            "chapter_no": "8",
         }
-        
+
         section = LawSection(**section_data)
         self.assertEqual(section.law_id, "mva_law_1999")
         self.assertEqual(section.section_id, "§ 8-1")
@@ -62,7 +58,7 @@ class TestLawSectionSchema(unittest.TestCase):
                 heading="Test",
                 text_plain="Test",
                 source_url="https://test.com",
-                sha256="test"
+                sha256="test",
             )
 
 
@@ -91,9 +87,9 @@ class TestSpecNodeSchema(unittest.TestCase):
             "examples": ["1.30"],
             "dependencies": [],
             "technical_details": ["Max length: 10"],
-            "last_updated": datetime.now().isoformat()
+            "last_updated": datetime.now().isoformat(),
         }
-        
+
         node = SpecNode(**node_data)
         self.assertEqual(node.spec, "SAF-T")
         self.assertEqual(node.node_path, "AuditFileVersion")
@@ -111,9 +107,9 @@ class TestSpecNodeSchema(unittest.TestCase):
             "sha256": "test",
             "publisher": "Test",
             "is_current": True,
-            "last_updated": datetime.now().isoformat()
+            "last_updated": datetime.now().isoformat(),
         }
-        
+
         node = SpecNode(**minimal_data)
         self.assertEqual(node.domain, "reporting")  # SpecNode defaults to reporting
         self.assertEqual(node.source_type, "spec")  # SpecNode defaults to "spec"
@@ -147,9 +143,9 @@ class TestVatRateSchema(unittest.TestCase):
             "applies_to": ["Most goods and services"],
             "exceptions": ["Food products"],
             "notes": "Main VAT rate",
-            "last_updated": datetime.now().isoformat()
+            "last_updated": datetime.now().isoformat(),
         }
-        
+
         rate = VatRate(**rate_data)
         self.assertEqual(rate.kind, "standard")
         self.assertEqual(rate.percentage, 25.0)
@@ -169,9 +165,9 @@ class TestVatRateSchema(unittest.TestCase):
                 publisher="Test",
                 is_current=True,
                 category="test",
-                last_updated=datetime.now().isoformat()
+                last_updated=datetime.now().isoformat(),
             )
-        
+
         # Invalid percentage
         with self.assertRaises(Exception):
             VatRate(
@@ -184,7 +180,7 @@ class TestVatRateSchema(unittest.TestCase):
                 publisher="Test",
                 is_current=True,
                 category="test",
-                last_updated=datetime.now().isoformat()
+                last_updated=datetime.now().isoformat(),
             )
 
 
@@ -214,9 +210,9 @@ class TestAmeldingRuleSchema(unittest.TestCase):
             "validation_rules": ["Employee ID must be 11 digits"],
             "field_mappings": {"employee_id": "personnummer"},
             "business_rules": ["Must include all employees"],
-            "last_updated": datetime.now().isoformat()
+            "last_updated": datetime.now().isoformat(),
         }
-        
+
         rule = AmeldingRule(**rule_data)
         self.assertEqual(rule.rule_id, "rule_001")
         self.assertEqual(rule.category, "submission_deadlines")
@@ -241,7 +237,7 @@ class TestAmeldingRuleSchema(unittest.TestCase):
                 is_current=True,
                 priority="high",
                 complexity="medium",
-                last_updated=datetime.now().isoformat()
+                last_updated=datetime.now().isoformat(),
             )
 
 
@@ -259,18 +255,18 @@ class TestQualityReportSchema(unittest.TestCase):
             "domains": {
                 "tax": {"count": 500, "tokens": 75000},
                 "accounting": {"count": 300, "tokens": 45000},
-                "reporting": {"count": 200, "tokens": 30000}
+                "reporting": {"count": 200, "tokens": 30000},
             },
             "source_types": {"law": 800, "specification": 200},
             "publishers": {"Lovdata": 600, "Skatteetaten": 400},
             "quality_metrics": {
                 "avg_token_count": 150.5,
                 "sections_with_metadata": 950,
-                "validation_errors": 0
+                "validation_errors": 0,
             },
-            "last_updated": datetime.now().isoformat()
+            "last_updated": datetime.now().isoformat(),
         }
-        
+
         report = QualityReport(**report_data)
         self.assertEqual(report.total_processed, 1000)
         self.assertEqual(report.domains["tax"]["count"], 500)
@@ -301,18 +297,18 @@ class TestSchemaSerialization(unittest.TestCase):
             version="current",
             law_title="Test Law",
             chapter="Test Chapter",
-            chapter_no="1"
+            chapter_no="1",
         )
-        
+
         # Test to dict
         section_dict = section.dict()
         self.assertIsInstance(section_dict, dict)
         self.assertEqual(section_dict["law_id"], "test")
-        
+
         # Test to JSON
         section_json = section.json()
         self.assertIsInstance(section_json, str)
-        
+
         # Test from dict
         section_from_dict = LawSection(**section_dict)
         self.assertEqual(section_from_dict.law_id, "test")
@@ -323,7 +319,7 @@ class TestSchemaSerialization(unittest.TestCase):
         law_schema = LawSection.schema()
         self.assertIsInstance(law_schema, dict)
         self.assertIn("properties", law_schema)
-        
+
         spec_schema = SpecNode.schema()
         self.assertIsInstance(spec_schema, dict)
         self.assertIn("properties", spec_schema)

@@ -5,13 +5,10 @@ Validates all Silver JSON files against Pydantic schemas.
 """
 
 import json
-import sys
 from pathlib import Path
 from typing import List, Dict, Any, Tuple
 
-# Add modules to path
-sys.path.append(str(Path(__file__).parent.parent))
-
+from modules.base_script import BaseScript, register_script
 from modules.schemas import LawSection, SpecNode, VatRate, AmeldingRule, QualityReport
 from modules.data_io import log
 
@@ -225,32 +222,45 @@ def print_validation_report(results: Dict[str, Any]) -> None:
     print("=" * 60)
 
 
+@register_script("validate-silver")
+class ValidateSilverScript(BaseScript):
+    """Script to validate Silver layer files."""
+
+    def __init__(self):
+        super().__init__("validate_silver")
+
+    def _execute(self) -> int:
+        """Execute the Silver layer validation."""
+        # Get silver directory
+        script_dir = Path(__file__).parent
+        project_root = script_dir.parent
+        silver_dir = project_root / "data" / "silver"
+
+        if not silver_dir.exists():
+            log.error(f"Silver directory not found: {silver_dir}")
+            return 1
+
+        log.info(f"Validating Silver layer files in: {silver_dir}")
+
+        # Run validation
+        results = validate_silver_directory(silver_dir)
+
+        # Print report
+        print_validation_report(results)
+
+        # Return appropriate code
+        if results["invalid_files"] > 0:
+            log.error(f"Validation failed: {results['invalid_files']} invalid files")
+            return 1
+        else:
+            log.info("All Silver layer files are valid!")
+            return 0
+
+
 def main():
-    """Main validation function."""
-    # Get silver directory
-    script_dir = Path(__file__).parent
-    project_root = script_dir.parent
-    silver_dir = project_root / "data" / "silver"
-
-    if not silver_dir.exists():
-        log.error(f"Silver directory not found: {silver_dir}")
-        sys.exit(1)
-
-    log.info(f"Validating Silver layer files in: {silver_dir}")
-
-    # Run validation
-    results = validate_silver_directory(silver_dir)
-
-    # Print report
-    print_validation_report(results)
-
-    # Exit with appropriate code
-    if results["invalid_files"] > 0:
-        log.error(f"Validation failed: {results['invalid_files']} invalid files")
-        sys.exit(1)
-    else:
-        log.info("All Silver layer files are valid!")
-        sys.exit(0)
+    """Main entry point."""
+    script = ValidateSilverScript()
+    return script.main()
 
 
 if __name__ == "__main__":

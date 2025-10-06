@@ -3,8 +3,6 @@
 Unit tests for parser modules.
 """
 
-import json
-import tempfile
 import unittest
 from pathlib import Path
 import sys
@@ -13,7 +11,11 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent))
 
 from modules.parsers.rates_parser import parse_mva_rates, VatRate
-from modules.parsers.amelding_parser import parse_amelding_overview, parse_amelding_forms, AmeldingRule
+from modules.parsers.amelding_parser import (
+    parse_amelding_overview,
+    parse_amelding_forms,
+    AmeldingRule,
+)
 from modules.parsers.saft_pdf_parser import SAFTPDFParser, SpecNode
 
 
@@ -34,10 +36,10 @@ class TestRatesParser(unittest.TestCase):
         </body>
         </html>
         """
-        
+
         rates = parse_mva_rates(html, "https://example.com", "test_hash")
         self.assertGreater(len(rates), 0)
-        
+
         # Check first rate
         rate = rates[0]
         self.assertIsInstance(rate, VatRate)
@@ -61,9 +63,9 @@ class TestRatesParser(unittest.TestCase):
             description="Standard VAT rate",
             source_url="https://example.com",
             sha256="test_hash",
-            category="general_goods"
+            category="general_goods",
         )
-        
+
         self.assertEqual(rate.kind, "standard")
         self.assertEqual(rate.percentage, 25.0)
         self.assertEqual(rate.category, "general_goods")
@@ -85,10 +87,10 @@ class TestAmeldingParser(unittest.TestCase):
         </body>
         </html>
         """
-        
+
         rules = parse_amelding_overview(html, "https://example.com", "test_hash")
         self.assertGreater(len(rules), 0)
-        
+
         # Check first rule
         rule = rules[0]
         self.assertIsInstance(rule, AmeldingRule)
@@ -106,10 +108,10 @@ class TestAmeldingParser(unittest.TestCase):
         </body>
         </html>
         """
-        
+
         rules = parse_amelding_forms(html, "https://example.com", "test_hash")
         self.assertGreater(len(rules), 0)
-        
+
         # Check first rule
         rule = rules[0]
         self.assertIsInstance(rule, AmeldingRule)
@@ -131,9 +133,9 @@ class TestAmeldingParser(unittest.TestCase):
             source_type="amelding_overview",
             publisher="Skatteetaten",
             priority="high",
-            complexity="medium"
+            complexity="medium",
         )
-        
+
         self.assertEqual(rule.rule_id, "test_rule_001")
         self.assertEqual(rule.category, "form_guidance")
         self.assertEqual(rule.priority, "high")
@@ -159,9 +161,9 @@ class TestSAFTPDFParser(unittest.TestCase):
             "Test description",
             "https://example.com",
             "test_hash",
-            "string"
+            "string",
         )
-        
+
         self.assertIsInstance(node, SpecNode)
         self.assertEqual(node.node_path, "TestElement")
         self.assertEqual(node.cardinality, "1..1")
@@ -178,7 +180,7 @@ class TestSAFTPDFParser(unittest.TestCase):
             ("1..U", "1..U"),  # This is handled in table extraction, not normalization
             ("invalid", "1..1"),  # Default
         ]
-        
+
         for input_card, expected in test_cases:
             result = self.parser._normalize_cardinality(input_card)
             self.assertEqual(result, expected)
@@ -193,7 +195,7 @@ class TestSAFTPDFParser(unittest.TestCase):
             ("complex structure", "complex"),
             ("regular text", "string"),
         ]
-        
+
         for text, expected in test_cases:
             result = self.parser._determine_data_type_from_text(text)
             self.assertEqual(result, expected)
@@ -237,10 +239,10 @@ class TestParserIntegration(unittest.TestCase):
         </body>
         </html>
         """
-        
+
         rates = parse_mva_rates(html, "https://skatteetaten.no", "test_hash")
         self.assertGreaterEqual(len(rates), 2)
-        
+
         # Check that we have standard rates (reduced might not be parsed correctly)
         kinds = [rate.kind for rate in rates]
         self.assertIn("standard", kinds)
@@ -271,10 +273,10 @@ class TestParserIntegration(unittest.TestCase):
         </body>
         </html>
         """
-        
+
         rules = parse_amelding_overview(html, "https://altinn.no", "test_hash")
         self.assertGreater(len(rules), 0)
-        
+
         # Check that we have different types of rules
         categories = [rule.category for rule in rules]
         self.assertTrue(any("submission" in cat for cat in categories))

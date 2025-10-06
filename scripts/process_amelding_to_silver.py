@@ -5,15 +5,15 @@ Extracts A-melding rules and guidance from Skatteetaten and Altinn content.
 """
 
 import json
-import sys
 from pathlib import Path
 from typing import List, Dict, Any
 from datetime import datetime
 
-# Add modules to path
-sys.path.append(str(Path(__file__).parent.parent))
-
-from modules.parsers.amelding_parser import parse_amelding_overview, parse_amelding_forms
+from modules.base_script import BaseScript, register_script
+from modules.parsers.amelding_parser import (
+    parse_amelding_overview,
+    parse_amelding_forms,
+)
 from modules.data_io import ensure_data_directories, log, compute_stable_hash
 
 
@@ -107,7 +107,7 @@ def determine_priority(category: str) -> str:
     """Determine priority level for the rule."""
     high_priority = ["submission_deadlines", "employer_obligations"]
     medium_priority = ["salary_reporting", "tax_deductions"]
-    
+
     if category in high_priority:
         return "high"
     elif category in medium_priority:
@@ -119,67 +119,84 @@ def determine_priority(category: str) -> str:
 def determine_complexity(description: str) -> str:
     """Determine complexity level based on description length and content."""
     word_count = len(description.split())
-    
-    if word_count > 200 or any(word in description.lower() for word in 
-                             ["kompleks", "complex", "avansert", "advanced"]):
+
+    if word_count > 200 or any(
+        word in description.lower()
+        for word in ["kompleks", "complex", "avansert", "advanced"]
+    ):
         return "high"
-    elif word_count > 100 or any(word in description.lower() for word in 
-                                ["moderat", "moderate", "middels"]):
+    elif word_count > 100 or any(
+        word in description.lower() for word in ["moderat", "moderate", "middels"]
+    ):
         return "medium"
     else:
         return "low"
 
 
+@register_script("process-amelding-to-silver")
+class ProcessAmeldingToSilverScript(BaseScript):
+    """Script to process A-meldingen from Bronze to Silver layer."""
+
+    def __init__(self):
+        super().__init__("process_amelding_to_silver")
+
+    def _execute(self) -> int:
+        """Execute the A-meldingen processing."""
+        # Setup paths
+        script_dir = Path(__file__).parent
+        project_root = script_dir.parent
+        bronze_dir = project_root / "data" / "bronze"
+        silver_dir = project_root / "data" / "silver"
+        sources_file = project_root / "configs" / "sources.csv"
+
+        # Ensure directories exist
+        ensure_data_directories()
+
+        # Load A-meldingen sources
+        import csv
+
+        amelding_sources = []
+
+        with open(sources_file, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if (
+                    row.get("domain") == "reporting"
+                    and "amelding" in row.get("source_id", "").lower()
+                ):
+                    amelding_sources.append(row)
+
+        if not amelding_sources:
+            log.error("No A-meldingen sources found in sources.csv")
+            return 1
+
+        log.info(f"Found {len(amelding_sources)} A-meldingen sources")
+
+        # Process sources
+        stats = process_amelding_sources(amelding_sources, bronze_dir, silver_dir)
+
+        # Print summary
+        print("\n" + "=" * 50)
+        print("A-MELDINGEN PROCESSING SUMMARY")
+        print("=" * 50)
+        print(f"Total sources: {stats['total_sources']}")
+        print(f"Processed sources: {stats['processed_sources']}")
+        print(f"Total rules extracted: {stats['total_rules']}")
+        print(f"Errors: {len(stats['errors'])}")
+
+        if stats["errors"]:
+            print("\nErrors:")
+            for error in stats["errors"]:
+                print(f"  • {error}")
+
+        print("=" * 50)
+        return 0
+
+
 def main():
-    """Main processing function."""
-    # Setup paths
-    script_dir = Path(__file__).parent
-    project_root = script_dir.parent
-    bronze_dir = project_root / "data" / "bronze"
-    silver_dir = project_root / "data" / "silver"
-    sources_file = project_root / "configs" / "sources.csv"
-
-    # Ensure directories exist
-    ensure_data_directories()
-
-    # Load A-meldingen sources
-    import csv
-
-    amelding_sources = []
-
-    with open(sources_file, "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            if (
-                row.get("domain") == "reporting"
-                and "amelding" in row.get("source_id", "").lower()
-            ):
-                amelding_sources.append(row)
-
-    if not amelding_sources:
-        log.error("No A-meldingen sources found in sources.csv")
-        sys.exit(1)
-
-    log.info(f"Found {len(amelding_sources)} A-meldingen sources")
-
-    # Process sources
-    stats = process_amelding_sources(amelding_sources, bronze_dir, silver_dir)
-
-    # Print summary
-    print("\n" + "=" * 50)
-    print("A-MELDINGEN PROCESSING SUMMARY")
-    print("=" * 50)
-    print(f"Total sources: {stats['total_sources']}")
-    print(f"Processed sources: {stats['processed_sources']}")
-    print(f"Total rules extracted: {stats['total_rules']}")
-    print(f"Errors: {len(stats['errors'])}")
-
-    if stats["errors"]:
-        print("\nErrors:")
-        for error in stats["errors"]:
-            print(f"  • {error}")
-
-    print("=" * 50)
+    """Main entry point."""
+    script = ProcessAmeldingToSilverScript()
+    return script.main()
 
 
 if __name__ == "__main__":
