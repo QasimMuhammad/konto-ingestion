@@ -16,10 +16,21 @@ dependencies = [
   "pypdf2>=3.0.1",
   "pdfplumber>=0.11.7",
   "pymupdf>=1.26.4",
+  "loguru>=0.7.2",
 ]
 
 [project.scripts]
 konto-ingest = "main:main"
+process-bronze-to-silver = "scripts.process_bronze_to_silver:main"
+process-rates-to-silver = "scripts.process_rates_to_silver:main"
+process-amelding-to-silver = "scripts.process_amelding_to_silver:main"
+process-saft-to-silver = "scripts.process_saft_to_silver:main"
+process-saft-pdfs-to-silver = "scripts.process_saft_pdfs_to_silver:main"
+validate-silver = "scripts.validate_silver:main"
+validate-silver-enhanced = "scripts.validate_silver_enhanced:main"
+ingest-tax-regs = "scripts.ingest_tax_regs:main"
+ingest-accounting-regs = "scripts.ingest_accounting_regs:main"
+ingest-reporting-regs = "scripts.ingest_reporting_regs:main"
 
 [build-system]
 requires = ["hatchling"]

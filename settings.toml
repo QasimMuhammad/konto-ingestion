@@ -21,6 +21,9 @@ max_section_length = 10000
 
 # Logging
 log_level = "INFO"
+log_format = "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}"
+log_rotation = "10 MB"
+log_retention = "7 days"
 
 # Environment-specific overrides
 [development]
