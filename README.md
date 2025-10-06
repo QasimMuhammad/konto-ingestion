@@ -166,16 +166,25 @@ konto-ingestion/
 This project is actively developed with the following components implemented:
 
 ✅ **Bronze Layer**: Raw data ingestion with SHA256 tracking  
-✅ **Silver Layer**: Text processing and normalization  
-✅ **Parsers**: Lovdata HTML, SAF-T, and Altinn page parsers  
+✅ **Silver Layer**: Complete data processing and normalization  
+✅ **Parsers**: Lovdata HTML, SAF-T PDF, VAT rates, and A-meldingen parsers  
+✅ **Data Validation**: Comprehensive Pydantic schemas with 100% validation success  
 ✅ **Debug Tools**: Comprehensive data exploration utilities  
 ✅ **Quality Reports**: Processing statistics and validation  
 
+### Current Data Assets
+
+- **Legal Sections**: 1,804 sections from tax, accounting, and law documents
+- **SAF-T Nodes**: 142 technical specification elements with validation rules
+- **VAT Rates**: 4 detailed rate entries with categories and validity periods
+- **A-meldingen Rules**: 50 comprehensive business rules for monthly reporting
+- **Total Records**: 2,514+ validated records across all domains
+
 ### Planned Features
 
-🔄 **Gold Layer**: Training dataset generation  
-🔄 **Rules Engine**: Deterministic compliance rules  
-🔄 **LoRA Training**: Model fine-tuning pipeline  
+🔄 **Gold Layer**: Training dataset generation (Week 3-4)  
+🔄 **Rules Engine**: Deterministic compliance rules (Week 3-4)  
+🔄 **LoRA Training**: Model fine-tuning pipeline (Week 3-4)  
 🔄 **API Service**: REST endpoints for data access  
 
 For detailed development plans, see [docs/planning.md](docs/planning.md).
