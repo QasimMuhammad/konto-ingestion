@@ -16,13 +16,28 @@ A comprehensive data ingestion pipeline for Norwegian legal and regulatory texts
 - Python 3.10 or higher
 - [uv](https://github.com/astral-sh/uv) package manager
 
-### Installation
+### Quick Setup
 
+Run the automated setup script:
 
-1. Install dependencies using uv:
-   ```bash
-   uv sync
-   ```
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+This will verify Python version, install uv if needed, install dependencies, and verify the installation.
+
+### Manual Setup
+
+If you prefer manual setup:
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install dependencies
+uv sync
+```
 
 ### Development Setup
 
