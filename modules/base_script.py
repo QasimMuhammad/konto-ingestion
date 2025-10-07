@@ -4,11 +4,13 @@ Base script infrastructure for konto-ingestion.
 Eliminates code duplication across all processing scripts.
 """
 
+import argparse
 from abc import ABC, abstractmethod
+from datetime import datetime
 from pathlib import Path
 import sys
-from typing import Dict, Any, Type
-from datetime import datetime
+from typing import Any, Dict, Type
+
 from loguru import logger
 
 # Script registry for auto-discovery
@@ -33,21 +35,41 @@ def get_registered_scripts() -> Dict[str, Type["BaseScript"]]:
 class BaseScript(ABC):
     """Base class for all processing scripts."""
 
-    def __init__(self, script_name: str):
+    def __init__(self, script_name: str, description: str | None = None):
         self.script_name = script_name
+        self.description = description or f"Run {script_name}"
         self.setup_path()
         self.setup_logging()
         self.start_time = datetime.now()
+        self.parser = self._create_argument_parser()
+
+    def _create_argument_parser(self) -> argparse.ArgumentParser:
+        """Create and configure argument parser."""
+        parser = argparse.ArgumentParser(
+            prog=self.script_name.replace("_", "-"),
+            description=self.description,
+        )
+        parser.add_argument(
+            "--version",
+            action="version",
+            version="%(prog)s (konto-ingestion 0.1.0)",
+        )
+        self._configure_arguments(parser)
+        return parser
+
+    def _configure_arguments(self, parser: argparse.ArgumentParser) -> None:
+        """
+        Configure script-specific arguments.
+        Subclasses can override this to add custom arguments.
+        """
+        pass
 
     def setup_path(self):
         """Setup path handling - no longer needed with proper package structure."""
-        # With proper pyproject.toml configuration, sys.path manipulation is not needed
-        # The package structure is handled by the build system
         pass
 
     def setup_logging(self):
         """Configure logging for the script."""
-        # Use loguru logger with script name context
         self.log = logger.bind(script=self.script_name)
 
     @abstractmethod
@@ -60,9 +82,10 @@ class BaseScript(ABC):
         """
         pass
 
-    def main(self) -> int:
+    def main(self, args: list[str] | None = None) -> int:
         """Main entry point with error handling and timing."""
         try:
+            self.args = self.parser.parse_args(args)
             self.log.info(f"Starting {self.script_name}")
             result = self._execute()
 
@@ -75,6 +98,8 @@ class BaseScript(ABC):
         except KeyboardInterrupt:
             self.log.warning(f"Script {self.script_name} interrupted by user")
             return 1
+        except SystemExit as e:
+            return int(e.code) if e.code is not None else 0
         except Exception as e:
             self.log.error(f"Script {self.script_name} failed: {e}", exc_info=True)
             return 1
