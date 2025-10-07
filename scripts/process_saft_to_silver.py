@@ -18,8 +18,8 @@ def process_saft_sources(
     sources: List[Dict[str, str]], bronze_dir: Path, silver_dir: Path
 ) -> Dict[str, Any]:
     """Process SAF-T sources from Bronze to Silver."""
-    all_nodes = []
-    processing_stats = {
+    all_nodes: list[Any] = []
+    processing_stats: dict[str, Any] = {
         "total_sources": 0,
         "processed_sources": 0,
         "total_nodes": 0,
@@ -171,20 +171,20 @@ class ProcessSaftToSilverScript(BaseScript):
         stats = process_saft_sources(saft_sources, bronze_dir, silver_dir)
 
         # Print summary
-        print("\n" + "=" * 50)
-        print("SAF-T PROCESSING SUMMARY")
-        print("=" * 50)
-        print(f"Total sources: {stats['total_sources']}")
-        print(f"Processed sources: {stats['processed_sources']}")
-        print(f"Total nodes extracted: {stats['total_nodes']}")
-        print(f"Errors: {len(stats['errors'])}")
+        log.info("\n" + "=" * 50)
+        log.info("SAF-T PROCESSING SUMMARY")
+        log.info("=" * 50)
+        log.info(f"Total sources: {stats['total_sources']}")
+        log.info(f"Processed sources: {stats['processed_sources']}")
+        log.info(f"Total nodes extracted: {stats['total_nodes']}")
+        log.info(f"Errors: {len(stats['errors'])}")
 
         if stats["errors"]:
-            print("\nErrors:")
+            log.error("\nErrors:")
             for error in stats["errors"]:
-                print(f"  • {error}")
+                log.error(f"  • {error}")
 
-        print("=" * 50)
+        log.info("=" * 50)
         return 0
 
 

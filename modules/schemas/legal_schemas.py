@@ -3,7 +3,7 @@ Legal schema definitions for law sections and legal documents.
 Handles tax laws, accounting laws, and other legal regulations.
 """
 
-from typing import Optional
+from typing import Optional, Any
 from pydantic import BaseModel, Field
 
 
@@ -51,6 +51,6 @@ class LawSection(BaseModel):
     class Config:
         """Pydantic configuration."""
 
-        json_encoders = {
+        json_encoders: dict[type, Any] = {
             # Add any custom encoders if needed
         }

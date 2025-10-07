@@ -34,10 +34,10 @@ class AmeldingRule:
     priority: str = "medium"
     complexity: str = "low"
     last_updated: str = datetime.now().isoformat()
-    technical_details: List[str] = None
-    validation_rules: List[str] = None
-    field_mappings: Dict[str, str] = None
-    business_rules: List[str] = None
+    technical_details: List[str] | None = None
+    validation_rules: List[str] | None = None
+    field_mappings: Dict[str, str] | None = None
+    business_rules: List[str] | None = None
 
     def __post_init__(self):
         if self.technical_details is None:
@@ -216,7 +216,7 @@ def extract_rules_from_lists(
                 rules.append(
                     AmeldingRule(
                         rule_id=rule_id,
-                        title=f"Regel {i+1}: {item_text[:50]}...",
+                        title=f"Regel {i + 1}: {item_text[:50]}...",
                         description=item_text,
                         category=category,
                         applies_to=applies_to,
@@ -455,7 +455,7 @@ def extract_validation_rules(
 
     # Look for validation-related content
     validation_elements = main_content.find_all(
-        text=re.compile(r"validering|valider|gyldig|ugyldig|feil|error")
+        string=re.compile(r"validering|valider|gyldig|ugyldig|feil|error")
     )
 
     for element in validation_elements:
@@ -494,7 +494,7 @@ def extract_submission_rules(
 
     # Look for deadline and submission content
     deadline_elements = main_content.find_all(
-        text=re.compile(r"frist|deadline|innlever|submission|måned|år")
+        string=re.compile(r"frist|deadline|innlever|submission|måned|år")
     )
 
     for element in deadline_elements:
@@ -533,7 +533,7 @@ def extract_business_logic_rules(
 
     # Look for calculation and business logic content
     calc_elements = main_content.find_all(
-        text=re.compile(r"beregn|kalkuler|formel|regel|logikk")
+        string=re.compile(r"beregn|kalkuler|formel|regel|logikk")
     )
 
     for element in calc_elements:

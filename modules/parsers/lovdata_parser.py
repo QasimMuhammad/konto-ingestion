@@ -5,7 +5,7 @@ Extracts sections, headings, and text content from Lovdata.no HTML pages.
 
 import re
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, Any
 from bs4 import BeautifulSoup, Tag
 
 from ..cleaners.norwegian_text_normalizer import normalize_text
@@ -53,7 +53,7 @@ def parse_lovdata_html(
         "div[class*='kapittel']",
     ]
 
-    found_sections = []
+    found_sections: list[Any] = []
     for selector in section_selectors:
         elements = soup.select(selector)
         if elements:
@@ -111,15 +111,21 @@ def _extract_section_from_element(
         )
 
     except Exception as e:
-        print(f"Error extracting section from element: {e}")
+        from ..logger import logger
+
+        logger.warning(f"Error extracting section from element: {e}")
         return None
 
 
 def _extract_section_id(element: Tag) -> Optional[str]:
     """Extract section ID from element attributes or content."""
     # Try ID attribute first
-    if element.get("id"):
-        return element.get("id")
+    element_id = element.get("id")
+    if element_id:
+        # Handle both single string and list of strings
+        if isinstance(element_id, list):
+            return element_id[0] if element_id else None
+        return element_id
 
     # Look for section markers in text content
     text = element.get_text()
@@ -144,10 +150,10 @@ def _extract_heading(element: Tag) -> str:
     # Look for heading tags within the element
     heading_tags = element.find_all(["h1", "h2", "h3", "h4", "h5", "h6"])
     if heading_tags:
-        return heading_tags[0].get_text(" ", strip=True)
+        return str(heading_tags[0].get_text(" ", strip=True))
 
     # If no heading tags, use first line of text
-    text = element.get_text(" ", strip=True)
+    text = str(element.get_text(" ", strip=True))
     first_line = text.split("\n")[0].strip()
     return first_line[:100] if first_line else ""
 

@@ -139,7 +139,7 @@ def validate_quality_report(file_path: Path) -> Tuple[bool, List[str]]:
 
 def validate_silver_directory(silver_dir: Path) -> Dict[str, Any]:
     """Validate all Silver layer files."""
-    results = {
+    results: dict[str, Any] = {
         "total_files": 0,
         "valid_files": 0,
         "invalid_files": 0,
@@ -196,30 +196,32 @@ def validate_silver_directory(silver_dir: Path) -> Dict[str, Any]:
 
 def print_validation_report(results: Dict[str, Any]) -> None:
     """Print validation report."""
-    print("\n" + "=" * 60)
-    print("SILVER LAYER VALIDATION REPORT")
-    print("=" * 60)
-    print(f"Total files: {results['total_files']}")
-    print(f"Valid files: {results['valid_files']}")
-    print(f"Invalid files: {results['invalid_files']}")
-    print(f"Success rate: {results['valid_files'] / results['total_files'] * 100:.1f}%")
+    log.info("\n" + "=" * 60)
+    log.info("SILVER LAYER VALIDATION REPORT")
+    log.info("=" * 60)
+    log.info(f"Total files: {results['total_files']}")
+    log.info(f"Valid files: {results['valid_files']}")
+    log.info(f"Invalid files: {results['invalid_files']}")
+    log.info(
+        f"Success rate: {results['valid_files'] / results['total_files'] * 100:.1f}%"
+    )
 
     if results["errors"]:
-        print("\nERRORS:")
-        print("-" * 40)
+        log.error("\nERRORS:")
+        log.error("-" * 40)
         for error in results["errors"]:
-            print(f"  • {error}")
+            log.error(f"  • {error}")
 
-    print("\nFILE DETAILS:")
-    print("-" * 40)
+    log.info("\nFILE DETAILS:")
+    log.info("-" * 40)
     for file_name, file_result in results["file_results"].items():
         status = "✓ VALID" if file_result["valid"] else "✗ INVALID"
-        print(f"  {file_name}: {status}")
+        log.info(f"  {file_name}: {status}")
         if file_result["errors"]:
             for error in file_result["errors"]:
-                print(f"    - {error}")
+                log.error(f"    - {error}")
 
-    print("=" * 60)
+    log.info("=" * 60)
 
 
 @register_script("validate-silver")

@@ -72,6 +72,17 @@ This plan operationalizes that approach into concrete engineering steps, week by
 
 Schemas will be defined using Pydantic models and exported as JSON Schema.
 
+### Data Versioning with DVC
+- **DVC Integration**: Track large data files (Bronze/Silver/Gold) with Git LFS and DVC
+- **Data Pipeline**: DVC stages for ingestion → processing → validation → export
+- **Reproducibility**: `dvc repro` to rebuild data artifacts from scratch
+- **Storage**: Remote storage (S3/Azure) for data artifacts, Git for code
+- **Benefits**: 
+  - Track data lineage and changes over time
+  - Share datasets across team members
+  - Reproducible data processing pipelines
+  - Efficient storage of large files
+
 ---
 
 ## 5. Current Progress Summary
@@ -131,6 +142,17 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 - Infra as code: ADLS Gen2, Postgres(pgvector), Event Hubs, Databricks, Purview, Key Vault.
 - Security: Norway residency, RBAC, private endpoints, encryption, deletion workflows.
 - Cost governance & DR plan (Norway East/West).
+
+### Week 13–14: DVC Data Versioning (NEW)
+- **DVC Setup**: Initialize DVC, configure remote storage (Azure Blob/S3)
+- **Data Pipeline**: Convert ingestion scripts to DVC stages
+- **Versioning**: Track Bronze/Silver/Gold data artifacts with Git LFS
+- **Reproducibility**: `dvc repro` pipeline for end-to-end data processing
+- **Benefits**: 
+  - Track data lineage and changes over time
+  - Share datasets across team members
+  - Reproducible data processing pipelines
+  - Efficient storage of large files
 
 ---
 
@@ -602,6 +624,11 @@ python scripts/infer_lora.py --prompt "Definer kort: kreditnota"
 > **Files**: `scripts/export_gold_sft.py`, `modules/exporters/jsonl_exporter.py`.  
 > **Done when**: Files exist under `data/gold/train/` and pass a JSONL sanity check.
 
+### Prompt G — DVC Data Versioning Setup
+> **Goal**: Initialize DVC and convert data processing to reproducible pipeline.  
+> **Files**: `dvc.yaml`, `.dvc/`, `data/` (tracked), remote storage config.  
+> **Done when**: `dvc repro` rebuilds entire data pipeline from scratch; data artifacts versioned.
+
 ---
 
 ## Command Cheatsheet
@@ -620,6 +647,14 @@ uv run scripts/export_gold_sft.py
 
 # Run tests (if pytest configured)
 pytest -q
+
+# DVC Commands (Week 13-14)
+dvc init
+dvc remote add -d storage azure://container/path
+dvc add data/bronze data/silver data/gold
+dvc push  # Upload to remote storage
+dvc pull  # Download from remote storage
+dvc repro  # Rebuild data pipeline
 ```
 
 ---

@@ -21,8 +21,8 @@ def process_amelding_sources(
     sources: List[Dict[str, str]], bronze_dir: Path, silver_dir: Path
 ) -> Dict[str, Any]:
     """Process A-meldingen sources from Bronze to Silver."""
-    all_rules = []
-    processing_stats = {
+    all_rules: list[Any] = []
+    processing_stats: dict[str, Any] = {
         "total_sources": 0,
         "processed_sources": 0,
         "total_rules": 0,
@@ -176,20 +176,20 @@ class ProcessAmeldingToSilverScript(BaseScript):
         stats = process_amelding_sources(amelding_sources, bronze_dir, silver_dir)
 
         # Print summary
-        print("\n" + "=" * 50)
-        print("A-MELDINGEN PROCESSING SUMMARY")
-        print("=" * 50)
-        print(f"Total sources: {stats['total_sources']}")
-        print(f"Processed sources: {stats['processed_sources']}")
-        print(f"Total rules extracted: {stats['total_rules']}")
-        print(f"Errors: {len(stats['errors'])}")
+        log.info("\n" + "=" * 50)
+        log.info("A-MELDINGEN PROCESSING SUMMARY")
+        log.info("=" * 50)
+        log.info(f"Total sources: {stats['total_sources']}")
+        log.info(f"Processed sources: {stats['processed_sources']}")
+        log.info(f"Total rules extracted: {stats['total_rules']}")
+        log.info(f"Errors: {len(stats['errors'])}")
 
         if stats["errors"]:
-            print("\nErrors:")
+            log.error("\nErrors:")
             for error in stats["errors"]:
-                print(f"  • {error}")
+                log.error(f"  • {error}")
 
-        print("=" * 50)
+        log.info("=" * 50)
         return 0
 
 
