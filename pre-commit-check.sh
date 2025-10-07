@@ -19,6 +19,9 @@ uv sync
 echo "🔧 Fixing linting issues..."
 uv run ruff check --fix .
 
+echo "📝 Formatting code..."
+uv run ruff format .
+
 echo "🔍 Checking for remaining issues..."
 uv run ruff check .
 
