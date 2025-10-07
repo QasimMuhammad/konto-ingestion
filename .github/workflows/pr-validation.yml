@@ -68,7 +68,6 @@ jobs:
         uv run konto-ingest --help > /dev/null
         uv run process-rates-to-silver --help > /dev/null
         uv run validate-silver --help > /dev/null
-        uv run validate-silver-enhanced --help > /dev/null
         echo "All scripts execute successfully"
 
     - name: Check for TODO/FIXME comments
@@ -138,7 +137,7 @@ jobs:
         # Only run validation if Silver data exists
         if [ -d "data/silver" ] && [ "$(ls -A data/silver 2>/dev/null)" ]; then
           echo "Silver data found, running validation..."
-          uv run validate-silver-enhanced || echo "Validation completed with issues"
+          uv run validate-silver || echo "Validation completed with issues"
         else
           echo "No Silver data found, skipping validation"
         fi
