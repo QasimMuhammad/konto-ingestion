@@ -65,7 +65,7 @@ uv run main.py list
 uv run scripts/process_bronze_to_silver.py
 
 # Validate silver data
-uv run validate-silver-enhanced
+uv run validate-silver
 ```
 
 ### Debug Tools

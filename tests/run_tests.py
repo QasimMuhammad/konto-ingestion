@@ -7,9 +7,6 @@ import sys
 import unittest
 from pathlib import Path
 
-# Add project root to path
-sys.path.append(str(Path(__file__).parent.parent))
-
 
 def run_tests():
     """Run all tests."""

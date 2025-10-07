@@ -4,13 +4,8 @@ Unit tests for parser modules.
 """
 
 import unittest
-from pathlib import Path
-import sys
 
-# Add project root to path
-sys.path.append(str(Path(__file__).parent.parent))
-
-from modules.parsers.rates_parser import parse_mva_rates, VatRate
+from modules.parsers.rates_parser import VatRate, parse_mva_rates
 from modules.parsers.amelding_parser import (
     parse_amelding_overview,
     parse_amelding_forms,
