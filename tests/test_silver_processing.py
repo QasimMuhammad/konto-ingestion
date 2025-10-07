@@ -7,10 +7,6 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-import sys
-
-# Add project root to path
-sys.path.append(str(Path(__file__).parent.parent))
 
 from modules.cleaners.text_normalizer import (
     normalize_text,
