@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  workflow_dispatch:  # Manual trigger only
+  workflow_dispatch:
   pull_request:
-    branches: [ main ]  # Shows up in PR checks but requires manual trigger
+    branches: [ main ]
 
 jobs:
   test:
