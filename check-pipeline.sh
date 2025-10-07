@@ -98,7 +98,6 @@ run_check "Core module imports" "uv run python -c 'import modules.logger; import
 run_check "Script execution test - konto-ingest" "uv run konto-ingest --help > /dev/null"
 run_check "Script execution test - process-rates-to-silver" "uv run process-rates-to-silver --help > /dev/null"
 run_check "Script execution test - validate-silver" "uv run validate-silver --help > /dev/null"
-run_check "Script execution test - validate-silver-enhanced" "uv run validate-silver-enhanced --help > /dev/null"
 
 echo "=========================================="
 print_status "Running Code Quality Validations"
@@ -154,7 +153,7 @@ mkdir -p data/bronze data/silver data/gold
 # Only run validation if Silver data exists
 if [ -d "data/silver" ] && [ "$(ls -A data/silver 2>/dev/null)" ]; then
     print_status "Silver data found, running validation..."
-    run_check "Silver data validation" "uv run validate-silver-enhanced || true"
+    run_check "Silver data validation" "uv run validate-silver || true"
 else
     print_warning "No Silver data found, skipping data validation"
 fi
