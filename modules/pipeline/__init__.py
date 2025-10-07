@@ -10,8 +10,8 @@ from .source_loader import SourceLoader
 
 __all__ = [
     "BasePipeline",
-    "PipelineResult", 
+    "PipelineResult",
     "IngestionPipeline",
     "ProcessingPipeline",
-    "SourceLoader"
+    "SourceLoader",
 ]

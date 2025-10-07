@@ -52,27 +52,27 @@ validate_config()
 # Convenience functions
 def get_data_dir() -> Path:
     """Get the data directory path."""
-    return PROJECT_ROOT / settings.data_dir
+    return PROJECT_ROOT / str(settings.data_dir)
 
 
 def get_bronze_dir() -> Path:
     """Get the Bronze layer directory path."""
-    return PROJECT_ROOT / settings.bronze_dir
+    return PROJECT_ROOT / str(settings.bronze_dir)
 
 
 def get_silver_dir() -> Path:
     """Get the Silver layer directory path."""
-    return PROJECT_ROOT / settings.silver_dir
+    return PROJECT_ROOT / str(settings.silver_dir)
 
 
 def get_gold_dir() -> Path:
     """Get the Gold layer directory path."""
-    return PROJECT_ROOT / settings.gold_dir
+    return PROJECT_ROOT / str(settings.gold_dir)
 
 
 def get_sources_file() -> Path:
     """Get the sources CSV file path."""
-    return PROJECT_ROOT / settings.sources_file
+    return PROJECT_ROOT / str(settings.sources_file)
 
 
 def is_azure_mode() -> bool:

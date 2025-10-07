@@ -76,7 +76,7 @@ def extract_legal_metadata(
     """
     soup = BeautifulSoup(html_content, "html.parser")
 
-    legal_metadata = {}
+    legal_metadata: dict[str, Any] = {}
 
     # Extract law title
     title_selectors = [

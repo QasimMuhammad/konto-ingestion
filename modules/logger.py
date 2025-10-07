@@ -13,11 +13,11 @@ from .settings import settings
 def setup_logging(
     level: Optional[str] = None,
     log_file: Optional[Path] = None,
-    format_string: Optional[str] = None
+    format_string: Optional[str] = None,
 ) -> None:
     """
     Setup loguru logging configuration.
-    
+
     Args:
         level: Log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
         log_file: Optional log file path
@@ -25,14 +25,16 @@ def setup_logging(
     """
     # Remove default handler
     logger.remove()
-    
+
     # Get configuration from settings
     log_level = level or settings.get("log_level", "INFO")
-    log_format = format_string or settings.get("log_format", 
-        "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}")
+    log_format = format_string or settings.get(
+        "log_format",
+        "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}",
+    )
     log_rotation = settings.get("log_rotation", "10 MB")
     log_retention = settings.get("log_retention", "7 days")
-    
+
     # Add console handler
     logger.add(
         sys.stderr,
@@ -40,9 +42,9 @@ def setup_logging(
         format=log_format,
         colorize=True,
         backtrace=True,
-        diagnose=True
+        diagnose=True,
     )
-    
+
     # Add file handler if specified
     if log_file:
         log_file.parent.mkdir(parents=True, exist_ok=True)
@@ -53,9 +55,9 @@ def setup_logging(
             rotation=log_rotation,
             retention=log_retention,
             backtrace=True,
-            diagnose=True
+            diagnose=True,
         )
-    
+
     # Set up trace logging for debug mode
     if log_level == "DEBUG":
         logger.add(
@@ -63,17 +65,17 @@ def setup_logging(
             level="TRACE",
             format="<green>{time:HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
             colorize=True,
-            filter=lambda record: record["level"].name == "TRACE"
+            filter=lambda record: record["level"].name == "TRACE",
         )
 
 
-def get_logger(name: str = None):
+def get_logger(name: str | None = None):
     """
     Get a logger instance.
-    
+
     Args:
         name: Optional logger name
-        
+
     Returns:
         Logger instance
     """

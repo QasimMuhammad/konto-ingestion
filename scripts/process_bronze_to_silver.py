@@ -79,14 +79,14 @@ def get_source_metadata(
 
 def _build_section_url(section, source_metadata: Dict[str, Any]) -> str:
     """Build section-specific URL with anchor."""
-    base_url = section.source_url or source_metadata.get("url", "")
+    base_url = str(section.source_url or source_metadata.get("url", ""))
     if not base_url:
         return ""
 
     # Extract section label for anchor (e.g., "§ 3-1" -> "#§-3-1")
     section_label = ""
     if section.heading:
-        section_match = re.match(r"(§\s*[\d\-]+)", section.heading)
+        section_match = re.match(r"(§\s*[\d\-]+)", str(section.heading))
         if section_match:
             section_label = section_match.group(1).strip()
 
@@ -185,7 +185,7 @@ def process_lovdata_files(
     silver_dir: Path,
     sources_lookup: Dict[str, Dict[str, Any]],
     test_mode: bool = False,
-    specific_files: List[str] = None,
+    specific_files: List[str] | None = None,
 ) -> List[Dict[str, Any]]:
     """Process Lovdata HTML files into Silver format with cleaned text using sources.csv metadata."""
     sections = []
@@ -526,7 +526,7 @@ class ProcessBronzeToSilverScript(BaseScript):
         save_silver_sections(sections, silver_dir)
 
         # Log summary by domain
-        domain_counts = {}
+        domain_counts: dict[str, int] = {}
         for section in sections:
             domain = section.get("domain", "")
             domain_counts[domain] = domain_counts.get(domain, 0) + 1

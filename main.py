@@ -106,25 +106,25 @@ def list_sources(domain: str | None = None, freq: str | None = None) -> None:
     """List sources with optional filtering."""
     if domain:
         sources = get_sources_by_domain(domain)
-        print(f"\nSources for domain '{domain}':")
+        log.info(f"\nSources for domain '{domain}':")
     elif freq:
         sources = get_sources_by_crawl_freq(freq)
-        print(f"\nSources with crawl frequency '{freq}':")
+        log.info(f"\nSources with crawl frequency '{freq}':")
     else:
         sources = load_all_sources()
-        print("\nAll sources:")
+        log.info("\nAll sources:")
 
     if not sources:
-        print("No sources found.")
+        log.info("No sources found.")
         return
 
     for source in sources:
-        print(f"  {source['source_id']}: {source['title']}")
-        print(f"    Domain: {source.get('domain', 'N/A')}")
-        print(f"    Type: {source.get('source_type', 'N/A')}")
-        print(f"    Publisher: {source.get('publisher', 'N/A')}")
-        print(f"    Frequency: {source.get('crawl_freq', 'N/A')}")
-        print()
+        log.info(f"  {source['source_id']}: {source['title']}")
+        log.info(f"    Domain: {source.get('domain', 'N/A')}")
+        log.info(f"    Type: {source.get('source_type', 'N/A')}")
+        log.info(f"    Publisher: {source.get('publisher', 'N/A')}")
+        log.info(f"    Frequency: {source.get('crawl_freq', 'N/A')}")
+        log.info("")
 
 
 def main():

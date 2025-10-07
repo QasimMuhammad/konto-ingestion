@@ -3,7 +3,7 @@ Tax schema definitions for VAT rates and tax-related data.
 Handles Norwegian VAT rates, tax calculations, and tax regulations.
 """
 
-from typing import Optional, List
+from typing import Optional, List, Any
 from pydantic import BaseModel, Field
 
 
@@ -33,6 +33,6 @@ class VatRate(BaseModel):
     class Config:
         """Pydantic configuration."""
 
-        json_encoders = {
+        json_encoders: dict[type, Any] = {
             # Add any custom encoders if needed
         }
