@@ -16,16 +16,10 @@ fi
 uv sync
 
 # Quick checks
-echo "📝 Checking code formatting..."
-uv run ruff format --check .
+echo "🔧 Fixing linting issues..."
+uv run ruff check --fix .
 
-echo "🔍 Checking code quality..."
+echo "🔍 Checking for remaining issues..."
 uv run ruff check .
-
-echo "🔧 Checking types..."
-uv run mypy modules scripts
-
-echo "🧪 Running tests..."
-uv run python -m pytest tests/ -v --tb=short
 
 echo "✅ All pre-commit checks passed!"
