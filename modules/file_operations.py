@@ -36,7 +36,7 @@ def write_bronze_if_changed(path: Path, content: bytes) -> Dict[str, Any]:
     }
 
 
-def ensure_data_directories(base_path: Path = None) -> Dict[str, Path]:
+def ensure_data_directories(base_path: Path | None = None) -> Dict[str, Path]:
     """Ensure Bronze, Silver, and Gold directories exist."""
     if base_path is None:
         base_path = Path(__file__).parent.parent / "data"

@@ -34,11 +34,11 @@ class SpecNode:
     last_updated: str = datetime.now().isoformat()
     data_type: str = ""
     format: str = ""
-    validation_rules: List[str] = None
-    business_rules: List[str] = None
-    examples: List[str] = None
-    dependencies: List[str] = None
-    technical_details: List[str] = None
+    validation_rules: List[str] | None = None
+    business_rules: List[str] | None = None
+    examples: List[str] | None = None
+    dependencies: List[str] | None = None
+    technical_details: List[str] | None = None
 
     def __post_init__(self):
         if self.validation_rules is None:
@@ -709,7 +709,10 @@ def parse_saft_documentation(
         main_content = soup
 
     # Extract nodes from headings
-    headings = main_content.find_all(["h1", "h2", "h3", "h4", "h5", "h6"])
+    if hasattr(main_content, "find_all"):
+        headings = main_content.find_all(["h1", "h2", "h3", "h4", "h5", "h6"])
+    else:
+        headings = []
 
     for heading in headings:
         heading_text = heading.get_text(" ", strip=True)

@@ -43,7 +43,7 @@ def process_saft_pdfs_to_silver() -> Dict[str, Any]:
             return {"total_nodes": 0, "errors": ["No nodes extracted"]}
 
         # Convert to JSON format
-        all_nodes = []
+        all_nodes: list[dict[str, Any]] = []
         for node in nodes:
             node_dict = {
                 "spec": node.spec,
@@ -81,20 +81,24 @@ def process_saft_pdfs_to_silver() -> Dict[str, Any]:
         log.info(f"Wrote {len(all_nodes)} SAF-T nodes to {silver_file}")
 
         # Print summary
-        print("\n" + "=" * 60)
-        print("SAF-T PDF PROCESSING SUMMARY")
-        print("=" * 60)
-        print(f"Total nodes extracted: {len(all_nodes)}")
-        print(f"File: {silver_file}")
-        print("=" * 60)
+        log.info("\n" + "=" * 60)
+        log.info("SAF-T PDF PROCESSING SUMMARY")
+        log.info("=" * 60)
+        log.info(f"Total nodes extracted: {len(all_nodes)}")
+        log.info(f"File: {silver_file}")
+        log.info("=" * 60)
 
         # Show sample nodes
-        print("\nSample nodes:")
-        for i, node in enumerate(all_nodes[:3]):
-            print(f"\n{i+1}. {node['node_path']}")
-            print(f"   Cardinality: {node['cardinality']}")
-            print(f"   Data Type: {node['data_type']}")
-            print(f"   Description: {node['description'][:80]}...")
+        log.info("\nSample nodes:")
+        for i, node_dict in enumerate(all_nodes[:3]):
+            log.info(f"\n{i + 1}. {node_dict['node_path']}")
+            log.info(f"   Cardinality: {node_dict['cardinality']}")
+            log.info(f"   Data Type: {node_dict['data_type']}")
+            description = node_dict["description"]
+            if isinstance(description, str):
+                log.info(f"   Description: {description[:80]}...")
+            else:
+                log.info(f"   Description: {str(description)[:80]}...")
 
         return {
             "total_nodes": len(all_nodes),
@@ -119,10 +123,10 @@ class ProcessSaftPdfsToSilverScript(BaseScript):
         result = process_saft_pdfs_to_silver()
 
         if result["errors"]:
-            print(f"\nErrors: {result['errors']}")
+            log.error(f"\nErrors: {result['errors']}")
             return 1
         else:
-            print(f"\nSuccessfully processed {result['total_nodes']} SAF-T nodes")
+            log.info(f"\nSuccessfully processed {result['total_nodes']} SAF-T nodes")
             return 0
 
 

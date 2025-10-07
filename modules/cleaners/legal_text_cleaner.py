@@ -111,17 +111,26 @@ def extract_section_html(html_content: str, section_id: str) -> str:
 
     if section_element:
         # Remove navigation and unwanted elements
-        for element in section_element.find_all(["nav", "header", "footer", "aside"]):
-            element.decompose()
+        if hasattr(section_element, "find_all"):
+            nav_elements = section_element.find_all(
+                ["nav", "header", "footer", "aside"]
+            )
+            for element in nav_elements:
+                if hasattr(element, "decompose"):
+                    element.decompose()
 
-        # Remove script and style elements
-        for element in section_element.find_all(["script", "style"]):
-            element.decompose()
+            # Remove script and style elements
+            script_elements = section_element.find_all(["script", "style"])
+            for element in script_elements:
+                if hasattr(element, "decompose"):
+                    element.decompose()
 
         # Remove navigation links
-        for element in section_element.find_all("a", href=True):
-            if "del-paragraf" in element.get("href", "").lower():
-                element.decompose()
+        if hasattr(section_element, "find_all"):
+            for element in section_element.find_all("a", href=True):
+                if "del-paragraf" in element.get("href", "").lower():
+                    if hasattr(element, "decompose"):
+                        element.decompose()
 
         return str(section_element)
 
@@ -129,8 +138,13 @@ def extract_section_html(html_content: str, section_id: str) -> str:
     body = soup.find("body")
     if body:
         # Remove unwanted elements
-        for element in body.find_all(["script", "style", "nav", "header", "footer"]):
-            element.decompose()
+        if hasattr(body, "find_all"):
+            unwanted_elements = body.find_all(
+                ["script", "style", "nav", "header", "footer"]
+            )
+            for element in unwanted_elements:
+                if hasattr(element, "decompose"):
+                    element.decompose()
         return str(body)
 
     return ""
@@ -209,7 +223,7 @@ def extract_legal_metadata(
     """
     soup = BeautifulSoup(html_content, "html.parser")
 
-    legal_metadata = {}
+    legal_metadata: dict[str, Any] = {}
 
     # Extract law title - prioritize h1 over title, and clean it properly
     law_title = ""
