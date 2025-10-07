@@ -44,7 +44,7 @@ class SpecNode(BaseModel):
     class Config:
         """Pydantic configuration."""
 
-        json_encoders = {
+        json_encoders: dict[type, Any] = {
             # Add any custom encoders if needed
         }
 
@@ -85,6 +85,6 @@ class AmeldingRule(BaseModel):
     class Config:
         """Pydantic configuration."""
 
-        json_encoders = {
+        json_encoders: dict[type, Any] = {
             # Add any custom encoders if needed
         }

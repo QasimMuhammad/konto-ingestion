@@ -16,7 +16,9 @@ try:
     import pdfplumber
     from PyPDF2 import PdfReader
 except ImportError:
-    print(
+    from ..logger import logger
+
+    logger.error(
         "PDF parsing libraries not available. Install with: uv add PyPDF2 pdfplumber pymupdf"
     )
     raise
@@ -45,11 +47,11 @@ class SpecNode:
     last_updated: str = datetime.now().isoformat()
     data_type: str = ""
     format: str = ""
-    validation_rules: List[str] = None
-    business_rules: List[str] = None
-    examples: List[str] = None
-    dependencies: List[str] = None
-    technical_details: List[str] = None
+    validation_rules: List[str] | None = None
+    business_rules: List[str] | None = None
+    examples: List[str] | None = None
+    dependencies: List[str] | None = None
+    technical_details: List[str] | None = None
 
     def __post_init__(self):
         if self.validation_rules is None:
@@ -87,7 +89,9 @@ class SAFTPDFParser:
 
             return pdf_path
         except Exception as e:
-            print(f"Failed to download PDF {url}: {e}")
+            from ..logger import logger
+
+            logger.error(f"Failed to download PDF {url}: {e}")
             return None
 
     def extract_text_from_pdf(self, pdf_path: Path) -> str:
@@ -101,7 +105,9 @@ class SAFTPDFParser:
                 text += page.get_text() + "\n"
             doc.close()
         except Exception as e:
-            print(f"PyMuPDF failed: {e}")
+            from ..logger import logger
+
+            logger.warning(f"PyMuPDF failed: {e}")
 
         # Method 2: pdfplumber - good for tables and structured content
         if not text.strip():
@@ -112,7 +118,9 @@ class SAFTPDFParser:
                         if page_text:
                             text += page_text + "\n"
             except Exception as e:
-                print(f"pdfplumber failed: {e}")
+                from ..logger import logger
+
+                logger.warning(f"pdfplumber failed: {e}")
 
         # Method 3: PyPDF2 - fallback
         if not text.strip():
@@ -122,11 +130,13 @@ class SAFTPDFParser:
                     for page in reader.pages:
                         text += page.extract_text() + "\n"
             except Exception as e:
-                print(f"PyPDF2 failed: {e}")
+                from ..logger import logger
+
+                logger.warning(f"PyPDF2 failed: {e}")
 
         return text
 
-    def extract_tables_from_pdf(self, pdf_path: Path) -> List[List[List[str]]]:
+    def extract_tables_from_pdf(self, pdf_path: Path) -> List[List[List[str | None]]]:
         """Extract tables from PDF."""
         tables = []
         try:
@@ -136,7 +146,9 @@ class SAFTPDFParser:
                     if page_tables:
                         tables.extend(page_tables)
         except Exception as e:
-            print(f"Table extraction failed: {e}")
+            from ..logger import logger
+
+            logger.warning(f"Table extraction failed: {e}")
         return tables
 
     def parse_technical_description_pdf(
@@ -264,23 +276,25 @@ class SAFTPDFParser:
         return nodes
 
     def _extract_nodes_from_table(
-        self, table: List[List[str]], source_url: str, sha256: str
+        self, table: List[List[str | None]], source_url: str, sha256: str
     ) -> List[SpecNode]:
         """Extract nodes from table data."""
-        nodes = []
+        nodes: list[SpecNode] = []
 
         if not table or len(table) < 2:
             return nodes
 
         # Debug: print table structure
-        print(f"Table with {len(table)} rows:")
+        from ..logger import logger
+
+        logger.debug(f"Table with {len(table)} rows:")
         for i, row in enumerate(table[:3]):  # Show first 3 rows
             if row:  # Check if row is not None
-                print(
+                logger.debug(
                     f"  Row {i}: {[cell[:30] + '...' if cell and len(cell) > 30 else cell for cell in row]}"
                 )
             else:
-                print(f"  Row {i}: [None]")
+                logger.debug(f"  Row {i}: [None]")
 
         # Assume first row is header
         headers = [cell.strip() if cell else "" for cell in table[0]]
@@ -313,7 +327,9 @@ class SAFTPDFParser:
             elif any(word in header_lower for word in ["type", "datatype", "format"]):
                 type_col = i
 
-        print(
+        from ..logger import logger
+
+        logger.debug(
             f"Detected columns - Path: {path_col}, Req: {req_col}, Cardinality: {cardinality_col}, Description: {description_col}, Type: {type_col}"
         )
 
@@ -323,31 +339,34 @@ class SAFTPDFParser:
                 continue
 
             # Get values with safe indexing
-            node_path = (
-                row[path_col].strip()
-                if path_col is not None and path_col < len(row) and row[path_col]
-                else ""
+            node_path_value = (
+                row[path_col] if path_col is not None and path_col < len(row) else None
             )
+            node_path = node_path_value.strip() if node_path_value is not None else ""
+
             # req_value = row[req_col].strip() if req_col is not None and req_col < len(row) and row[req_col] else ""  # Not currently used
+            cardinality_value = (
+                row[cardinality_col]
+                if cardinality_col is not None and cardinality_col < len(row)
+                else None
+            )
             cardinality = (
-                row[cardinality_col].strip()
-                if cardinality_col is not None
-                and cardinality_col < len(row)
-                and row[cardinality_col]
-                else ""
+                cardinality_value.strip() if cardinality_value is not None else ""
+            )
+
+            description_value = (
+                row[description_col]
+                if description_col is not None and description_col < len(row)
+                else None
             )
             description = (
-                row[description_col].strip()
-                if description_col is not None
-                and description_col < len(row)
-                and row[description_col]
-                else ""
+                description_value.strip() if description_value is not None else ""
             )
-            data_type = (
-                row[type_col].strip()
-                if type_col is not None and type_col < len(row) and row[type_col]
-                else ""
+
+            data_type_value = (
+                row[type_col] if type_col is not None and type_col < len(row) else None
             )
+            data_type = data_type_value.strip() if data_type_value is not None else ""
 
             # Skip rows without a proper element name
             if not node_path or len(node_path) < 2:
@@ -377,11 +396,15 @@ class SAFTPDFParser:
             )
             if node:
                 nodes.append(node)
-                print(
+                from ..logger import logger
+
+                logger.debug(
                     f"  Added node: {node_path} ({cardinality}) - {description[:50]}..."
                 )
 
-        print(f"Extracted {len(nodes)} nodes from table")
+        from ..logger import logger
+
+        logger.debug(f"Extracted {len(nodes)} nodes from table")
         return nodes
 
     def _create_node_from_text(
@@ -558,31 +581,39 @@ def parse_saft_pdfs_from_sources(sources: List[Dict[str, str]]) -> List[SpecNode
     }
 
     for pdf_name, pdf_url in pdf_urls.items():
-        print(f"Processing {pdf_name} PDF...")
+        from ..logger import logger
+
+        logger.info(f"Processing {pdf_name} PDF...")
 
         # Download PDF
         pdf_path = parser.download_pdf(pdf_url, f"saft_{pdf_name}")
         if not pdf_path:
-            print(f"Failed to download {pdf_name} PDF")
+            from ..logger import logger
+
+            logger.error(f"Failed to download {pdf_name} PDF")
             continue
 
         # Parse PDF based on type
-        if pdf_name == "technical_description":
-            nodes = parser.parse_technical_description_pdf(
-                pdf_path, pdf_url, "pdf_hash"
-            )
-        elif pdf_name == "header":
-            nodes = parser.parse_header_pdf(pdf_path, pdf_url, "pdf_hash")
-        elif pdf_name == "masterfiles":
-            nodes = parser.parse_masterfiles_pdf(pdf_path, pdf_url, "pdf_hash")
-        elif pdf_name == "generalledger":
-            nodes = parser.parse_generalledger_pdf(pdf_path, pdf_url, "pdf_hash")
-        else:
-            nodes = parser.parse_technical_description_pdf(
-                pdf_path, pdf_url, "pdf_hash"
-            )
+        # Compute actual PDF hash
+        from ..hash_utils import sha256_bytes
 
-        print(f"Extracted {len(nodes)} nodes from {pdf_name}")
+        pdf_content = pdf_path.read_bytes()
+        pdf_hash = sha256_bytes(pdf_content)
+
+        if pdf_name == "technical_description":
+            nodes = parser.parse_technical_description_pdf(pdf_path, pdf_url, pdf_hash)
+        elif pdf_name == "header":
+            nodes = parser.parse_header_pdf(pdf_path, pdf_url, pdf_hash)
+        elif pdf_name == "masterfiles":
+            nodes = parser.parse_masterfiles_pdf(pdf_path, pdf_url, pdf_hash)
+        elif pdf_name == "generalledger":
+            nodes = parser.parse_generalledger_pdf(pdf_path, pdf_url, pdf_hash)
+        else:
+            nodes = parser.parse_technical_description_pdf(pdf_path, pdf_url, pdf_hash)
+
+        from ..logger import logger
+
+        logger.info(f"Extracted {len(nodes)} nodes from {pdf_name}")
         all_nodes.extend(nodes)
 
     return all_nodes
@@ -600,15 +631,19 @@ def main():
 
     nodes = parse_saft_pdfs_from_sources(sources)
 
-    print(f"\nExtracted {len(nodes)} SAF-T nodes from PDFs")
+    from ..logger import logger
+
+    logger.info(f"\nExtracted {len(nodes)} SAF-T nodes from PDFs")
 
     # Show sample nodes
+    from ..logger import logger
+
     for i, node in enumerate(nodes[:5]):
-        print(f"\nNode {i+1}:")
-        print(f"  Path: {node.node_path}")
-        print(f"  Cardinality: {node.cardinality}")
-        print(f"  Data Type: {node.data_type}")
-        print(f"  Description: {node.description[:100]}...")
+        logger.info(f"\nNode {i + 1}:")
+        logger.info(f"  Path: {node.node_path}")
+        logger.info(f"  Cardinality: {node.cardinality}")
+        logger.info(f"  Data Type: {node.data_type}")
+        logger.info(f"  Description: {node.description[:100]}...")
 
 
 if __name__ == "__main__":

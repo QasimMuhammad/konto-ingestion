@@ -41,7 +41,7 @@ class QualityReport(BaseModel):
     class Config:
         """Pydantic configuration."""
 
-        json_encoders = {
+        json_encoders: dict[type, Any] = {
             # Add any custom encoders if needed
         }
 
@@ -70,6 +70,6 @@ class SilverMetadata(BaseModel):
     class Config:
         """Pydantic configuration."""
 
-        json_encoders = {
+        json_encoders: dict[type, Any] = {
             # Add any custom encoders if needed
         }

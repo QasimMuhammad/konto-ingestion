@@ -24,8 +24,8 @@ class VatRate:
     source_url: str
     sha256: str
     category: str = ""
-    applies_to: List[str] = None
-    exceptions: List[str] = None
+    applies_to: List[str] | None = None
+    exceptions: List[str] | None = None
     notes: str = ""
     publisher: str = "Skatteetaten"
     is_current: bool = True
@@ -63,10 +63,16 @@ def parse_mva_rates(html: str, source_url: str, sha256: str) -> List[VatRate]:
         main_content = soup
 
     # Extract detailed rate information from tables
-    tables = main_content.find_all("table")
+    if hasattr(main_content, "find_all"):
+        tables = main_content.find_all("table")
+    else:
+        tables = []
 
     for table in tables:
-        rows = table.find_all("tr")
+        if hasattr(table, "find_all"):
+            rows = table.find_all("tr")
+        else:
+            rows = []
 
         for row in rows:
             cells = row.find_all(["td", "th"])
@@ -87,9 +93,12 @@ def parse_mva_rates(html: str, source_url: str, sha256: str) -> List[VatRate]:
                     rates.append(rate_info)
 
     # Extract additional rate information from text content
-    rate_sections = main_content.find_all(
-        ["div", "section", "p"], class_=re.compile(r"rate|sats|mva")
-    )
+    if hasattr(main_content, "find_all"):
+        rate_sections = main_content.find_all(
+            ["div", "section", "p"], class_=re.compile(r"rate|sats|mva")
+        )
+    else:
+        rate_sections = []
 
     for section in rate_sections:
         text = section.get_text(" ", strip=True)
@@ -102,7 +111,10 @@ def parse_mva_rates(html: str, source_url: str, sha256: str) -> List[VatRate]:
                 rates.append(rate_info)
 
     # Extract special rate information from links and additional content
-    rate_links = main_content.find_all("a", href=re.compile(r"satser|mva.*sats"))
+    if hasattr(main_content, "find_all"):
+        rate_links = main_content.find_all("a", href=re.compile(r"satser|mva.*sats"))
+    else:
+        rate_links = []
 
     for link in rate_links:
         link_text = link.get_text(" ", strip=True)
