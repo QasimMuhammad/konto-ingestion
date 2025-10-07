@@ -4,14 +4,9 @@ Unit tests for Pydantic schemas.
 """
 
 import unittest
-from pathlib import Path
-import sys
 from datetime import datetime
 
-# Add project root to path
-sys.path.append(str(Path(__file__).parent.parent))
-
-from modules.schemas import LawSection, SpecNode, VatRate, AmeldingRule, QualityReport
+from modules.schemas import AmeldingRule, LawSection, QualityReport, SpecNode, VatRate
 
 
 class TestLawSectionSchema(unittest.TestCase):
