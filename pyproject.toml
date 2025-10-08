@@ -22,12 +22,8 @@ dependencies = [
 ]
 
 [project.scripts]
-konto-ingest = "main:main"
-process-to-silver = "scripts.process_to_silver:main"
+konto-ingest = "ingest_from_sources:main"
 validate-silver = "scripts.validate_silver:main"
-ingest-tax-regs = "scripts.ingest_tax_regs:main"
-ingest-accounting-regs = "scripts.ingest_accounting_regs:main"
-ingest-reporting-regs = "scripts.ingest_reporting_regs:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -35,7 +31,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["modules", "scripts"]
-include = ["main.py", "configs/*", "data/*", "settings.toml"]
+include = ["ingest_from_sources.py", "configs/*", "data/*", "settings.toml"]
 
 [tool.pytest.ini_options]
 filterwarnings = [
