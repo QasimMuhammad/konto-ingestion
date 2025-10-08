@@ -1,52 +1,13 @@
 """
-Domain-specific pipeline implementations.
+Processing pipeline implementations for different data types.
+Note: Domain-based ingestion is now handled by IngestionPipeline with domain parameter.
 """
 
 from typing import List, Dict, Any
 from pathlib import Path
 
-from .ingestion_pipeline import IngestionPipeline, fetch_html_source
 from .processing_pipeline import ProcessingPipeline
 from ..data_io import log
-
-
-class TaxIngestionPipeline(IngestionPipeline):
-    """Pipeline for ingesting tax regulations."""
-
-    def __init__(self):
-        super().__init__("tax_ingestion", fetch_html_source)
-
-    def get_sources_to_process(self) -> List[Dict[str, str]]:
-        """Get tax sources to process."""
-        if self.source_loader is None:
-            raise RuntimeError("SourceLoader not initialized")
-        return self.source_loader.filter_by_domain("tax")
-
-
-class AccountingIngestionPipeline(IngestionPipeline):
-    """Pipeline for ingesting accounting regulations."""
-
-    def __init__(self):
-        super().__init__("accounting_ingestion", fetch_html_source)
-
-    def get_sources_to_process(self) -> List[Dict[str, str]]:
-        """Get accounting sources to process."""
-        if self.source_loader is None:
-            raise RuntimeError("SourceLoader not initialized")
-        return self.source_loader.filter_by_domain("accounting")
-
-
-class ReportingIngestionPipeline(IngestionPipeline):
-    """Pipeline for ingesting reporting regulations."""
-
-    def __init__(self):
-        super().__init__("reporting_ingestion", fetch_html_source)
-
-    def get_sources_to_process(self) -> List[Dict[str, str]]:
-        """Get reporting sources to process."""
-        if self.source_loader is None:
-            raise RuntimeError("SourceLoader not initialized")
-        return self.source_loader.filter_by_domain("reporting")
 
 
 class RatesProcessingPipeline(ProcessingPipeline):
