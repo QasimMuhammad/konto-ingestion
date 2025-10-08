@@ -47,24 +47,30 @@ This comprehensive validation includes:
 
 ## Usage
 
-### Main Pipeline
+### Ingestion Pipeline
 ```bash
 # Run ingestion for all domains
-uv run main.py ingest
+uv run konto-ingest ingest
 
 # Run ingestion for specific domain
-uv run main.py ingest --domain tax
+uv run konto-ingest ingest --domain tax
 
 # List available sources
-uv run main.py list
+uv run konto-ingest list
 ```
 
-### Individual Scripts
+### Processing Pipeline
 ```bash
-# Process bronze to silver
-uv run scripts/process_bronze_to_silver.py
+# Process all Bronze data to Silver (recommended)
+uv run process-to-silver
 
-# Validate silver data
+# Process specific data types
+uv run process-to-silver --type legal     # Laws and regulations
+uv run process-to-silver --type rates     # VAT rates
+uv run process-to-silver --type amelding  # A-meldingen rules
+uv run process-to-silver --type saft      # SAF-T specifications
+
+# Validate Silver data quality
 uv run validate-silver
 ```
 

@@ -133,7 +133,7 @@ The Silver layer data contains these key fields:
 ## Troubleshooting
 
 If you get errors about missing files:
-1. Ensure Silver processing has been run: `uv run scripts/process_bronze_to_silver.py`
+1. Ensure Silver processing has been run: `uv run process-to-silver`
 2. Check that `data/silver/law_sections.json` exists
 3. Verify the file is not empty or corrupted
 

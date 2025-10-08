@@ -20,7 +20,7 @@ def test_visualization():
     if not silver_file.exists():
         print(f"Error: Silver file {silver_file} not found")
         print("Please run the Silver processing first:")
-        print("  uv run scripts/process_bronze_to_silver.py")
+        print("  uv run process-to-silver")
         return 1
 
     print("🔍 Testing Silver data visualization...")

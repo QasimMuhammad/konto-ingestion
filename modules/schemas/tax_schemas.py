@@ -3,8 +3,8 @@ Tax schema definitions for VAT rates and tax-related data.
 Handles Norwegian VAT rates, tax calculations, and tax regulations.
 """
 
-from typing import Optional, List, Any
-from pydantic import BaseModel, Field
+from typing import Optional
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class VatRate(BaseModel):
@@ -14,10 +14,10 @@ class VatRate(BaseModel):
     percentage: float = Field(..., description="VAT percentage rate")
     description: str = Field(..., description="Human-readable description")
     category: str = Field(..., description="Rate category")
-    applies_to: List[str] = Field(
+    applies_to: list[str] = Field(
         default_factory=list, description="What this rate applies to"
     )
-    exceptions: List[str] = Field(
+    exceptions: list[str] = Field(
         default_factory=list, description="Exceptions to this rate"
     )
     notes: Optional[str] = Field(None, description="Additional notes")
@@ -30,9 +30,4 @@ class VatRate(BaseModel):
     )
     last_updated: str = Field(..., description="Last updated timestamp")
 
-    class Config:
-        """Pydantic configuration."""
-
-        json_encoders: dict[type, Any] = {
-            # Add any custom encoders if needed
-        }
+    model_config = ConfigDict(json_encoders={})
