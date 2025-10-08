@@ -134,7 +134,7 @@ fi
 
 # Test a simple script
 print_status "Testing script execution..."
-if uv run process-rates-to-silver --help >/dev/null 2>&1; then
+if uv run process-to-silver --help >/dev/null 2>&1; then
     print_success "Scripts are working correctly"
 else
     print_warning "Some scripts might not be working correctly, but core installation is complete"
@@ -164,8 +164,8 @@ echo ""
 print_status "Available commands:"
 echo "  uv run konto-ingest list                    # List available sources"
 echo "  uv run konto-ingest ingest --domain tax     # Ingest tax regulations"
-echo "  uv run process-rates-to-silver             # Process VAT rates"
-echo "  uv run validate-silver                     # Validate Silver layer data with quality metrics"
+echo "  uv run process-to-silver                    # Process Bronze to Silver (all types)"
+echo "  uv run validate-silver                      # Validate Silver layer data with quality metrics"
 echo ""
 print_status "For development:"
 echo "  uv run --help                              # Show all available commands"

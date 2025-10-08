@@ -13,7 +13,7 @@ dependencies = [
   "types-requests>=2.32.4.20250913",
   "dynaconf>=3.2.11",
   "mypy>=1.18.2",
-  "pypdf2>=3.0.1",
+  "pypdf>=5.1.0",
   "pdfplumber>=0.11.7",
   "pymupdf>=1.26.4",
   "loguru>=0.7.2",
@@ -23,11 +23,7 @@ dependencies = [
 
 [project.scripts]
 konto-ingest = "main:main"
-process-bronze-to-silver = "scripts.process_bronze_to_silver:main"
-process-rates-to-silver = "scripts.process_rates_to_silver:main"
-process-amelding-to-silver = "scripts.process_amelding_to_silver:main"
-process-saft-to-silver = "scripts.process_saft_to_silver:main"
-process-saft-pdfs-to-silver = "scripts.process_saft_pdfs_to_silver:main"
+process-to-silver = "scripts.process_to_silver:main"
 validate-silver = "scripts.validate_silver:main"
 ingest-tax-regs = "scripts.ingest_tax_regs:main"
 ingest-accounting-regs = "scripts.ingest_accounting_regs:main"
@@ -40,3 +36,10 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["modules", "scripts"]
 include = ["main.py", "configs/*", "data/*", "settings.toml"]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+  "ignore:builtin type SwigPyPacked has no __module__ attribute:DeprecationWarning",
+  "ignore:builtin type SwigPyObject has no __module__ attribute:DeprecationWarning",
+  "ignore:builtin type swigvarlink has no __module__ attribute:DeprecationWarning",
+]
