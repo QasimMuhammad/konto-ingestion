@@ -35,7 +35,7 @@ jobs:
       run: uv run ruff format --check .
 
     - name: Run mypy type checking
-      run: uv run mypy modules scripts --show-error-codes
+      run: uv run mypy modules scripts ingest_from_sources.py --show-error-codes
 
     - name: Run unit tests
       run: uv run python -m pytest tests/ -v
@@ -43,5 +43,4 @@ jobs:
     - name: Test script execution
       run: |
         uv run konto-ingest --help
-        uv run process-to-silver --help
         uv run validate-silver --help
