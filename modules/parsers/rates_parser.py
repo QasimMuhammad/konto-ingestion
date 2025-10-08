@@ -127,17 +127,7 @@ def parse_mva_rates(html: str, source_url: str, sha256: str) -> List[VatRate]:
                 if rate_info:
                     rates.append(rate_info)
 
-    # Remove duplicates based on kind and percentage
-    seen_rates = set()
-    unique_rates = []
-
-    for rate in rates:
-        key = (rate.kind, rate.percentage, rate.description)
-        if key not in seen_rates:
-            seen_rates.add(key)
-            unique_rates.append(rate)
-
-    return unique_rates
+    return rates
 
 
 def extract_detailed_rate_from_row(
