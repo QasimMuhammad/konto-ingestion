@@ -14,12 +14,12 @@ from datetime import datetime
 try:
     import fitz  # PyMuPDF
     import pdfplumber
-    from PyPDF2 import PdfReader
+    from pypdf import PdfReader
 except ImportError:
     from ..logger import logger
 
     logger.error(
-        "PDF parsing libraries not available. Install with: uv add PyPDF2 pdfplumber pymupdf"
+        "PDF parsing libraries not available. Install with: uv add pypdf pdfplumber pymupdf"
     )
     raise
 
@@ -122,7 +122,7 @@ class SAFTPDFParser:
 
                 logger.warning(f"pdfplumber failed: {e}")
 
-        # Method 3: PyPDF2 - fallback
+        # Method 3: pypdf - fallback
         if not text.strip():
             try:
                 with open(pdf_path, "rb") as file:
@@ -132,7 +132,7 @@ class SAFTPDFParser:
             except Exception as e:
                 from ..logger import logger
 
-                logger.warning(f"PyPDF2 failed: {e}")
+                logger.warning(f"pypdf failed: {e}")
 
         return text
 

@@ -3,8 +3,8 @@ Legal schema definitions for law sections and legal documents.
 Handles tax laws, accounting laws, and other legal regulations.
 """
 
-from typing import Optional, Any
-from pydantic import BaseModel, Field
+from typing import Optional
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class LawSection(BaseModel):
@@ -48,9 +48,4 @@ class LawSection(BaseModel):
     )
     last_updated: Optional[str] = Field(None, description="Last updated timestamp")
 
-    class Config:
-        """Pydantic configuration."""
-
-        json_encoders: dict[type, Any] = {
-            # Add any custom encoders if needed
-        }
+    model_config = ConfigDict(json_encoders={})
