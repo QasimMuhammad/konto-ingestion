@@ -321,3 +321,102 @@ class SaftProcessingPipeline(ProcessingPipeline):
             self.save_results("saft_v1_3_nodes.json", all_nodes)
 
         return stats
+
+
+class LegalTextProcessingPipeline(ProcessingPipeline):
+    """Pipeline for processing legal texts (laws and regulations)."""
+
+    def __init__(self):
+        super().__init__("legal_text_processing", self._process_legal_sources)
+
+    def get_sources_to_process(self) -> List[Dict[str, str]]:
+        """Get legal text sources to process (law and forskrift types)."""
+        if self.source_loader is None:
+            raise RuntimeError("SourceLoader not initialized")
+        all_sources = self.source_loader.load_all_sources()
+        return [
+            s for s in all_sources if s.get("source_type", "") in ["law", "forskrift"]
+        ]
+
+    def _process_legal_sources(
+        self, sources: List[Dict[str, str]], bronze_dir: Path, silver_dir: Path
+    ) -> Dict[str, Any]:
+        """Process legal text sources."""
+        from ..parsers.lovdata_parser import parse_lovdata_html
+        from ..cleaners.legal_text_cleaner import (
+            clean_legal_text,
+            normalize_text,
+            compute_stable_hash,
+            extract_legal_metadata,
+        )
+
+        stats: dict[str, Any] = {
+            "total_sources": len(sources),
+            "processed_sources": 0,
+            "total_sections": 0,
+            "errors": [],
+        }
+
+        all_sections: list[Any] = []
+
+        for source in sources:
+            source_id = source["source_id"]
+            file_path = bronze_dir / f"{source_id}.html"
+
+            if not file_path.exists():
+                stats["errors"].append(f"Bronze file not found: {file_path}")
+                continue
+
+            try:
+                html_content = file_path.read_text(encoding="utf-8")
+                sections = parse_lovdata_html(
+                    html_content, source_id, source["url"], "bronze_hash"
+                )
+
+                for section in sections:
+                    section_dict: dict[str, Any] = {
+                        "law_id": section.law_id,
+                        "section_id": section.section_id,
+                        "section_label": getattr(section, "section_label", ""),
+                        "path": section.path,
+                        "heading": section.heading,
+                        "text_plain": clean_legal_text(
+                            normalize_text(section.text_plain)
+                        ),
+                        "source_url": section.source_url,
+                        "sha256": compute_stable_hash(section.text_plain),
+                        "domain": source.get("domain", ""),
+                        "source_type": source.get("source_type", ""),
+                        "publisher": source.get("publisher", ""),
+                        "version": source.get("version", "current"),
+                        "jurisdiction": source.get("jurisdiction", "NO"),
+                        "effective_from": source.get("effective_from") or None,
+                        "effective_to": source.get("effective_to") or None,
+                        "law_title": source.get("title", ""),
+                        "is_current": True,
+                    }
+
+                    enriched_metadata = extract_legal_metadata(
+                        html_content,
+                        section_dict,
+                        section_heading=section.heading,
+                        section_path=section.path,
+                        cleaned_text=section_dict["text_plain"],
+                    )
+                    section_dict.update(enriched_metadata)
+
+                    all_sections.append(section_dict)
+
+                stats["processed_sources"] += 1
+                stats["total_sections"] += len(sections)
+                log.info(f"Processed {source_id}: {len(sections)} sections")
+
+            except Exception as e:
+                error_msg = f"Error processing {source_id}: {str(e)}"
+                stats["errors"].append(error_msg)
+                log.error(error_msg)
+
+        if all_sections:
+            self.save_results("law_sections.json", all_sections)
+
+        return stats
