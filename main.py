@@ -59,17 +59,20 @@ def run_ingestion(domain: str | None = None, freq: str | None = None) -> int:
         sources = get_sources_by_domain(domain)
 
         if domain == "tax":
-            from scripts.ingest_tax_regs import main as ingest_tax
+            from scripts.ingest_tax_regs import IngestTaxRegsScript
 
-            return ingest_tax()
+            script = IngestTaxRegsScript()
+            return script.main([])
         elif domain == "accounting":
-            from scripts.ingest_accounting_regs import main as ingest_accounting
+            from scripts.ingest_accounting_regs import IngestAccountingRegsScript
 
-            return ingest_accounting()
+            script = IngestAccountingRegsScript()
+            return script.main([])
         elif domain == "reporting":
-            from scripts.ingest_reporting_regs import main as ingest_reporting
+            from scripts.ingest_reporting_regs import IngestReportingRegsScript
 
-            return ingest_reporting()
+            script = IngestReportingRegsScript()
+            return script.main([])
         else:
             log.error(f"Unknown domain: {domain}")
             return 1
