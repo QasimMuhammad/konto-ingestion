@@ -18,9 +18,11 @@ class IngestionPipeline(BasePipeline):
         self,
         pipeline_name: str,
         fetcher_func: Callable[[Dict[str, str], Path], Dict[str, Any]],
+        domain: Optional[str] = None,
     ):
         super().__init__(pipeline_name)
         self.fetcher_func = fetcher_func
+        self.domain = domain
         self.source_loader: Optional[SourceLoader] = None
         self.bronze_dir: Optional[Path] = None
 
@@ -127,8 +129,20 @@ class IngestionPipeline(BasePipeline):
         return self.result
 
     def get_sources_to_process(self) -> List[Dict[str, str]]:
-        """Get sources to process. Override in subclasses."""
-        return self.source_loader.load_all_sources() if self.source_loader else []
+        """Get sources to process, filtered by domain if specified."""
+        if not self.source_loader:
+            return []
+
+        all_sources = self.source_loader.load_all_sources()
+
+        if self.domain:
+            return [
+                s
+                for s in all_sources
+                if s.get("domain", "").lower() == self.domain.lower()
+            ]
+
+        return all_sources
 
 
 # Common fetcher functions for different source types
