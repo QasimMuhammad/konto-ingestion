@@ -47,31 +47,37 @@ This comprehensive validation includes:
 
 ## Usage
 
-### Ingestion Pipeline
+### Unified Ingestion Pipeline
+
+The pipeline runs in two stages: **Bronze ingestion** (sources → bronze) and **Silver processing** (bronze → silver).
+
 ```bash
-# Run ingestion for all domains
+# Run full pipeline: sources → bronze → silver (default)
 uv run konto-ingest ingest
 
-# Run ingestion for specific domain
+# Run for specific domain only
 uv run konto-ingest ingest --domain tax
+uv run konto-ingest ingest --domain accounting
+uv run konto-ingest ingest --domain reporting
+
+# Run bronze ingestion only (skip silver processing)
+uv run konto-ingest ingest --bronze-only
+
+# Combine options: domain-specific bronze-only
+uv run konto-ingest ingest --domain tax --bronze-only
 
 # List available sources
 uv run konto-ingest list
+uv run konto-ingest list --domain tax
 ```
 
-### Processing Pipeline
+### Data Validation
 ```bash
-# Process all Bronze data to Silver (recommended)
-uv run process-to-silver
-
-# Process specific data types
-uv run process-to-silver --type legal     # Laws and regulations
-uv run process-to-silver --type rates     # VAT rates
-uv run process-to-silver --type amelding  # A-meldingen rules
-uv run process-to-silver --type saft      # SAF-T specifications
-
-# Validate Silver data quality
+# Validate Silver layer data quality
 uv run validate-silver
+
+# Save quality report to file
+uv run validate-silver --output quality_report.json
 ```
 
 ### Debug Tools
