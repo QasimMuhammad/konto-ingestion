@@ -75,7 +75,7 @@ run_check "Ruff linting" "uv run ruff check . --output-format=github"
 run_check "Ruff format check" "uv run ruff format --check ."
 
 # MyPy type checking
-run_check "MyPy type checking" "uv run mypy modules scripts --show-error-codes"
+run_check "MyPy type checking" "uv run mypy modules scripts ingest_from_sources.py --show-error-codes"
 
 echo "=========================================="
 print_status "Running Tests"
@@ -90,7 +90,6 @@ echo "=========================================="
 
 # Script execution tests
 run_check "Script execution test - konto-ingest" "uv run konto-ingest --help > /dev/null"
-run_check "Script execution test - process-to-silver" "uv run process-to-silver --help > /dev/null"
 run_check "Script execution test - validate-silver" "uv run validate-silver --help > /dev/null"
 
 echo ""
@@ -109,6 +108,6 @@ else
     print_error "❌ Some checks failed. Please fix the issues before pushing."
     echo ""
     print_status "Quick fixes:"
-    echo "  uv run ruff check --fix . && uv run ruff format . && uv run mypy modules scripts"
+    echo "  uv run ruff check --fix . && uv run ruff format . && uv run mypy modules scripts ingest_from_sources.py"
     exit 1
 fi

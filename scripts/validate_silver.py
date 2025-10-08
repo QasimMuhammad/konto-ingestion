@@ -1,342 +1,230 @@
 #!/usr/bin/env python3
 """
-Silver layer validation script with comprehensive quality assessment.
+Silver layer validation script with quality assessment.
 """
 
+import argparse
 import json
+import sys
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Dict, Any
 
-from modules.base_script import BaseScript, register_script
-from modules.validation import DataValidator, QualityChecker
+from modules.simple_validation import validate_silver_data as simple_validate
 from modules.schemas import (
     LawSection,
     SpecNode,
     AmeldingRule,
     VatRate,
-    QualityReport,
-    SilverMetadata,
 )
 from modules.logger import logger
 
 
-@register_script("validate-silver")
-class ValidateSilverScript(BaseScript):
-    """Script to validate Silver layer files with quality assessment."""
+def parse_args():
+    parser = argparse.ArgumentParser(description="Validate Silver layer data")
+    parser.add_argument(
+        "--silver-dir",
+        type=str,
+        default="data/silver",
+        help="Silver directory path (default: data/silver)",
+    )
+    parser.add_argument(
+        "--output",
+        type=str,
+        help="Output file for quality report (optional)",
+    )
+    return parser.parse_args()
 
-    def __init__(self):
-        super().__init__("validate_silver")
-        self.validator = DataValidator()
-        self.quality_checker = QualityChecker()
 
-    def _execute(self) -> int:
-        """Execute the Silver layer validation."""
-        # Get silver directory
-        script_dir = Path(__file__).parent
-        project_root = script_dir.parent
-        silver_dir = project_root / "data" / "silver"
+def validate_silver_data(silver_dir: Path) -> Dict[str, Any]:
+    """Validate Silver layer data with quality assessment."""
 
-        if not silver_dir.exists():
-            logger.error(f"Silver directory not found: {silver_dir}")
-            return 1
+    results: dict[str, Any] = {
+        "total_files": 0,
+        "valid_files": 0,
+        "invalid_files": 0,
+        "validation_failed": False,
+        "quality_issues": False,
+        "file_details": {},
+        "overall_quality_score": 0.0,
+        "quality_recommendations": [],
+    }
 
-        logger.info(f"Validation of Silver layer files in: {silver_dir}")
+    # Define schema mapping
+    schema_map = {
+        "law_sections.json": LawSection,
+        "saft_v1_3_nodes.json": SpecNode,
+        "amelding_rules.json": AmeldingRule,
+        "rate_table.json": VatRate,
+    }
 
-        # Run validation
-        results = self.validate_silver_directory(silver_dir)
+    # Check each expected file
+    for filename, schema_class in schema_map.items():
+        file_path = silver_dir / filename
+        results["total_files"] += 1
 
-        # Print report
-        self.print_validation_report(results)
-
-        # Return appropriate code - only fail on actual validation errors, not quality issues
-        if results["validation_failed"]:
-            logger.error("Validation failed - data integrity issues found")
-            return 1
-        else:
-            logger.info("All Silver layer files are valid!")
-            if results["quality_issues"]:
-                logger.warning("Some quality improvements recommended but not blocking")
-            return 0
-
-    def validate_silver_directory(self, silver_dir: Path) -> Dict[str, Any]:
-        """Validation of Silver directory with quality assessment."""
-        results: dict[str, Any] = {
-            "total_files": 0,
-            "valid_files": 0,
-            "invalid_files": 0,
-            "validation_failed": False,
-            "quality_issues": False,
-            "file_details": {},
-            "overall_quality_score": 0.0,
-            "quality_recommendations": [],
-        }
-
-        # Define schema mapping
-        schema_map = {
-            "law_sections.json": LawSection,
-            "tax_sections.json": LawSection,
-            "accounting_sections.json": LawSection,
-            "saft_v1_3_nodes.json": SpecNode,
-            "amelding_rules.json": AmeldingRule,
-            "rate_table.json": VatRate,
-            "quality_report.json": QualityReport,
-            "silver_metadata.json": SilverMetadata,
-        }
-
-        json_files = list(silver_dir.glob("*.json"))
-        results["total_files"] = len(json_files)
-
-        all_datasets = []
-
-        for json_file in json_files:
-            logger.info(f"Validating {json_file.name}")
-
-            file_result = self.validate_silver_file(
-                json_file, schema_map.get(json_file.name)
-            )
-            results["file_details"][json_file.name] = file_result
-
-            if file_result["is_valid"]:
-                results["valid_files"] += 1
-            else:
-                results["invalid_files"] += 1
-                results["validation_failed"] = True
-
-            # Collect datasets for overall quality assessment
-            if file_result["is_valid"] and file_result["data"]:
-                all_datasets.extend(file_result["data"])
-
-        # Overall quality assessment
-        if all_datasets:
-            overall_quality = self.quality_checker.assess_overall_quality(all_datasets)
-            results["overall_quality_score"] = overall_quality["overall_quality_score"]
-            results["quality_recommendations"] = overall_quality["recommendations"]
-
-            if results["overall_quality_score"] < 80:
-                results["quality_issues"] = True
-
-        return results
-
-    def validate_silver_file(self, json_file: Path, schema_class) -> Dict[str, Any]:
-        """Validation of a single Silver file."""
-        result: dict[str, Any] = {
-            "file_name": json_file.name,
-            "file_path": str(json_file),
-            "is_valid": False,
-            "record_count": 0,
-            "validation_errors": [],
-            "quality_score": 0.0,
-            "quality_issues": [],
-            "data": [],
-        }
+        if not file_path.exists():
+            logger.warning(f"Missing file: {filename}")
+            results["invalid_files"] += 1
+            results["validation_failed"] = True
+            results["file_details"][filename] = {
+                "status": "missing",
+                "errors": ["File not found"],
+                "quality_score": 0.0,
+            }
+            continue
 
         try:
-            # Load JSON data
-            with open(json_file, "r", encoding="utf-8") as f:
+            # Load and validate file
+            with open(file_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            # Handle different data structures
-            if isinstance(data, list):
-                records = data
-            elif isinstance(data, dict):
-                if "records" in data:
-                    records = data["records"]
-                else:
-                    records = [data]
-            else:
-                result["validation_errors"].append("Invalid JSON structure")
-                return result
-
-            result["record_count"] = len(records)
-            result["data"] = records
-
-            if not records:
-                result["validation_errors"].append("No records found")
-                return result
-
-            # Validate with schema if available
-            if schema_class:
-                validation_result = self.validator.validate_dataset(
-                    records, schema_class
+            if not isinstance(data, list):
+                logger.error(
+                    f"Invalid format in {filename}: expected list, got {type(data)}"
                 )
+                results["invalid_files"] += 1
+                results["validation_failed"] = True
+                results["file_details"][filename] = {
+                    "status": "invalid",
+                    "errors": ["Invalid JSON format"],
+                    "quality_score": 0.0,
+                }
+                continue
 
-                if validation_result.is_valid:
-                    result["is_valid"] = True
-                else:
-                    result["validation_errors"].extend(validation_result.errors)
-
-            # Quality assessment
-            if records:
-                quality_assessment = self.quality_checker.assess_overall_quality(
-                    records
-                )
-                result["quality_score"] = quality_assessment["overall_quality_score"]
-                result["quality_issues"] = quality_assessment["recommendations"]
-
-            # Additional validation for specific file types
-            self.validate_file_specific_rules(json_file.name, records, result)
-
-        except json.JSONDecodeError as e:
-            result["validation_errors"].append(f"JSON decode error: {e}")
-        except Exception as e:
-            result["validation_errors"].append(f"Unexpected error: {e}")
-
-        return result
-
-    def validate_file_specific_rules(
-        self, filename: str, records: List[Dict], result: Dict[str, Any]
-    ):
-        """Validate file-specific business rules."""
-        if filename == "rate_table.json":
-            self.validate_vat_rates(records, result)
-        elif filename in ["saft_v1_3_nodes.json"]:
-            self.validate_saft_nodes(records, result)
-        elif filename == "amelding_rules.json":
-            self.validate_amelding_rules(records, result)
-        elif filename in [
-            "law_sections.json",
-            "tax_sections.json",
-            "accounting_sections.json",
-        ]:
-            self.validate_law_sections(records, result)
-
-    def validate_vat_rates(self, records: List[Dict], result: Dict[str, Any]):
-        """Validate VAT rates specific rules."""
-        for i, record in enumerate(records):
-            # Check percentage is valid
-            if "percentage" in record:
+            # Validate each item using Pydantic
+            validation_errors = []
+            for i, item in enumerate(data):
                 try:
-                    percentage = float(record["percentage"])
-                    if not (0 <= percentage <= 100):
-                        result["validation_errors"].append(
-                            f"Record {i}: Invalid percentage {percentage}"
-                        )
-                except (ValueError, TypeError):
-                    result["validation_errors"].append(
-                        f"Record {i}: Invalid percentage format"
+                    schema_class(**item)
+                except Exception as e:
+                    validation_errors.append(f"Item {i}: {str(e)}")
+
+            if validation_errors:
+                logger.error(
+                    f"Validation errors in {filename}: {len(validation_errors)} errors"
+                )
+                results["invalid_files"] += 1
+                results["validation_failed"] = True
+                results["file_details"][filename] = {
+                    "status": "invalid",
+                    "errors": validation_errors[:5],  # Show first 5 errors
+                    "quality_score": 0.0,
+                }
+            else:
+                # Run simple quality assessment
+                quality_result = simple_validate(data)
+                results["valid_files"] += 1
+                results["file_details"][filename] = {
+                    "status": "valid",
+                    "errors": [],
+                    "quality_score": quality_result.get("quality_score", 0.0),
+                    "quality_issues": quality_result.get("issues", []),
+                }
+
+                # Track overall quality
+                if quality_result.get("issues"):
+                    results["quality_issues"] = True
+                    results["quality_recommendations"].extend(
+                        quality_result.get("recommendations", [])
                     )
 
-            # Check valid dates
-            if "valid_from" in record and record["valid_from"]:
-                if not self.is_valid_date(record["valid_from"]):
-                    result["validation_errors"].append(
-                        f"Record {i}: Invalid valid_from date"
-                    )
+        except Exception as e:
+            logger.error(f"Error processing {filename}: {str(e)}")
+            results["invalid_files"] += 1
+            results["validation_failed"] = True
+            results["file_details"][filename] = {
+                "status": "error",
+                "errors": [str(e)],
+                "quality_score": 0.0,
+            }
 
-    def validate_saft_nodes(self, records: List[Dict], result: Dict[str, Any]):
-        """Validate SAF-T nodes specific rules."""
-        for i, record in enumerate(records):
-            # Check node_path format
-            if "node_path" in record and record["node_path"]:
-                if not record["node_path"].startswith(
-                    ("AuditFile.", "MasterFiles.", "GeneralLedgerEntries.")
-                ):
-                    result["validation_errors"].append(
-                        f"Record {i}: Invalid node_path format"
-                    )
-
-            # Check cardinality format
-            if "cardinality" in record and record["cardinality"]:
-                if not self.is_valid_cardinality(record["cardinality"]):
-                    result["validation_errors"].append(
-                        f"Record {i}: Invalid cardinality format"
-                    )
-
-    def validate_amelding_rules(self, records: List[Dict], result: Dict[str, Any]):
-        """Validate A-melding rules specific rules."""
-        valid_categories = [
-            "form_guidance",
-            "submission_deadlines",
-            "business_logic",
-            "data_structure",
-            "employer_obligations",
-            "salary_reporting",
-            "general_guidance",
-        ]
-
-        for i, record in enumerate(records):
-            # Check category validity
-            if "category" in record and record["category"]:
-                if record["category"] not in valid_categories:
-                    result["validation_errors"].append(
-                        f"Record {i}: Invalid category '{record['category']}'"
-                    )
-
-    def validate_law_sections(self, records: List[Dict], result: Dict[str, Any]):
-        """Validate law sections specific rules."""
-        for i, record in enumerate(records):
-            # Check section_id format
-            if "section_id" in record and record["section_id"]:
-                if not record["section_id"].startswith(("§", "PARAGRAF", "KAPITEL")):
-                    result["validation_errors"].append(
-                        f"Record {i}: Invalid section_id format"
-                    )
-
-    def is_valid_date(self, date_str: str) -> bool:
-        """Check if date string is valid."""
-        try:
-            from datetime import datetime
-
-            datetime.fromisoformat(date_str)
-            return True
-        except (ValueError, TypeError):
-            return False
-
-    def is_valid_cardinality(self, cardinality: str) -> bool:
-        """Check if cardinality string is valid."""
-        valid_patterns = ["0..1", "0..*", "1..1", "1..*"]
-        return cardinality in valid_patterns
-
-    def print_validation_report(self, results: Dict[str, Any]):
-        """Print validation report."""
-        logger.info("\n" + "=" * 80)
-        logger.info("SILVER LAYER VALIDATION REPORT")
-        logger.info("=" * 80)
-
-        # Overall summary
-        logger.info(f"Total files: {results['total_files']}")
-        logger.info(f"Valid files: {results['valid_files']}")
-        logger.info(f"Invalid files: {results['invalid_files']}")
-        logger.info(
-            f"Overall quality score: {results['overall_quality_score']:.1f}/100"
+    # Calculate overall quality score
+    if results["valid_files"] > 0:
+        total_quality = sum(
+            details.get("quality_score", 0.0)
+            for details in results["file_details"].values()
+            if details.get("status") == "valid"
         )
+        results["overall_quality_score"] = total_quality / results["valid_files"]
 
-        if results["quality_recommendations"]:
-            logger.info("\nQuality recommendations:")
-            for rec in results["quality_recommendations"]:
-                logger.info(f"  • {rec}")
+    return results
 
-        # File details
-        logger.info("\nFile Details:")
-        for filename, details in results["file_details"].items():
-            status = "✅ VALID" if details["is_valid"] else "❌ INVALID"
-            quality = f"Quality: {details['quality_score']:.1f}/100"
-            records = f"Records: {details['record_count']}"
 
-            logger.info(f"  {filename}: {status} | {quality} | {records}")
+def print_validation_report(results: Dict[str, Any]) -> None:
+    """Print validation report."""
+    logger.info("\n" + "=" * 60)
+    logger.info("SILVER LAYER VALIDATION REPORT")
+    logger.info("=" * 60)
 
-            if details["validation_errors"]:
-                logger.warning(f"    Errors: {len(details['validation_errors'])}")
-                for error in details["validation_errors"][:3]:  # Show first 3 errors
-                    logger.warning(f"      • {error}")
-                if len(details["validation_errors"]) > 3:
-                    logger.warning(
-                        f"      • ... and {len(details['validation_errors']) - 3} more"
-                    )
+    # Summary
+    logger.info(f"\nTotal Files: {results['total_files']}")
+    logger.info(f"Valid Files: {results['valid_files']}")
+    logger.info(f"Invalid Files: {results['invalid_files']}")
+    logger.info(f"Overall Quality Score: {results['overall_quality_score']:.2f}/10")
 
-            if details["quality_issues"]:
-                logger.warning(f"    Quality issues: {len(details['quality_issues'])}")
-                for issue in details["quality_issues"][:2]:  # Show first 2 issues
-                    logger.warning(f"      • {issue}")
+    # File details
+    logger.info("\nFile Details:")
+    for filename, details in results["file_details"].items():
+        status = details["status"]
+        quality_score = details.get("quality_score", 0.0)
 
-        logger.info("=" * 80)
+        if status == "valid":
+            logger.info(f"✅ {filename}: Valid (Quality: {quality_score:.2f}/10)")
+        elif status == "invalid":
+            logger.error(
+                f"❌ {filename}: Invalid ({len(details.get('errors', []))} errors)"
+            )
+            for error in details.get("errors", [])[:3]:  # Show first 3
+                logger.error(f"   - {error}")
+        elif status == "missing":
+            logger.warning(f"⚠️  {filename}: Missing")
+        elif status == "error":
+            logger.error(
+                f"❌ {filename}: Error - {details.get('errors', ['Unknown'])[0]}"
+            )
+
+    # Quality recommendations
+    if results["quality_recommendations"]:
+        logger.info("\nQuality Recommendations:")
+        for rec in set(results["quality_recommendations"]):  # Unique recommendations
+            logger.info(f"  • {rec}")
+
+    logger.info("\n" + "=" * 60)
 
 
 def main():
-    """Main entry point."""
-    script = ValidateSilverScript()
-    return script.main()
+    """Main entry point for the validation script."""
+    args = parse_args()
+    silver_dir = Path(args.silver_dir)
+
+    # Ensure silver_dir is absolute or relative to project root
+    if not silver_dir.is_absolute():
+        project_root = Path(__file__).parent.parent
+        silver_dir = project_root / silver_dir
+
+    results = validate_silver_data(silver_dir)
+
+    if args.output:
+        output_path = Path(args.output)
+        try:
+            with open(output_path, "w", encoding="utf-8") as f:
+                json.dump(results, f, indent=2, ensure_ascii=False)
+            logger.info(f"Quality report saved to {output_path}")
+        except Exception as e:
+            logger.error(f"Failed to save quality report to {output_path}: {e}")
+            return 1
+
+    print_validation_report(results)
+
+    if results["validation_failed"]:
+        logger.error("Validation failed - data integrity issues found")
+        return 1
+    else:
+        logger.info("All Silver layer files are valid!")
+        if results["quality_issues"]:
+            logger.warning("Some quality improvements recommended but not blocking")
+        return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
