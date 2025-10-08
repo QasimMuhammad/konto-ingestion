@@ -273,8 +273,8 @@ def extract_legal_metadata(
     # If no chapter from path, try to find it in the HTML
     if not chapter_no:
         chapter_selectors = [
-            "h2:contains('Kapittel')",
-            "h3:contains('Kapittel')",
+            "h2:-soup-contains('Kapittel')",
+            "h3:-soup-contains('Kapittel')",
             ".chapter h2",
             ".kapittel h2",
             "h2[class*='chapter']",

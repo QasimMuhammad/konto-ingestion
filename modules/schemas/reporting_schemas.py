@@ -3,8 +3,8 @@ Reporting schema definitions for SAF-T and A-meldingen.
 Handles technical specifications, business rules, and reporting requirements.
 """
 
-from typing import Optional, List, Dict, Any
-from pydantic import BaseModel, Field
+from typing import Any, Optional
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class SpecNode(BaseModel):
@@ -28,25 +28,20 @@ class SpecNode(BaseModel):
     complexity: Optional[str] = Field(None, description="Complexity level")
     data_type: str = Field(default="string", description="Data type")
     format: Optional[str] = Field(None, description="Format specification")
-    validation_rules: List[str] = Field(
+    validation_rules: list[str] = Field(
         default_factory=list, description="Validation rules"
     )
-    business_rules: List[str] = Field(
+    business_rules: list[str] = Field(
         default_factory=list, description="Business rules"
     )
-    dependencies: List[str] = Field(default_factory=list, description="Dependencies")
-    technical_details: Optional[str | List[str]] = Field(
+    dependencies: list[str] = Field(default_factory=list, description="Dependencies")
+    technical_details: Optional[str | list[str]] = Field(
         None, description="Technical details"
     )
     notes: Optional[str] = Field(None, description="Additional notes")
     last_updated: str = Field(..., description="Last updated timestamp")
 
-    class Config:
-        """Pydantic configuration."""
-
-        json_encoders: dict[type, Any] = {
-            # Add any custom encoders if needed
-        }
+    model_config = ConfigDict(json_encoders={})
 
 
 class AmeldingRule(BaseModel):
@@ -67,24 +62,19 @@ class AmeldingRule(BaseModel):
     effective_to: Optional[str] = Field(None, description="Effective to date")
     priority: Optional[str] = Field(None, description="Priority level")
     complexity: Optional[str] = Field(None, description="Complexity level")
-    technical_details: Optional[str | List[str]] = Field(
+    technical_details: Optional[str | list[str]] = Field(
         None, description="Technical details"
     )
-    validation_rules: List[str] = Field(
+    validation_rules: list[str] = Field(
         default_factory=list, description="Validation rules"
     )
-    field_mappings: Dict[str, Any] = Field(
+    field_mappings: dict[str, Any] = Field(
         default_factory=dict, description="Field mappings"
     )
-    business_rules: List[str] = Field(
+    business_rules: list[str] = Field(
         default_factory=list, description="Business rules"
     )
     notes: Optional[str] = Field(None, description="Additional notes")
     last_updated: str = Field(..., description="Last updated timestamp")
 
-    class Config:
-        """Pydantic configuration."""
-
-        json_encoders: dict[type, Any] = {
-            # Add any custom encoders if needed
-        }
+    model_config = ConfigDict(json_encoders={})
