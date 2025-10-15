@@ -87,25 +87,25 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 
 ## 5. Current Progress Summary
 
-### ✅ **Completed (Week 1-2 + Extensions)**
-- **Bronze Layer**: 4 PDF documents + HTML sources with SHA256 tracking
-- **Silver Layer**: 7 JSON files with 2,514+ validated records
-  - `law_sections.json`: 902 legal sections
-  - `tax_sections.json`: 596 tax sections  
-  - `accounting_sections.json`: 306 accounting sections
+### ✅ **Completed (Week 1-2 + Week 3-4)**
+- **Bronze Layer**: HTML/PDF sources with SHA256 tracking
+- **Silver Layer**: 8 JSON files with 2,049+ validated records
+  - `law_sections.json`: 1,804 legal sections (tax + accounting laws)
   - `saft_v1_3_nodes.json`: 142 SAF-T specification nodes
   - `rate_table.json`: 4 VAT rates with categories
   - `amelding_rules.json`: 50 A-meldingen business rules
+  - `chart_of_accounts.json`: 42 NS 4102 accounts ✨ NEW
+  - `business_rules.json`: 30 seed rules with citations ✨ NEW
   - `quality_report.json`: Processing statistics
 - **Parsers**: Lovdata HTML, SAF-T PDF, VAT rates, A-meldingen
 - **Validation**: 100% Pydantic schema validation success
+- **Rules Seeding**: 30 hand-written baseline rules (Week 6-7 expands to 200-300)
 - **Data Quality**: Real technical specifications from official sources
 
-### 🔄 **Next Steps (Week 3-4)**
-- Generate Gold layer JSONL training datasets
-- Create Rules Registry with business logic
-- Implement Chart of Accounts and VAT code mappings
-- Begin LoRA training pipeline
+### 🔄 **Next Steps (Week 5-7)**
+- Week 5-6: Generate Gold layer JSONL training datasets
+- Week 6-7: LLM-assisted rule extraction (30 → 200-300 rules) ✨ NEW
+- Week 7-8: RAG + Rules API with dual-engine architecture
 
 ---
 
@@ -118,18 +118,114 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 - ✅ **BONUS**: Implemented comprehensive PDF parsing for SAF-T technical specifications.
 - ✅ **BONUS**: Added A-meldingen business rules extraction (50 detailed rules).
 
-### Week 3–4: Knowledge Base & Rules 🔄 IN PROGRESS
+### Week 3–4: Knowledge Base & Rules ✅ COMPLETED
 - ✅ Normalize section paths and extract citations.
 - ✅ Build VAT `rate_table` scraper with valid_from/to.
-- 🔄 Seed Chart of Accounts and VAT codes.
-- 🔄 Create Rules Registry (`rules.jsonl`): condition, action, source_ids.
+- ✅ Seed Chart of Accounts (NS 4102) with 42 accounts.
+- ✅ Create seed Rules Registry with 30 hand-written rules citing silver data.
+- ✅ Integrate seed stage into unified ingestion pipeline.
+- **Note**: Seed rules provide MVP baseline; Week 6-7 extends to 200-300 rules via LLM-assisted extraction.
 
 ### Week 5–6: Training Data & Fine-Tuning
 - Export Gold datasets: `tax_glossary.jsonl`, `accounting_glossary.jsonl`, `client_synth_chat.jsonl`.
 - Generate 20–50k samples (mix synthetic & curated).
 - Train LoRA adapters on base model (Phi-3 mini / Mistral-7B).
 
+### Week 6–7: LLM-Assisted Rule Extraction & Validation (HYBRID APPROACH)
+**Goal**: Expand Rules Registry from 30 seed rules to 200-300 validated rules using LLM-assisted extraction from law sections.
+
+**Approach: Hybrid Extraction**
+- **Input**: 1,804 law sections from `law_sections.json` (MVA, Regnskapsloven, Bokføringsloven, Skatteloven)
+- **Output**: 200-300 validated business rules with confidence scores and human review
+
+**Tasks**:
+1. **LLM Extraction Pipeline**
+   - Prompt GPT-4/Claude to extract rules from law sections
+   - Output structured JSON: conditions, actions, confidence, ambiguities
+   - Cross-reference with `rate_table.json` and `chart_of_accounts.json`
+
+2. **Confidence-Based Filtering**
+   - **High confidence** (50-100 rules): Clear, unambiguous → Auto-approve
+   - **Medium confidence** (150-250 rules): Needs review → Human validation queue
+   - **Low confidence** (50-100 rules): Ambiguous → Manual creation or skip
+   - **Not rule-worthy** (1,400+ sections): Use for RAG only (definitions, penalties, procedures)
+
+3. **Validation & Review**
+   - Cross-reference validation (no conflicts between rules)
+   - VAT rate validation (match official `rate_table.json`)
+   - Account validation (all referenced accounts exist in `chart_of_accounts.json`)
+   - Accountant sign-off on medium-confidence rules
+
+4. **Output**
+   - `data/gold/rules/validated_rules.json`: 200-300 production-ready rules
+   - `data/gold/rules/review_queue.json`: Rules pending human review
+   - `data/gold/rules/extraction_report.json`: Confidence scores, ambiguities, coverage metrics
+
+**Key Deliverables**:
+- LLM extraction script: `scripts/extract_rules_from_laws.py`
+- Validation script: `scripts/validate_extracted_rules.py`
+- Review dashboard: HTML report showing rule coverage by domain/category
+- Expanded Rules Registry (10x increase from Week 3-4 seed)
+
+**Acceptance Criteria**:
+- ≥200 validated rules with citations to silver layer
+- ≥90% of rules have `confidence: high` or manually reviewed
+- 100% cross-reference validation (no orphaned accounts/VAT codes)
+- Coverage report shows rules for top 50 transaction types
+- Zero conflicting rules in production set
+
+**Risk Mitigation**:
+- Dual system: LLM-extracted rules + RAG fallback for edge cases
+- Human review queue prevents auto-deployment of ambiguous rules
+- Confidence scores enable gradual rollout (high-confidence first)
+- Accountant validation ensures compliance accuracy
+
 ### Week 7–8: RAG & Rules API
+**Prerequisites**:
+- Week 3-4: Seed rules (30 baseline rules) ✅
+- Week 6-7: Expanded rules (200-300 validated rules) ✅
+- Week 5-6: Gold training data and LoRA adapters ✅
+
+**Dual-Engine Architecture**:
+```
+┌─────────────────────────────────────────────────┐
+│            User Transaction                      │
+│     "Hotel expense 1,200 NOK in Oslo"           │
+└────────────────┬────────────────────────────────┘
+                 │
+        ┌────────┴─────────┐
+        │                  │
+        ▼                  ▼
+┌──────────────┐   ┌──────────────────────┐
+│ Rules Engine │   │   RAG + LLM          │
+│ (Deterministic)  │   (Conversational)   │
+│              │   │                      │
+│ 200-300      │   │ 1,804 law sections   │
+│ validated    │   │ Vector search        │
+│ rules        │   │ GPT-4/Claude         │
+│              │   │                      │
+│ Fast (10ms)  │   │ Slower (2-3s)        │
+│ 100% accurate│   │ ~90% accurate        │
+└──────┬───────┘   └──────────┬───────────┘
+       │                      │
+       │ account=7140         │ "§ 5-3 says..."
+       │ VAT=12%             │ + explanation
+       │                      │
+       └──────┬───────────────┘
+              │
+              ▼
+    ┌──────────────────┐
+    │  User Response   │
+    │  + Citation      │
+    └──────────────────┘
+```
+
+**When to use each:**
+- **Rules Engine**: Known scenarios (hotel, salary, office supplies) → instant, deterministic
+- **RAG + LLM**: Edge cases, questions, ambiguous transactions → slower, probabilistic
+- **Fallback chain**: Rules → RAG → Human review (if confidence < 70%)
+
+**Tasks**:
 - Implement RAG service (FastAPI): `/ask` returns answer + citations.
 - Implement rules engine endpoint: `/posting_proposal` returns account + VAT code.
 - Ensure eval passes: ≥90% on glossary basics.
@@ -165,20 +261,27 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 ---
 
 ## 8. Acceptance Criteria (Phase 1 MVP)
-- Bronze+Silver outputs for ≥2 laws and SAF-T.
-- Gold datasets: 150–300 glossary entries, 100+ synthetic chats.
-- Rules engine covers top 10 expense/sales scenarios with citations.
-- LoRA model ≥90% accuracy on glossary eval.
-- Demo runs with `uv sync` + `uv run ingest-all` on a clean machine.
+- **Bronze+Silver**: ✅ Outputs for all laws, SAF-T, VAT rates, A-melding (2,049 records)
+- **Gold datasets**: 150–300 glossary entries, 100+ synthetic chats (Week 5-6)
+- **Rules engine**:
+  - ✅ Week 3-4: 30 baseline rules with citations to silver data
+  - Week 6-7: 200-300 validated rules covering top 50 transaction types
+- **LoRA model**: ≥90% accuracy on glossary eval (Week 5-6)
+- **Demo**: Runs with `uv sync` + `uv run ingest-all` on a clean machine
+
+**Updated for Week 3-4 completion**: Rules seeding phase complete. Week 6-7 will expand to production-ready rule set.
 
 ---
 
-## 9. Next Steps
-1. Upload `konto-ingestion` to GitHub with stubs + plan.
-2. Expand `sources.csv` for coverage.
-3. Implement real fetch & parse logic.
-4. Run first ingestion and verify Bronze/Silver artifacts.
-5. Start drafting rules for hotel MVA, reverse charge SaaS EU, import VAT deferral, SAF-T export.
+## 9. Next Steps (Post Week 3-4)
+1. ✅ ~~Upload `konto-ingestion` to GitHub with plan~~ (Complete)
+2. ✅ ~~Implement fetch & parse logic for all sources~~ (Complete)
+3. ✅ ~~Run ingestion and verify Bronze/Silver artifacts~~ (Complete - 2,049 records)
+4. ✅ ~~Seed Chart of Accounts and baseline rules~~ (Complete - 42 accounts, 30 rules)
+5. **Week 5-6**: Export Gold JSONL training datasets (tax/accounting glossary, synthetic chats)
+6. **Week 6-7**: LLM-assisted rule extraction (expand 20 → 200-300 validated rules)
+7. **Week 7-8**: Build RAG service + Rules API with dual-engine architecture
+8. **Week 9-10**: End-to-end demo with Altinn-ready export
 
 ---
 
@@ -634,21 +737,53 @@ python scripts/infer_lora.py --prompt "Definer kort: kreditnota"
 ## Command Cheatsheet
 
 ```bash
-# Install deps
+# Install dependencies
 uv sync
 
-# Run individual ingestions
-uv run scripts/ingest_tax_regs.py --sources configs/sources.csv
-uv run scripts/ingest_accounting_regs.py --sources configs/sources.csv
-uv run scripts/ingest_client_synth.py --n 50
+# === Unified Ingestion Pipeline (Week 3-4 Refactored) ===
 
-# Export training data (Gold)
-uv run scripts/export_gold_sft.py
+# Seed static data (Chart of Accounts + Business Rules)
+uv run ingest_from_sources.py seed
 
-# Run tests (if pytest configured)
-pytest -q
+# Ingest from external sources (Bronze + Silver)
+uv run ingest_from_sources.py ingest
 
-# DVC Commands (Week 13-14)
+# Full pipeline (Seed + Ingest)
+uv run ingest_from_sources.py all
+
+# List available sources
+uv run ingest_from_sources.py list
+
+# Domain-specific ingestion
+uv run ingest_from_sources.py ingest --domain tax
+uv run ingest_from_sources.py ingest --domain accounting
+uv run ingest_from_sources.py ingest --domain reporting
+
+# Bronze only (skip Silver processing)
+uv run ingest_from_sources.py ingest --bronze-only
+
+# With validation (for seed or all commands)
+uv run ingest_from_sources.py seed --with-validation
+uv run ingest_from_sources.py all --with-validation
+
+# === Validation & Quality ===
+
+# Validate seed data (Chart of Accounts + Business Rules)
+uv run ingest_from_sources.py seed --with-validation
+
+# Validate Silver layer
+uv run scripts/validate_silver.py
+
+# === Testing ===
+
+# Run tests
+uv run pytest -q
+
+# Run all tests with coverage
+uv run tests/run_all_tests.py
+
+# === Future: DVC Commands (Week 13-14) ===
+
 dvc init
 dvc remote add -d storage azure://container/path
 dvc add data/bronze data/silver data/gold
@@ -661,11 +796,15 @@ dvc repro  # Rebuild data pipeline
 
 ## Definition of Done (Weeks 1–4)
 
-- **Bronze**: real HTML snapshots with SHA hashes; idempotent writes.
-- **Silver**: validated `*_sections.json`, `*_nodes.json`, `rate_table.json`.
-- **Gold**: reproducible JSONL for SFT (tax, accounting, client‑synth) + eval set.
-- **Rules**: 15–25 entries with citations, resolvable to Silver.
-- **Training**: LoRA adapters trained on a small base; inference works on sample prompts.
-- **Docs**: README updated; this plan kept in repo root.
+- **Bronze**: ✅ Real HTML snapshots with SHA hashes; idempotent writes.
+- **Silver**: ✅ Validated `*_sections.json`, `*_nodes.json`, `rate_table.json`, `chart_of_accounts.json`, `business_rules.json`.
+- **Gold**: reproducible JSONL for SFT (tax, accounting, client‑synth) + eval set (Week 5-6).
+- **Rules**:
+  - ✅ **Seed phase (Week 3-4)**: 30 baseline rules with citations, resolvable to Silver
+  - 🔄 **Expansion phase (Week 6-7)**: 200-300 LLM-extracted rules with validation
+- **Training**: LoRA adapters trained on a small base; inference works on sample prompts (Week 5-6).
+- **Docs**: ✅ README updated; this plan kept in repo root.
+
+**Note**: Week 3-4 delivers MVP baseline. Production system requires Week 6-7 rule expansion.
 
 ---
