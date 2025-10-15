@@ -9,7 +9,6 @@ import requests
 
 from .settings import settings
 
-# Configure logging
 log = logging.getLogger(__name__)
 
 
@@ -20,9 +19,9 @@ def http_get(url: str, timeout: Optional[int] = None) -> bytes:
 
     headers = {"User-Agent": settings.user_agent}
     try:
-        r = requests.get(url, timeout=timeout, headers=headers)
-        r.raise_for_status()
-        return r.content
+        response = requests.get(url, timeout=timeout, headers=headers)
+        response.raise_for_status()
+        return response.content
     except requests.RequestException as e:
         log.error(f"Failed to fetch {url}: {e}")
         raise

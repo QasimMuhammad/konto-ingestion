@@ -9,6 +9,9 @@ from datetime import datetime, timezone
 from typing import Dict, List, Any
 from bs4 import BeautifulSoup
 
+DEFAULT_MIN_TEXT_LENGTH = 50
+TEXT_PREVIEW_BREAK_RATIO = 0.7
+
 
 def normalize_text(text: str) -> str:
     """
@@ -23,18 +26,13 @@ def normalize_text(text: str) -> str:
     if not text:
         return ""
 
-    # Parse HTML and extract text
     soup = BeautifulSoup(text, "html.parser")
 
-    # Remove script and style elements
     for script in soup(["script", "style"]):
         script.decompose()
 
-    # Get text content
     text_content = soup.get_text()
-
-    # Normalize whitespace
-    text_content = re.sub(r"\s+", " ", text_content)  # Collapse multiple whitespace
+    text_content = re.sub(r"\s+", " ", text_content)
     text_content = text_content.strip()
 
     return text_content
@@ -53,10 +51,9 @@ def compute_stable_hash(text: str) -> str:
     if not text:
         return ""
 
-    # Canonicalize: lowercase, trimmed, collapsed spaces, normalized unicode
     canonical = text.lower().strip()
-    canonical = re.sub(r"\s+", " ", canonical)  # Collapse spaces
-    canonical = canonical.encode("utf-8").decode("unicode_escape")  # Normalize unicode
+    canonical = re.sub(r"\s+", " ", canonical)
+    canonical = canonical.encode("utf-8").decode("unicode_escape")
 
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
@@ -78,7 +75,6 @@ def extract_legal_metadata(
 
     legal_metadata: dict[str, Any] = {}
 
-    # Extract law title
     title_selectors = [
         "h1.title",
         "h1",
@@ -95,21 +91,18 @@ def extract_legal_metadata(
             legal_metadata["law_title"] = title_elem.get_text().strip()
             break
 
-    # Extract chapter information
     chapter_elem = soup.select_one(".chapter, .kapittel, h2")
     if chapter_elem:
         chapter_text = chapter_elem.get_text().strip()
         if "kapittel" in chapter_text.lower() or "chapter" in chapter_text.lower():
             legal_metadata["chapter"] = chapter_text
 
-    # Check for repealed status
     repealed_indicators = ["opphevet", "repealed", "ikrafttredelse", "endret"]
     page_text = soup.get_text().lower()
     legal_metadata["repealed"] = any(
         indicator in page_text for indicator in repealed_indicators
     )
 
-    # Extract amendment dates from footnotes or headers
     amendment_patterns = [
         r"endret ved (?:lov|forskrift)[^0-9]*(\d{1,2}\s+\w+\s+\d{4})",
         r"ikrafttredelse[^0-9]*(\d{1,2}\s+\w+\s+\d{4})",
@@ -122,7 +115,7 @@ def extract_legal_metadata(
         amendments.extend(matches)
 
     if amendments:
-        legal_metadata["amended_dates"] = list(set(amendments))  # Remove duplicates
+        legal_metadata["amended_dates"] = list(set(amendments))
 
     return legal_metadata
 
@@ -141,24 +134,16 @@ def enhance_section_metadata(
     Returns:
         Enhanced section metadata dictionary
     """
-    # Normalize text content
     normalized_text = normalize_text(section.text_plain)
-
-    # Compute stable hash
     stable_hash = compute_stable_hash(normalized_text)
-
-    # Extract legal metadata
     legal_metadata = extract_legal_metadata(html_content, metadata)
 
-    # Get current timestamps
     now = datetime.now(timezone.utc)
     processed_at = now.isoformat()
     ingested_at = metadata.get("ingested_at", now.isoformat())
 
-    # Count tokens (rough approximation)
     token_count = len(normalized_text.split()) if normalized_text else 0
 
-    # Build enhanced metadata
     enhanced = {
         # Original section fields
         "law_id": section.law_id,
@@ -209,13 +194,10 @@ def clean_html_for_display(html_content: str) -> str:
 
     soup = BeautifulSoup(html_content, "html.parser")
 
-    # Remove unwanted elements
     for element in soup(["script", "style", "nav", "footer", "header"]):
         element.decompose()
 
-    # Clean up classes and attributes
     for tag in soup.find_all():
-        # Remove most attributes except essential ones
         attrs_to_keep = ["href", "src", "alt", "title"]
         tag.attrs = {k: v for k, v in tag.attrs.items() if k in attrs_to_keep}
 
@@ -239,20 +221,19 @@ def extract_text_preview(text: str, max_length: int = 200) -> str:
     if len(text) <= max_length:
         return text
 
-    # Find a good break point (end of sentence or word)
     preview = text[:max_length]
     last_period = preview.rfind(".")
     last_space = preview.rfind(" ")
 
     break_point = max(last_period, last_space)
-    if break_point > max_length * 0.7:  # Only use break point if it's not too short
+    if break_point > max_length * TEXT_PREVIEW_BREAK_RATIO:
         preview = preview[: break_point + 1]
 
     return preview + "..."
 
 
 def validate_section_quality(
-    section: Dict[str, Any], min_text_length: int = 50
+    section: Dict[str, Any], min_text_length: int = DEFAULT_MIN_TEXT_LENGTH
 ) -> tuple[bool, List[str]]:
     """
     Validate section quality and return issues.
@@ -266,22 +247,18 @@ def validate_section_quality(
     """
     issues = []
 
-    # Check text length
     text_length = len(section.get("text_plain", ""))
     if text_length < min_text_length:
         issues.append(f"Text too short: {text_length} chars (min: {min_text_length})")
 
-    # Check for source URL
     if not section.get("source_url"):
         issues.append("Missing source URL")
 
-    # Check for required fields
     required_fields = ["law_id", "section_id", "domain", "source_type"]
     for field in required_fields:
         if not section.get(field):
             issues.append(f"Missing required field: {field}")
 
-    # Check token count
     token_count = section.get("token_count", 0)
     if token_count == 0 and text_length > 0:
         issues.append("Zero token count for non-empty text")

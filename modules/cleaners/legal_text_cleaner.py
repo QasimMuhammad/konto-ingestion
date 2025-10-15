@@ -9,6 +9,9 @@ from datetime import datetime, timezone
 from typing import Dict, List, Any
 from bs4 import BeautifulSoup
 
+DEFAULT_MIN_TEXT_LENGTH = 50
+MIN_CONTENT_LENGTH = 20
+
 
 def clean_legal_text(text: str) -> str:
     """
@@ -23,47 +26,32 @@ def clean_legal_text(text: str) -> str:
     if not text:
         return ""
 
-    # Remove navigation elements and links
     text = re.sub(r"🔗\s*Del paragraf", "", text)
-    text = re.sub(r"🔗\s*.*", "", text)  # Remove any other link symbols
-    text = re.sub(r"Se også.*", "", text)  # Remove "See also" references
-    text = re.sub(r"Gå til.*", "", text)  # Remove "Go to" references
+    text = re.sub(r"🔗\s*.*", "", text)
+    text = re.sub(r"Se også.*", "", text)
+    text = re.sub(r"Gå til.*", "", text)
 
-    # Remove common Lovdata navigation elements
     text = re.sub(r"\[Til toppen\]", "", text)
     text = re.sub(r"\[Tilbake\]", "", text)
     text = re.sub(r"\[Neste\]", "", text)
     text = re.sub(r"\[Forrige\]", "", text)
 
-    # Remove menu and navigation text
     text = re.sub(r"Rettskilder.*", "", text, flags=re.IGNORECASE)
     text = re.sub(r"Business and organisation.*", "", text, flags=re.IGNORECASE)
     text = re.sub(r"Hovedmeny.*", "", text, flags=re.IGNORECASE)
     text = re.sub(r"Navigasjon.*", "", text, flags=re.IGNORECASE)
 
-    # Remove amendment clutter that got concatenated
     text = re.sub(r"Endret ved.*?🔗Del paragraf", "", text)
     text = re.sub(r"Endret ved.*?$", "", text)
 
-    # Remove common UI elements
     text = re.sub(r"<svg[^>]*>.*?</svg>", "", text, flags=re.DOTALL)
     text = re.sub(r"<img[^>]*>", "", text)
     text = re.sub(r"<a[^>]*>.*?</a>", "", text, flags=re.DOTALL)
-
-    # Remove HTML tags
     text = re.sub(r"<[^>]+>", "", text)
 
-    # Remove remaining navigation/footer noise
     text = re.sub(r"Del paragraf|🔗", "", text)
-
-    # Remove footnote artifacts like "0 Opphevet..." and move to amendments
-    # This will be handled in the metadata extraction
-    text = re.sub(r"^\d+\s+", "", text)  # Remove leading digits
-
-    # Remove trailing footnote artifacts like "0" at the end
-    text = re.sub(r"\s+\d+\s*$", "", text)  # Remove trailing digits
-
-    # Remove extra whitespace and normalize
+    text = re.sub(r"^\d+\s+", "", text)
+    text = re.sub(r"\s+\d+\s*$", "", text)
     text = re.sub(r"\s+", " ", text)
     text = text.strip()
 
@@ -86,31 +74,24 @@ def extract_section_html(html_content: str, section_id: str) -> str:
 
     soup = BeautifulSoup(html_content, "html.parser")
 
-    # Try to find the specific section
     section_element = None
 
-    # Look for the section by ID
     if section_id:
         section_element = soup.find(id=section_id)
 
-    # If not found by ID, look for paragraph elements
     if not section_element:
         section_element = soup.find("div", class_="paragraf")
 
-    # If still not found, look for the main content area
     if not section_element:
         section_element = soup.find("div", class_="document-content")
 
-    # If still not found, look for the main content
     if not section_element:
         section_element = soup.find("main")
 
-    # If still not found, use the body but clean it
     if not section_element:
         section_element = soup.find("body")
 
     if section_element:
-        # Remove navigation and unwanted elements
         if hasattr(section_element, "find_all"):
             nav_elements = section_element.find_all(
                 ["nav", "header", "footer", "aside"]
@@ -119,13 +100,11 @@ def extract_section_html(html_content: str, section_id: str) -> str:
                 if hasattr(element, "decompose"):
                     element.decompose()
 
-            # Remove script and style elements
             script_elements = section_element.find_all(["script", "style"])
             for element in script_elements:
                 if hasattr(element, "decompose"):
                     element.decompose()
 
-        # Remove navigation links
         if hasattr(section_element, "find_all"):
             for element in section_element.find_all("a", href=True):
                 if "del-paragraf" in element.get("href", "").lower():
@@ -134,10 +113,8 @@ def extract_section_html(html_content: str, section_id: str) -> str:
 
         return str(section_element)
 
-    # Fallback: return cleaned body content
     body = soup.find("body")
     if body:
-        # Remove unwanted elements
         if hasattr(body, "find_all"):
             unwanted_elements = body.find_all(
                 ["script", "style", "nav", "header", "footer"]
@@ -163,21 +140,14 @@ def normalize_text(text: str) -> str:
     if not text:
         return ""
 
-    # Parse HTML and extract text
     soup = BeautifulSoup(text, "html.parser")
 
-    # Remove script and style elements
     for script in soup(["script", "style"]):
         script.decompose()
 
-    # Get text content
     text_content = soup.get_text()
-
-    # Clean legal text
     text_content = clean_legal_text(text_content)
-
-    # Normalize whitespace
-    text_content = re.sub(r"\s+", " ", text_content)  # Collapse multiple whitespace
+    text_content = re.sub(r"\s+", " ", text_content)
     text_content = text_content.strip()
 
     return text_content
@@ -196,10 +166,9 @@ def compute_stable_hash(text: str) -> str:
     if not text:
         return ""
 
-    # Canonicalize: lowercase, trimmed, collapsed spaces, normalized unicode
     canonical = text.lower().strip()
-    canonical = re.sub(r"\s+", " ", canonical)  # Collapse spaces
-    canonical = canonical.encode("utf-8").decode("unicode_escape")  # Normalize unicode
+    canonical = re.sub(r"\s+", " ", canonical)
+    canonical = canonical.encode("utf-8").decode("unicode_escape")
 
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
@@ -459,7 +428,7 @@ def enhance_section_metadata(
 
 
 def validate_section_quality(
-    section: Dict[str, Any], min_text_length: int = 50
+    section: Dict[str, Any], min_text_length: int = DEFAULT_MIN_TEXT_LENGTH
 ) -> tuple[bool, List[str]]:
     """
     Validate section quality and return issues.
