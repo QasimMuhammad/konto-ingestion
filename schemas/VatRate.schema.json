@@ -1,0 +1,112 @@
+{
+  "description": "VAT (MVA) rate schema.",
+  "properties": {
+    "rate_id": {
+      "title": "Rate Id",
+      "type": "string"
+    },
+    "rate_label": {
+      "title": "Rate Label",
+      "type": "string"
+    },
+    "rate_value": {
+      "title": "Rate Value",
+      "type": "number"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "effective_from": {
+      "title": "Effective From",
+      "type": "string"
+    },
+    "effective_to": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effective To"
+    },
+    "source_url": {
+      "title": "Source Url",
+      "type": "string"
+    },
+    "sha256": {
+      "title": "Sha256",
+      "type": "string"
+    },
+    "domain": {
+      "title": "Domain",
+      "type": "string"
+    },
+    "source_type": {
+      "title": "Source Type",
+      "type": "string"
+    },
+    "publisher": {
+      "title": "Publisher",
+      "type": "string"
+    },
+    "jurisdiction": {
+      "default": "NO",
+      "title": "Jurisdiction",
+      "type": "string"
+    },
+    "last_updated": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Updated"
+    },
+    "token_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Token Count"
+    },
+    "crawl_freq": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Crawl Freq"
+    }
+  },
+  "required": [
+    "rate_id",
+    "rate_label",
+    "rate_value",
+    "description",
+    "effective_from",
+    "source_url",
+    "sha256",
+    "domain",
+    "source_type",
+    "publisher"
+  ],
+  "title": "VatRate",
+  "type": "object"
+}

@@ -1,0 +1,39 @@
+{
+  "description": "Strongly typed action for business rules.",
+  "properties": {
+    "type": {
+      "description": "Action type",
+      "enum": [
+        "set_account",
+        "set_vat_code",
+        "set_vat_rate",
+        "set_vat_account",
+        "set_posting_type",
+        "set_asset_category"
+      ],
+      "title": "Type",
+      "type": "string"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "description": "Action value",
+      "title": "Value"
+    }
+  },
+  "required": [
+    "type",
+    "value"
+  ],
+  "title": "RuleAction",
+  "type": "object"
+}

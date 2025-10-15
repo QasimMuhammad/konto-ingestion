@@ -1,0 +1,167 @@
+{
+  "description": "SAF-T specification node schema.",
+  "properties": {
+    "node_id": {
+      "title": "Node Id",
+      "type": "string"
+    },
+    "node_path": {
+      "title": "Node Path",
+      "type": "string"
+    },
+    "node_label": {
+      "title": "Node Label",
+      "type": "string"
+    },
+    "node_level": {
+      "title": "Node Level",
+      "type": "integer"
+    },
+    "parent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Id"
+    },
+    "data_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Data Type"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "cardinality": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Cardinality"
+    },
+    "example_value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Example Value"
+    },
+    "validation_rules": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Validation Rules",
+      "type": "array"
+    },
+    "technical_details": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Technical Details",
+      "type": "array"
+    },
+    "source_url": {
+      "title": "Source Url",
+      "type": "string"
+    },
+    "sha256": {
+      "title": "Sha256",
+      "type": "string"
+    },
+    "domain": {
+      "default": "accounting",
+      "title": "Domain",
+      "type": "string"
+    },
+    "source_type": {
+      "default": "spec",
+      "title": "Source Type",
+      "type": "string"
+    },
+    "publisher": {
+      "title": "Publisher",
+      "type": "string"
+    },
+    "version": {
+      "default": "1.3",
+      "title": "Version",
+      "type": "string"
+    },
+    "jurisdiction": {
+      "default": "NO",
+      "title": "Jurisdiction",
+      "type": "string"
+    },
+    "last_updated": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Updated"
+    },
+    "token_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Token Count"
+    },
+    "crawl_freq": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Crawl Freq"
+    }
+  },
+  "required": [
+    "node_id",
+    "node_path",
+    "node_label",
+    "node_level",
+    "description",
+    "source_url",
+    "sha256",
+    "publisher"
+  ],
+  "title": "SpecNode",
+  "type": "object"
+}
