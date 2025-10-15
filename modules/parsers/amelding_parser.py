@@ -346,7 +346,6 @@ def extract_rules_from_links(
 
     for link in links:
         link_text = link.get_text(" ", strip=True)
-        # href = link.get("href", "")  # Not currently used
 
         if any(
             keyword in link_text.lower()

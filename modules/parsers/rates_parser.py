@@ -322,7 +322,6 @@ def create_detailed_description(
 
 def determine_detailed_applies_to(description: str, category: str) -> List[str]:
     """Determine what this rate applies to with detailed categories."""
-    # desc_lower = description.lower()  # Not currently used
     applies_to = []
 
     if category == "food_products":
