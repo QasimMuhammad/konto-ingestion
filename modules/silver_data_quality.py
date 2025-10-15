@@ -1,6 +1,6 @@
 """
-Simplified validation system for Silver layer data.
-Replaces the complex validation system with simple, focused validation.
+Silver layer data quality validation.
+Validates data quality aspects like URLs, hashes, domains, and generates quality scores.
 """
 
 from typing import Dict, List, Any
