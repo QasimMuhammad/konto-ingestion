@@ -23,10 +23,8 @@ def setup_logging(
         log_file: Optional log file path
         format_string: Optional custom format string
     """
-    # Remove default handler
     logger.remove()
 
-    # Get configuration from settings
     log_level = level or settings.get("log_level", "INFO")
     log_format = format_string or settings.get(
         "log_format",
@@ -35,7 +33,6 @@ def setup_logging(
     log_rotation = settings.get("log_rotation", "10 MB")
     log_retention = settings.get("log_retention", "7 days")
 
-    # Add console handler
     logger.add(
         sys.stderr,
         level=log_level,
@@ -45,7 +42,6 @@ def setup_logging(
         diagnose=True,
     )
 
-    # Add file handler if specified
     if log_file:
         log_file.parent.mkdir(parents=True, exist_ok=True)
         logger.add(
@@ -58,7 +54,6 @@ def setup_logging(
             diagnose=True,
         )
 
-    # Set up trace logging for debug mode
     if log_level == "DEBUG":
         logger.add(
             sys.stderr,
@@ -84,8 +79,6 @@ def get_logger(name: str | None = None):
     return logger
 
 
-# Initialize logging on module import
 setup_logging()
 
-# Export logger for easy importing
 __all__ = ["logger", "setup_logging", "get_logger"]
