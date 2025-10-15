@@ -8,6 +8,11 @@ from datetime import datetime
 import re
 from urllib.parse import urlparse
 
+MAX_SHOWN_ERRORS = 5
+MAX_QUALITY_SCORE = 10
+QUALITY_SCORE_EXCELLENT = 8
+QUALITY_SCORE_ACCEPTABLE = 6
+
 
 def validate_silver_data(data: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
@@ -44,7 +49,7 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
                 missing_fields.append(f"Record {i} missing {field}")
 
     if missing_fields:
-        issues.extend(missing_fields[:5])
+        issues.extend(missing_fields[:MAX_SHOWN_ERRORS])
         recommendations.append("Fill in missing required fields")
 
     quality_issues = []
@@ -83,15 +88,17 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
     total_issues = len(issues) + len(quality_issues)
     max_issues = len(data) * 2
     quality_score = (
-        max(0, 10 - (total_issues / max_issues) * 10) if max_issues > 0 else 10
+        max(0, MAX_QUALITY_SCORE - (total_issues / max_issues) * MAX_QUALITY_SCORE)
+        if max_issues > 0
+        else MAX_QUALITY_SCORE
     )
 
     issues.extend(quality_issues)
 
     if not recommendations:
-        if quality_score >= 8:
+        if quality_score >= QUALITY_SCORE_EXCELLENT:
             recommendations.append("Data quality is good")
-        elif quality_score >= 6:
+        elif quality_score >= QUALITY_SCORE_ACCEPTABLE:
             recommendations.append(
                 "Data quality is acceptable with minor improvements needed"
             )
