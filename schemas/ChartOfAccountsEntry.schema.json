@@ -1,0 +1,166 @@
+{
+  "description": "Chart of Accounts entry schema (Norwegian Standard NS 4102).",
+  "properties": {
+    "account_id": {
+      "description": "4-digit account number",
+      "pattern": "^\\d{4}$",
+      "title": "Account Id",
+      "type": "string"
+    },
+    "account_label": {
+      "description": "Account name/label",
+      "title": "Account Label",
+      "type": "string"
+    },
+    "account_class": {
+      "description": "Account class (1-8)",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "title": "Account Class",
+      "type": "string"
+    },
+    "account_class_label": {
+      "description": "Class label",
+      "enum": [
+        "Eiendeler",
+        "Egenkapital og gjeld",
+        "Inntekter",
+        "Kostnader",
+        "Finansposter"
+      ],
+      "title": "Account Class Label",
+      "type": "string"
+    },
+    "account_group": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Account group within class",
+      "title": "Account Group"
+    },
+    "account_group_label": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Group label/name",
+      "title": "Account Group Label"
+    },
+    "description": {
+      "description": "Detailed account description",
+      "title": "Description",
+      "type": "string"
+    },
+    "account_type": {
+      "description": "Account type",
+      "enum": [
+        "asset",
+        "liability",
+        "equity",
+        "income",
+        "expense"
+      ],
+      "title": "Account Type",
+      "type": "string"
+    },
+    "normal_balance": {
+      "description": "Normal balance direction",
+      "enum": [
+        "debit",
+        "credit"
+      ],
+      "title": "Normal Balance",
+      "type": "string"
+    },
+    "is_standard": {
+      "default": true,
+      "description": "Whether this is a standard NS 4102 account",
+      "title": "Is Standard",
+      "type": "boolean"
+    },
+    "is_active": {
+      "default": true,
+      "description": "Whether account is active",
+      "title": "Is Active",
+      "type": "boolean"
+    },
+    "examples": {
+      "description": "Usage examples",
+      "items": {
+        "type": "string"
+      },
+      "title": "Examples",
+      "type": "array"
+    },
+    "related_vat_codes": {
+      "description": "Related VAT codes",
+      "items": {
+        "enum": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "EXEMPT",
+          "REVERSE_CHARGE"
+        ],
+        "type": "string"
+      },
+      "title": "Related Vat Codes",
+      "type": "array"
+    },
+    "source_standard": {
+      "default": "NS 4102",
+      "description": "Source standard",
+      "title": "Source Standard",
+      "type": "string"
+    },
+    "jurisdiction": {
+      "default": "NO",
+      "description": "Jurisdiction",
+      "title": "Jurisdiction",
+      "type": "string"
+    },
+    "last_updated": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Last updated timestamp",
+      "title": "Last Updated"
+    }
+  },
+  "required": [
+    "account_id",
+    "account_label",
+    "account_class",
+    "account_class_label",
+    "description",
+    "account_type",
+    "normal_balance"
+  ],
+  "title": "ChartOfAccountsEntry",
+  "type": "object"
+}
