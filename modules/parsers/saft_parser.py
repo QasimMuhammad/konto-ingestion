@@ -10,6 +10,8 @@ from typing import List, Dict, Optional
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+MIN_CONTENT_LENGTH = 20
+
 
 @dataclass
 class SpecNode:
@@ -153,10 +155,11 @@ def extract_nodes_from_lists(
         ):
             continue
 
+        MIN_ITEM_LENGTH = 10
         items = list_elem.find_all("li")
         for i, item in enumerate(items):
             item_text = item.get_text(" ", strip=True)
-            if len(item_text) > 10:  # Minimum content length
+            if len(item_text) > MIN_ITEM_LENGTH:
                 node = create_detailed_node_from_list_item(
                     item_text, version, source_url, sha256
                 )
@@ -197,7 +200,7 @@ def extract_nodes_from_headings(
             [elem.get_text(" ", strip=True) for elem in content_elements]
         )
 
-        if content_text and len(content_text) > 20:  # Minimum content length
+        if content_text and len(content_text) > MIN_CONTENT_LENGTH:
             node = create_detailed_node_from_heading(
                 heading_text, content_text, version, source_url, sha256
             )
@@ -738,7 +741,7 @@ def parse_saft_documentation(
             [elem.get_text(" ", strip=True) for elem in content_elements]
         )
 
-        if content_text and len(content_text) > 20:  # Minimum content length
+        if content_text and len(content_text) > MIN_CONTENT_LENGTH:
             node = create_detailed_node_from_heading(
                 heading_text, content_text, version, source_url, sha256
             )
