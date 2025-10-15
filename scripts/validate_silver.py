@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 from typing import Dict, Any
 
-from modules.simple_validation import validate_silver_data as simple_validate
+from modules.silver_data_quality import validate_silver_data
 from modules.schemas import (
     LawSection,
     SpecNode,
@@ -35,8 +35,8 @@ def parse_args():
     return parser.parse_args()
 
 
-def validate_silver_data(silver_dir: Path) -> Dict[str, Any]:
-    """Validate Silver layer data with quality assessment."""
+def validate_silver_files(silver_dir: Path) -> Dict[str, Any]:
+    """Validate Silver layer files with Pydantic schemas and quality assessment."""
 
     results: dict[str, Any] = {
         "total_files": 0,
@@ -111,8 +111,7 @@ def validate_silver_data(silver_dir: Path) -> Dict[str, Any]:
                     "quality_score": 0.0,
                 }
             else:
-                # Run simple quality assessment
-                quality_result = simple_validate(data)
+                quality_result = validate_silver_data(data)
                 results["valid_files"] += 1
                 results["file_details"][filename] = {
                     "status": "valid",
@@ -202,7 +201,7 @@ def main():
         project_root = Path(__file__).parent.parent
         silver_dir = project_root / silver_dir
 
-    results = validate_silver_data(silver_dir)
+    results = validate_silver_files(silver_dir)
 
     if args.output:
         output_path = Path(args.output)
