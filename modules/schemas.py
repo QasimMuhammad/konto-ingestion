@@ -3,8 +3,9 @@ Consolidated schema definitions for all data types.
 Pydantic V2 models for Bronze, Silver, and Gold layers.
 """
 
-from typing import Optional, List
-from pydantic import BaseModel, ConfigDict, Field
+from typing import List, Literal, Optional, Union
+
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class LawSection(BaseModel):
@@ -163,6 +164,165 @@ class SilverMetadata(BaseModel):
     model_config = ConfigDict(json_encoders={})
 
 
+class ChartOfAccountsEntry(BaseModel):
+    """Chart of Accounts entry schema (Norwegian Standard NS 4102)."""
+
+    account_id: str = Field(
+        ..., pattern=r"^\d{4}$", description="4-digit account number"
+    )
+    account_label: str = Field(..., description="Account name/label")
+    account_class: Literal["1", "2", "3", "4", "5", "6", "7", "8"] = Field(
+        ..., description="Account class (1-8)"
+    )
+    account_class_label: Literal[
+        "Eiendeler",
+        "Egenkapital og gjeld",
+        "Inntekter",
+        "Kostnader",
+        "Finansposter",
+    ] = Field(..., description="Class label")
+    account_group: Optional[str] = Field(None, description="Account group within class")
+    account_group_label: Optional[str] = Field(None, description="Group label/name")
+    description: str = Field(..., description="Detailed account description")
+    account_type: Literal["asset", "liability", "equity", "income", "expense"] = Field(
+        ..., description="Account type"
+    )
+    normal_balance: Literal["debit", "credit"] = Field(
+        ..., description="Normal balance direction"
+    )
+    is_standard: bool = Field(
+        True, description="Whether this is a standard NS 4102 account"
+    )
+    is_active: bool = Field(True, description="Whether account is active")
+    examples: List[str] = Field(default_factory=list, description="Usage examples")
+    related_vat_codes: List[
+        Literal["HIGH", "MEDIUM", "LOW", "EXEMPT", "REVERSE_CHARGE"]
+    ] = Field(default_factory=list, description="Related VAT codes")
+    source_standard: str = Field(default="NS 4102", description="Source standard")
+    jurisdiction: str = Field(default="NO", description="Jurisdiction")
+    last_updated: Optional[str] = Field(None, description="Last updated timestamp")
+
+    model_config = ConfigDict(json_encoders={})
+
+
+class RuleCondition(BaseModel):
+    """Strongly typed condition for business rules."""
+
+    field: str = Field(..., description="Field name to evaluate")
+    operator: Literal[
+        "equals",
+        "not_equals",
+        "contains",
+        "not_contains",
+        "in",
+        "not_in",
+        "greater_than",
+        "less_than",
+        "greater_equal",
+        "less_equal",
+    ] = Field(..., description="Comparison operator")
+    value: Union[str, int, float, bool, List[str]] = Field(
+        ..., description="Value to compare against"
+    )
+
+    model_config = ConfigDict(json_encoders={})
+
+
+class RuleAction(BaseModel):
+    """Strongly typed action for business rules."""
+
+    type: Literal[
+        "set_account",
+        "set_vat_code",
+        "set_vat_rate",
+        "set_vat_account",
+        "set_posting_type",
+        "set_asset_category",
+    ] = Field(..., description="Action type")
+    value: Union[str, int, float] = Field(..., description="Action value")
+
+    model_config = ConfigDict(json_encoders={})
+
+
+class ExampleInput(BaseModel):
+    """Example input for rule testing."""
+
+    amount: Union[int, float]
+    category: str | None = None
+    country: str | None = None
+    description: str | None = None
+    context: str | None = None
+    supplier_vat_registered: bool | None = None
+
+    model_config = ConfigDict(extra="allow", json_encoders={})
+
+
+class ExampleOutput(BaseModel):
+    """Example output for rule testing."""
+
+    account: str
+    vat_code: Literal["HIGH", "MEDIUM", "LOW", "EXEMPT", "REVERSE_CHARGE"] | None = None
+    vat_rate: Union[int, float] | None = None
+    vat_account: str | None = None
+    posting_type: str | None = None
+
+    model_config = ConfigDict(extra="allow", json_encoders={})
+
+
+class RuleExample(BaseModel):
+    """Typed example scenario for business rules."""
+
+    description: str
+    input: ExampleInput
+    output: ExampleOutput
+
+    model_config = ConfigDict(json_encoders={})
+
+
+class BusinessRule(BaseModel):
+    """Business rule schema with strong typing for deterministic posting proposals."""
+
+    rule_id: str = Field(..., description="Unique rule identifier")
+    rule_name: str = Field(..., description="Human-readable rule name")
+    description: str = Field(..., description="Rule description")
+    category: Literal[
+        "expense", "income", "vat_calculation", "posting_logic", "transfer"
+    ] = Field(..., description="Rule category")
+    domain: Literal["tax", "accounting", "reporting", "payroll"] = Field(
+        ..., description="Domain"
+    )
+    priority: int = Field(
+        default=100, description="Rule priority (lower = higher priority)"
+    )
+    is_active: bool = Field(True, description="Whether rule is active")
+    conditions: List[RuleCondition] = Field(..., description="Typed rule conditions")
+    actions: List[RuleAction] = Field(..., description="Typed actions to take")
+    source_ids: List[str] = Field(
+        ...,
+        description="References to source documents (law sections, VAT rates, etc.)",
+    )
+    citations: List[str] = Field(
+        default_factory=list, description="Human-readable citations"
+    )
+    examples: List[RuleExample] = Field(
+        default_factory=list, description="Typed example scenarios"
+    )
+    valid_from: Optional[str] = Field(None, description="Valid from date")
+    valid_to: Optional[str] = Field(None, description="Valid to date")
+    jurisdiction: str = Field(default="NO", description="Jurisdiction")
+    created_at: Optional[str] = Field(None, description="Creation timestamp")
+    last_updated: Optional[str] = Field(None, description="Last updated timestamp")
+
+    @field_validator("source_ids")
+    @classmethod
+    def validate_source_ids_not_empty(cls, v: List[str]) -> List[str]:
+        if not v:
+            raise ValueError("source_ids cannot be empty")
+        return v
+
+    model_config = ConfigDict(json_encoders={})
+
+
 __all__ = [
     "LawSection",
     "VatRate",
@@ -170,4 +330,11 @@ __all__ = [
     "AmeldingRule",
     "QualityReport",
     "SilverMetadata",
+    "ChartOfAccountsEntry",
+    "RuleCondition",
+    "RuleAction",
+    "ExampleInput",
+    "ExampleOutput",
+    "RuleExample",
+    "BusinessRule",
 ]
