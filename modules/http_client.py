@@ -9,7 +9,6 @@ import requests
 
 from .settings import settings
 
-# Configure logging
 log = logging.getLogger(__name__)
 
 

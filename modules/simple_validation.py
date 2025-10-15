@@ -35,7 +35,6 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
     issues = []
     recommendations = []
 
-    # Check required fields (data quality, not type checking)
     required_fields = ["source_url", "sha256", "domain", "publisher"]
     missing_fields = []
 
@@ -45,13 +44,11 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
                 missing_fields.append(f"Record {i} missing {field}")
 
     if missing_fields:
-        issues.extend(missing_fields[:5])  # Show first 5
+        issues.extend(missing_fields[:5])
         recommendations.append("Fill in missing required fields")
 
-    # Check data quality
     quality_issues = []
 
-    # Check URLs
     invalid_urls = 0
     for record in data:
         if "source_url" in record and record["source_url"]:
@@ -62,7 +59,6 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
         quality_issues.append(f"Found {invalid_urls} invalid URLs")
         recommendations.append("Fix invalid URLs")
 
-    # Check SHA256 hashes
     invalid_hashes = 0
     for record in data:
         if "sha256" in record and record["sha256"]:
@@ -73,7 +69,6 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
         quality_issues.append(f"Found {invalid_hashes} invalid SHA256 hashes")
         recommendations.append("Fix invalid SHA256 hashes")
 
-    # Check domains
     invalid_domains = 0
     valid_domains = {"tax", "accounting", "reporting"}
     for record in data:
@@ -85,17 +80,14 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
         quality_issues.append(f"Found {invalid_domains} invalid domains")
         recommendations.append("Use valid domains: tax, accounting, reporting")
 
-    # Calculate quality score
     total_issues = len(issues) + len(quality_issues)
-    max_issues = len(data) * 2  # Rough estimate
+    max_issues = len(data) * 2
     quality_score = (
         max(0, 10 - (total_issues / max_issues) * 10) if max_issues > 0 else 10
     )
 
-    # Add quality issues to main issues
     issues.extend(quality_issues)
 
-    # Generate recommendations if no specific issues
     if not recommendations:
         if quality_score >= 8:
             recommendations.append("Data quality is good")
