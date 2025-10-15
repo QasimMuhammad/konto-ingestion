@@ -49,35 +49,45 @@ This comprehensive validation includes:
 
 ### Unified Ingestion Pipeline
 
-The pipeline runs in two stages: **Bronze ingestion** (sources → bronze) and **Silver processing** (bronze → silver).
+The pipeline supports multiple stages: **Seed** (static data), **Bronze ingestion** (sources → bronze), and **Silver processing** (bronze → silver).
 
 ```bash
-# Run full pipeline: sources → bronze → silver (default)
-uv run konto-ingest ingest
+# Seed static data (Chart of Accounts + Business Rules)
+uv run ingest_from_sources.py seed
 
-# Run for specific domain only
-uv run konto-ingest ingest --domain tax
-uv run konto-ingest ingest --domain accounting
-uv run konto-ingest ingest --domain reporting
+# Run full pipeline: sources → bronze → silver
+uv run ingest_from_sources.py ingest
 
-# Run bronze ingestion only (skip silver processing)
-uv run konto-ingest ingest --bronze-only
+# Complete pipeline: seed + ingest
+uv run ingest_from_sources.py all
 
-# Combine options: domain-specific bronze-only
-uv run konto-ingest ingest --domain tax --bronze-only
+# With validation
+uv run ingest_from_sources.py seed --with-validation
+uv run ingest_from_sources.py all --with-validation
+
+# Domain-specific ingestion
+uv run ingest_from_sources.py ingest --domain tax
+uv run ingest_from_sources.py ingest --domain accounting
+uv run ingest_from_sources.py ingest --domain reporting
+
+# Bronze only (skip silver processing)
+uv run ingest_from_sources.py ingest --bronze-only
 
 # List available sources
-uv run konto-ingest list
-uv run konto-ingest list --domain tax
+uv run ingest_from_sources.py list
+uv run ingest_from_sources.py list --domain tax
 ```
 
 ### Data Validation
 ```bash
-# Validate Silver layer data quality
-uv run validate-silver
+# Validate seed data (Chart of Accounts + Business Rules)
+uv run ingest_from_sources.py seed --with-validation
 
-# Save quality report to file
-uv run validate-silver --output quality_report.json
+# Validate Silver layer data quality
+uv run scripts/validate_silver.py
+
+# Export JSON Schemas from Pydantic models
+uv run scripts/export_json_schemas.py
 ```
 
 ### Debug Tools
