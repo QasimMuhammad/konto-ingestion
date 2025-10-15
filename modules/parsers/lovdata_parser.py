@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup, Tag
 
 from ..cleaners.norwegian_text_normalizer import normalize_text
 
+MIN_TEXT_LENGTH = 10
+
 
 @dataclass
 class Section:
@@ -84,7 +86,7 @@ def _extract_section_from_element(
         heading = _extract_heading(element)
 
         text_content = _extract_text_content(element)
-        if not text_content or len(text_content.strip()) < 10:
+        if not text_content or len(text_content.strip()) < MIN_TEXT_LENGTH:
             return None
 
         text_plain = normalize_text(text_content)
@@ -137,9 +139,10 @@ def _extract_heading(element: Tag) -> str:
     if heading_tags:
         return str(heading_tags[0].get_text(" ", strip=True))
 
+    MAX_HEADING_LENGTH = 100
     text = str(element.get_text(" ", strip=True))
     first_line = text.split("\n")[0].strip()
-    return first_line[:100] if first_line else ""
+    return first_line[:MAX_HEADING_LENGTH] if first_line else ""
 
 
 def _extract_text_content(element: Tag) -> str:
@@ -203,7 +206,7 @@ def _extract_sections_from_main_content(
         heading = first_line
         text_content = "\n".join(lines[1:]).strip()
 
-        if len(text_content) < 10:
+        if len(text_content) < MIN_TEXT_LENGTH:
             continue
 
         text_plain = normalize_text(text_content)

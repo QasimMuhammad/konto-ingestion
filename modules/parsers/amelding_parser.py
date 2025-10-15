@@ -10,6 +10,9 @@ from typing import List, Dict, Optional
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+MIN_CONTENT_LENGTH = 20
+MIN_ITEM_LENGTH = 10
+
 
 @dataclass
 class AmeldingRule:
@@ -146,7 +149,7 @@ def extract_rules_from_headings(
             [elem.get_text(" ", strip=True) for elem in content_elements]
         )
 
-        if content_text and len(content_text) > 20:  # Minimum content length
+        if content_text and len(content_text) > MIN_CONTENT_LENGTH:
             # Extract detailed rule information
             rule_id = f"amelding_heading_{len(rules) + 1:03d}"
             category = extract_detailed_category(heading_text, content_text)
@@ -206,7 +209,7 @@ def extract_rules_from_lists(
         items = list_elem.find_all("li")
         for i, item in enumerate(items):
             item_text = item.get_text(" ", strip=True)
-            if len(item_text) > 10:  # Minimum content length
+            if len(item_text) > MIN_ITEM_LENGTH:
                 rule_id = f"amelding_list_{len(rules) + 1:03d}"
                 category = extract_detailed_category(item_text, parent_text)
                 applies_to = extract_detailed_applies_to(item_text, category)
@@ -461,7 +464,7 @@ def extract_validation_rules(
         parent = element.parent
         if parent:
             context = parent.get_text(" ", strip=True)
-            if len(context) > 20:
+            if len(context) > MIN_CONTENT_LENGTH:
                 rule_id = f"amelding_validation_{len(rules) + 1:03d}"
 
                 rules.append(
@@ -500,7 +503,7 @@ def extract_submission_rules(
         parent = element.parent
         if parent:
             context = parent.get_text(" ", strip=True)
-            if len(context) > 20:
+            if len(context) > MIN_CONTENT_LENGTH:
                 rule_id = f"amelding_submission_{len(rules) + 1:03d}"
 
                 rules.append(
@@ -539,7 +542,7 @@ def extract_business_logic_rules(
         parent = element.parent
         if parent:
             context = parent.get_text(" ", strip=True)
-            if len(context) > 20:
+            if len(context) > MIN_CONTENT_LENGTH:
                 rule_id = f"amelding_business_{len(rules) + 1:03d}"
 
                 rules.append(

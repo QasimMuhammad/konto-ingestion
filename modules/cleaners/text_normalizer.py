@@ -9,6 +9,9 @@ from datetime import datetime, timezone
 from typing import Dict, List, Any
 from bs4 import BeautifulSoup
 
+DEFAULT_MIN_TEXT_LENGTH = 50
+TEXT_PREVIEW_BREAK_RATIO = 0.7
+
 
 def normalize_text(text: str) -> str:
     """
@@ -223,14 +226,14 @@ def extract_text_preview(text: str, max_length: int = 200) -> str:
     last_space = preview.rfind(" ")
 
     break_point = max(last_period, last_space)
-    if break_point > max_length * 0.7:
+    if break_point > max_length * TEXT_PREVIEW_BREAK_RATIO:
         preview = preview[: break_point + 1]
 
     return preview + "..."
 
 
 def validate_section_quality(
-    section: Dict[str, Any], min_text_length: int = 50
+    section: Dict[str, Any], min_text_length: int = DEFAULT_MIN_TEXT_LENGTH
 ) -> tuple[bool, List[str]]:
     """
     Validate section quality and return issues.
