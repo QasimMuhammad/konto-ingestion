@@ -89,8 +89,16 @@ print_status "Running Script Validation"
 echo "=========================================="
 
 # Script execution tests
-run_check "Script execution test - konto-ingest" "uv run konto-ingest --help > /dev/null"
-run_check "Script execution test - validate-silver" "uv run validate-silver --help > /dev/null"
+run_check "Script execution test - ingest pipeline" "uv run ingest_from_sources.py --help > /dev/null"
+run_check "Script execution test - validate silver" "uv run scripts/validate_silver.py --help > /dev/null"
+run_check "Script execution test - export schemas" "uv run scripts/export_json_schemas.py > /dev/null 2>&1"
+
+echo "=========================================="
+print_status "Running Seed Data Validation"
+echo "=========================================="
+
+# Seed data generation and validation
+run_check "Generate and validate seed data" "uv run ingest_from_sources.py seed --with-validation > /dev/null 2>&1"
 
 echo ""
 
