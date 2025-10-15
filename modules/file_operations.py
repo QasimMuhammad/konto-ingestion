@@ -15,10 +15,10 @@ log = logging.getLogger(__name__)
 
 def write_bronze_if_changed(path: Path, content: bytes) -> Dict[str, Any]:
     """Write content to Bronze layer only if it has changed (idempotent)."""
-    h = sha256_bytes(content)
+    content_hash = sha256_bytes(content)
     old_content = path.read_bytes() if path.exists() else None
 
-    if not old_content or sha256_bytes(old_content) != h:
+    if not old_content or sha256_bytes(old_content) != content_hash:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(content)
         changed = True
@@ -28,7 +28,7 @@ def write_bronze_if_changed(path: Path, content: bytes) -> Dict[str, Any]:
         log.info(f"Content unchanged, skipping {path}")
 
     return {
-        "sha256": h,
+        "sha256": content_hash,
         "changed": changed,
         "size_bytes": len(content),
         "timestamp": datetime.now().isoformat(),
