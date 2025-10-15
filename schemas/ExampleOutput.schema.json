@@ -1,0 +1,73 @@
+{
+  "additionalProperties": true,
+  "description": "Example output for rule testing.",
+  "properties": {
+    "account": {
+      "title": "Account",
+      "type": "string"
+    },
+    "vat_code": {
+      "anyOf": [
+        {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "EXEMPT",
+            "REVERSE_CHARGE"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Vat Code"
+    },
+    "vat_rate": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Vat Rate"
+    },
+    "vat_account": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Vat Account"
+    },
+    "posting_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Posting Type"
+    }
+  },
+  "required": [
+    "account"
+  ],
+  "title": "ExampleOutput",
+  "type": "object"
+}
