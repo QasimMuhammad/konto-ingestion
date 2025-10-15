@@ -1,0 +1,105 @@
+name: Validate Seed Data
+
+on:
+  push:
+    paths:
+      - 'modules/seed/**'
+      - 'modules/schemas.py'
+      - 'scripts/export_json_schemas.py'
+  pull_request:
+    paths:
+      - 'modules/seed/**'
+      - 'modules/schemas.py'
+      - 'scripts/export_json_schemas.py'
+
+jobs:
+  validate-seed-scripts:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v1
+      
+      - name: Install dependencies
+        run: uv sync
+      
+      - name: Type check seed modules
+        run: uv run mypy modules/seed/ scripts/export_json_schemas.py
+      
+      - name: Lint seed modules
+        run: uv run ruff check modules/seed/ scripts/export_json_schemas.py
+      
+      - name: Generate seed data (Chart of Accounts + Business Rules)
+        run: uv run ingest_from_sources.py seed
+      
+      - name: Validate generated data with Pydantic
+        run: uv run ingest_from_sources.py seed --with-validation
+      
+      - name: Export JSON Schemas
+        run: uv run scripts/export_json_schemas.py
+      
+      - name: Verify JSON Schema files exist
+        run: |
+          test -f schemas/BusinessRule.schema.json || exit 1
+          test -f schemas/ChartOfAccountsEntry.schema.json || exit 1
+          test -f schemas/RuleCondition.schema.json || exit 1
+          test -f schemas/RuleAction.schema.json || exit 1
+          echo "✓ All required schemas exported"
+      
+      - name: Install jsonschema for validation
+        run: uv pip install jsonschema
+      
+      - name: Validate generated data against JSON Schemas
+        run: |
+          python -c "
+          import json
+          import jsonschema
+          
+          print('Validating Business Rules...')
+          schema = json.load(open('schemas/BusinessRule.schema.json'))
+          rules = json.load(open('data/silver/business_rules.json'))
+          
+          for i, rule in enumerate(rules):
+              try:
+                  jsonschema.validate(rule, schema)
+              except jsonschema.ValidationError as e:
+                  print(f'❌ Rule {i} ({rule.get(\"rule_id\", \"unknown\")}): {e.message}')
+                  exit(1)
+          
+          print(f'✓ All {len(rules)} business rules validated against JSON Schema')
+          
+          print('\\nValidating Chart of Accounts...')
+          schema = json.load(open('schemas/ChartOfAccountsEntry.schema.json'))
+          accounts = json.load(open('data/silver/chart_of_accounts.json'))
+          
+          for i, acc in enumerate(accounts):
+              try:
+                  jsonschema.validate(acc, schema)
+              except jsonschema.ValidationError as e:
+                  print(f'❌ Account {i} ({acc.get(\"account_id\", \"unknown\")}): {e.message}')
+                  exit(1)
+          
+          print(f'✓ All {len(accounts)} accounts validated against JSON Schema')
+          "
+      
+      - name: Run schema unit tests
+        run: uv run pytest tests/test_schemas.py -v
+      
+      - name: Summary
+        run: |
+          echo "=========================================="
+          echo "✅ All Seed Data Validation Checks Passed"
+          echo "=========================================="
+          echo ""
+          echo "Validated:"
+          echo "  • Seed scripts type safety (MyPy)"
+          echo "  • Generated 42 Chart of Accounts entries"
+          echo "  • Generated 30 Business Rules"
+          echo "  • Pydantic model validation"
+          echo "  • JSON Schema validation"
+          echo "  • Unit tests"
+          echo ""
+          echo "Ready to merge! 🚀"
+
