@@ -1,0 +1,274 @@
+{
+  "description": "Law section schema for legal documents.",
+  "properties": {
+    "law_id": {
+      "description": "Unique identifier for the law",
+      "title": "Law Id",
+      "type": "string"
+    },
+    "section_id": {
+      "description": "Section identifier (e.g., PARAGRAF_1-1)",
+      "title": "Section Id",
+      "type": "string"
+    },
+    "section_label": {
+      "description": "Human-readable section label (e.g., § 1-1)",
+      "title": "Section Label",
+      "type": "string"
+    },
+    "path": {
+      "description": "Full path to section (e.g., Kapittel 1 PARAGRAF_1-1)",
+      "title": "Path",
+      "type": "string"
+    },
+    "heading": {
+      "description": "Section heading",
+      "title": "Heading",
+      "type": "string"
+    },
+    "text_plain": {
+      "description": "Cleaned plain text content",
+      "title": "Text Plain",
+      "type": "string"
+    },
+    "source_url": {
+      "description": "Source URL",
+      "title": "Source Url",
+      "type": "string"
+    },
+    "sha256": {
+      "description": "Content hash",
+      "title": "Sha256",
+      "type": "string"
+    },
+    "domain": {
+      "description": "Domain (tax, accounting, reporting)",
+      "title": "Domain",
+      "type": "string"
+    },
+    "source_type": {
+      "description": "Source type (law, forskrift, spec)",
+      "title": "Source Type",
+      "type": "string"
+    },
+    "publisher": {
+      "description": "Publisher (Lovdata, Skatteetaten, etc.)",
+      "title": "Publisher",
+      "type": "string"
+    },
+    "version": {
+      "description": "Version identifier",
+      "title": "Version",
+      "type": "string"
+    },
+    "jurisdiction": {
+      "description": "Jurisdiction (NO, EU, etc.)",
+      "title": "Jurisdiction",
+      "type": "string"
+    },
+    "effective_from": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective from date",
+      "title": "Effective From"
+    },
+    "effective_to": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective to date",
+      "title": "Effective To"
+    },
+    "law_title": {
+      "description": "Full law title",
+      "title": "Law Title",
+      "type": "string"
+    },
+    "chapter": {
+      "description": "Chapter name",
+      "title": "Chapter",
+      "type": "string"
+    },
+    "chapter_no": {
+      "description": "Chapter number",
+      "title": "Chapter No",
+      "type": "string"
+    },
+    "section_no": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Section number",
+      "title": "Section No"
+    },
+    "subsection_no": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Subsection number",
+      "title": "Subsection No"
+    },
+    "paragraph_no": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Paragraph number",
+      "title": "Paragraph No"
+    },
+    "text_length": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Text length in characters",
+      "title": "Text Length"
+    },
+    "word_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Word count",
+      "title": "Word Count"
+    },
+    "has_citations": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Whether section contains citations",
+      "title": "Has Citations"
+    },
+    "has_amendments": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Whether section has amendments",
+      "title": "Has Amendments"
+    },
+    "is_current": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Whether section is currently in force",
+      "title": "Is Current"
+    },
+    "last_updated": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Last updated timestamp",
+      "title": "Last Updated"
+    },
+    "token_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Token count for LLM",
+      "title": "Token Count"
+    },
+    "crawl_freq": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Crawl frequency",
+      "title": "Crawl Freq"
+    }
+  },
+  "required": [
+    "law_id",
+    "section_id",
+    "section_label",
+    "path",
+    "heading",
+    "text_plain",
+    "source_url",
+    "sha256",
+    "domain",
+    "source_type",
+    "publisher",
+    "version",
+    "jurisdiction",
+    "law_title",
+    "chapter",
+    "chapter_no"
+  ],
+  "title": "LawSection",
+  "type": "object"
+}

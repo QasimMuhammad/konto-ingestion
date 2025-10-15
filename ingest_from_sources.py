@@ -23,11 +23,20 @@ from modules.pipeline.domain_pipelines import (
     AmeldingProcessingPipeline,
     SaftProcessingPipeline,
 )
+from modules.seed import (
+    run_all_validations,
+    seed_business_rules,
+    seed_chart_of_accounts,
+)
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Konto Ingestion Pipeline")
-    parser.add_argument("command", choices=["ingest", "list"], help="Command to run")
+    parser.add_argument(
+        "command",
+        choices=["seed", "ingest", "all", "list"],
+        help="Command to run: seed (static data), ingest (Bronze+Silver), all (seed+ingest), list (show sources)",
+    )
     parser.add_argument(
         "--domain", choices=["tax", "accounting", "reporting"], help="Filter by domain"
     )
@@ -41,7 +50,41 @@ def parse_args():
         action="store_true",
         help="Only ingest to Bronze layer (skip Silver processing)",
     )
+    parser.add_argument(
+        "--with-validation",
+        action="store_true",
+        help="Run validation after processing",
+    )
     return parser.parse_args()
+
+
+def run_seed_stage() -> int:
+    """Run seed stage: generate Chart of Accounts and Business Rules."""
+    log.info("=" * 80)
+    log.info("STAGE 0: SEEDING STATIC DATA")
+    log.info("=" * 80)
+
+    silver_dir = get_silver_dir()
+
+    if seed_chart_of_accounts(silver_dir) != 0:
+        log.error("Chart of Accounts seeding failed")
+        return 1
+
+    if seed_business_rules(silver_dir) != 0:
+        log.error("Business Rules seeding failed")
+        return 1
+
+    log.info(f"\n{'=' * 80}")
+    log.info("SEED STAGE COMPLETE")
+    log.info(f"{'=' * 80}")
+
+    return 0
+
+
+def run_validation() -> int:
+    """Run validation on seed data outputs."""
+    log.info("")
+    return run_all_validations()
 
 
 def load_all_sources() -> List[Dict[str, Any]]:
@@ -243,16 +286,44 @@ def main():
     """Main entry point."""
     args = parse_args()
 
-    if args.command == "ingest":
-        return run_ingestion(
+    result = 0
+
+    if args.command == "seed":
+        result = run_seed_stage()
+
+    elif args.command == "ingest":
+        result = run_ingestion(
             domain=args.domain, freq=args.freq, bronze_only=args.bronze_only
         )
+
+    elif args.command == "all":
+        if run_seed_stage() != 0:
+            return 1
+
+        if (
+            run_ingestion(
+                domain=args.domain, freq=args.freq, bronze_only=args.bronze_only
+            )
+            != 0
+        ):
+            return 1
+
+        result = 0
+
     elif args.command == "list":
         list_sources(domain=args.domain, freq=args.freq)
         return 0
+
     else:
         log.error(f"Unknown command: {args.command}")
         return 1
+
+    if args.with_validation and args.command in ["seed", "all"]:
+        log.info("")
+        if run_validation() != 0:
+            log.warning("Validation found issues")
+
+    return result
 
 
 if __name__ == "__main__":
