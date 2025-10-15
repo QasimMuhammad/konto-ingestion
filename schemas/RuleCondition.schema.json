@@ -1,0 +1,58 @@
+{
+  "description": "Strongly typed condition for business rules.",
+  "properties": {
+    "field": {
+      "description": "Field name to evaluate",
+      "title": "Field",
+      "type": "string"
+    },
+    "operator": {
+      "description": "Comparison operator",
+      "enum": [
+        "equals",
+        "not_equals",
+        "contains",
+        "not_contains",
+        "in",
+        "not_in",
+        "greater_than",
+        "less_than",
+        "greater_equal",
+        "less_equal"
+      ],
+      "title": "Operator",
+      "type": "string"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      ],
+      "description": "Value to compare against",
+      "title": "Value"
+    }
+  },
+  "required": [
+    "field",
+    "operator",
+    "value"
+  ],
+  "title": "RuleCondition",
+  "type": "object"
+}

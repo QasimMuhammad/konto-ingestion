@@ -1,0 +1,441 @@
+{
+  "$defs": {
+    "ExampleInput": {
+      "additionalProperties": true,
+      "description": "Example input for rule testing.",
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Amount"
+        },
+        "category": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Category"
+        },
+        "country": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Country"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "context": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Context"
+        },
+        "supplier_vat_registered": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supplier Vat Registered"
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "title": "ExampleInput",
+      "type": "object"
+    },
+    "ExampleOutput": {
+      "additionalProperties": true,
+      "description": "Example output for rule testing.",
+      "properties": {
+        "account": {
+          "title": "Account",
+          "type": "string"
+        },
+        "vat_code": {
+          "anyOf": [
+            {
+              "enum": [
+                "HIGH",
+                "MEDIUM",
+                "LOW",
+                "EXEMPT",
+                "REVERSE_CHARGE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vat Code"
+        },
+        "vat_rate": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vat Rate"
+        },
+        "vat_account": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vat Account"
+        },
+        "posting_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posting Type"
+        }
+      },
+      "required": [
+        "account"
+      ],
+      "title": "ExampleOutput",
+      "type": "object"
+    },
+    "RuleAction": {
+      "description": "Strongly typed action for business rules.",
+      "properties": {
+        "type": {
+          "description": "Action type",
+          "enum": [
+            "set_account",
+            "set_vat_code",
+            "set_vat_rate",
+            "set_vat_account",
+            "set_posting_type",
+            "set_asset_category"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "Action value",
+          "title": "Value"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "title": "RuleAction",
+      "type": "object"
+    },
+    "RuleCondition": {
+      "description": "Strongly typed condition for business rules.",
+      "properties": {
+        "field": {
+          "description": "Field name to evaluate",
+          "title": "Field",
+          "type": "string"
+        },
+        "operator": {
+          "description": "Comparison operator",
+          "enum": [
+            "equals",
+            "not_equals",
+            "contains",
+            "not_contains",
+            "in",
+            "not_in",
+            "greater_than",
+            "less_than",
+            "greater_equal",
+            "less_equal"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Value to compare against",
+          "title": "Value"
+        }
+      },
+      "required": [
+        "field",
+        "operator",
+        "value"
+      ],
+      "title": "RuleCondition",
+      "type": "object"
+    },
+    "RuleExample": {
+      "description": "Typed example scenario for business rules.",
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "input": {
+          "$ref": "#/$defs/ExampleInput"
+        },
+        "output": {
+          "$ref": "#/$defs/ExampleOutput"
+        }
+      },
+      "required": [
+        "description",
+        "input",
+        "output"
+      ],
+      "title": "RuleExample",
+      "type": "object"
+    }
+  },
+  "description": "Business rule schema with strong typing for deterministic posting proposals.",
+  "properties": {
+    "rule_id": {
+      "description": "Unique rule identifier",
+      "title": "Rule Id",
+      "type": "string"
+    },
+    "rule_name": {
+      "description": "Human-readable rule name",
+      "title": "Rule Name",
+      "type": "string"
+    },
+    "description": {
+      "description": "Rule description",
+      "title": "Description",
+      "type": "string"
+    },
+    "category": {
+      "description": "Rule category",
+      "enum": [
+        "expense",
+        "income",
+        "vat_calculation",
+        "posting_logic",
+        "transfer"
+      ],
+      "title": "Category",
+      "type": "string"
+    },
+    "domain": {
+      "description": "Domain",
+      "enum": [
+        "tax",
+        "accounting",
+        "reporting",
+        "payroll"
+      ],
+      "title": "Domain",
+      "type": "string"
+    },
+    "priority": {
+      "default": 100,
+      "description": "Rule priority (lower = higher priority)",
+      "title": "Priority",
+      "type": "integer"
+    },
+    "is_active": {
+      "default": true,
+      "description": "Whether rule is active",
+      "title": "Is Active",
+      "type": "boolean"
+    },
+    "conditions": {
+      "description": "Typed rule conditions",
+      "items": {
+        "$ref": "#/$defs/RuleCondition"
+      },
+      "title": "Conditions",
+      "type": "array"
+    },
+    "actions": {
+      "description": "Typed actions to take",
+      "items": {
+        "$ref": "#/$defs/RuleAction"
+      },
+      "title": "Actions",
+      "type": "array"
+    },
+    "source_ids": {
+      "description": "References to source documents (law sections, VAT rates, etc.)",
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Ids",
+      "type": "array"
+    },
+    "citations": {
+      "description": "Human-readable citations",
+      "items": {
+        "type": "string"
+      },
+      "title": "Citations",
+      "type": "array"
+    },
+    "examples": {
+      "description": "Typed example scenarios",
+      "items": {
+        "$ref": "#/$defs/RuleExample"
+      },
+      "title": "Examples",
+      "type": "array"
+    },
+    "valid_from": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Valid from date",
+      "title": "Valid From"
+    },
+    "valid_to": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Valid to date",
+      "title": "Valid To"
+    },
+    "jurisdiction": {
+      "default": "NO",
+      "description": "Jurisdiction",
+      "title": "Jurisdiction",
+      "type": "string"
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Creation timestamp",
+      "title": "Created At"
+    },
+    "last_updated": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Last updated timestamp",
+      "title": "Last Updated"
+    }
+  },
+  "required": [
+    "rule_id",
+    "rule_name",
+    "description",
+    "category",
+    "domain",
+    "conditions",
+    "actions",
+    "source_ids"
+  ],
+  "title": "BusinessRule",
+  "type": "object"
+}
