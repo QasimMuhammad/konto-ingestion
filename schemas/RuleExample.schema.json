@@ -1,0 +1,179 @@
+{
+  "$defs": {
+    "ExampleInput": {
+      "additionalProperties": true,
+      "description": "Example input for rule testing.",
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Amount"
+        },
+        "category": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Category"
+        },
+        "country": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Country"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "context": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Context"
+        },
+        "supplier_vat_registered": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supplier Vat Registered"
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "title": "ExampleInput",
+      "type": "object"
+    },
+    "ExampleOutput": {
+      "additionalProperties": true,
+      "description": "Example output for rule testing.",
+      "properties": {
+        "account": {
+          "title": "Account",
+          "type": "string"
+        },
+        "vat_code": {
+          "anyOf": [
+            {
+              "enum": [
+                "HIGH",
+                "MEDIUM",
+                "LOW",
+                "EXEMPT",
+                "REVERSE_CHARGE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vat Code"
+        },
+        "vat_rate": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vat Rate"
+        },
+        "vat_account": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vat Account"
+        },
+        "posting_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posting Type"
+        }
+      },
+      "required": [
+        "account"
+      ],
+      "title": "ExampleOutput",
+      "type": "object"
+    }
+  },
+  "description": "Typed example scenario for business rules.",
+  "properties": {
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "input": {
+      "$ref": "#/$defs/ExampleInput"
+    },
+    "output": {
+      "$ref": "#/$defs/ExampleOutput"
+    }
+  },
+  "required": [
+    "description",
+    "input",
+    "output"
+  ],
+  "title": "RuleExample",
+  "type": "object"
+}
