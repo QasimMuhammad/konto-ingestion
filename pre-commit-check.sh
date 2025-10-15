@@ -25,4 +25,13 @@ uv run ruff format .
 echo "🔍 Checking for remaining issues..."
 uv run ruff check .
 
+# Validate seed scripts if they were modified
+if git diff --cached --name-only | grep -qE "modules/seed/|modules/schemas.py"; then
+    echo "🌱 Validating seed data generation..."
+    uv run ingest_from_sources.py seed --with-validation
+    
+    echo "📋 Exporting JSON Schemas..."
+    uv run scripts/export_json_schemas.py
+fi
+
 echo "✅ All pre-commit checks passed!"
