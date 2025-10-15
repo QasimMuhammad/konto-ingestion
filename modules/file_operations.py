@@ -10,7 +10,6 @@ from datetime import datetime
 
 from .hash_utils import sha256_bytes
 
-# Configure logging
 log = logging.getLogger(__name__)
 
 

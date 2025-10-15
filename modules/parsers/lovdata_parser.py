@@ -42,8 +42,6 @@ def parse_lovdata_html(
     soup = BeautifulSoup(html, "lxml")
     sections: List[Section] = []
 
-    # Find all potential section elements
-    # Lovdata typically uses various structures, so we'll try multiple selectors
     section_selectors = [
         "div.paragraf",
         "div.paragraf-innhold",
@@ -60,7 +58,6 @@ def parse_lovdata_html(
             found_sections.extend(elements)
             break
 
-    # If no specific sections found, look for headings and their content
     if not found_sections:
         found_sections = soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6"])
 
@@ -69,7 +66,6 @@ def parse_lovdata_html(
         if section:
             sections.append(section)
 
-    # If still no sections found, try to extract from the main content
     if not sections:
         sections = _extract_sections_from_main_content(soup, law_id, source_url, sha256)
 
@@ -81,23 +77,18 @@ def _extract_section_from_element(
 ) -> Optional[Section]:
     """Extract section data from a single HTML element."""
     try:
-        # Try to find section ID from various attributes
         section_id = _extract_section_id(element)
         if not section_id:
             return None
 
-        # Extract heading
         heading = _extract_heading(element)
 
-        # Extract text content
         text_content = _extract_text_content(element)
         if not text_content or len(text_content.strip()) < 10:
             return None
 
-        # Normalize text
         text_plain = normalize_text(text_content)
 
-        # Create path (chapter + section)
         path = _create_section_path(element, heading, section_id)
 
         return Section(
@@ -119,24 +110,19 @@ def _extract_section_from_element(
 
 def _extract_section_id(element: Tag) -> Optional[str]:
     """Extract section ID from element attributes or content."""
-    # Try ID attribute first
     element_id = element.get("id")
     if element_id:
-        # Handle both single string and list of strings
         if isinstance(element_id, list):
             return element_id[0] if element_id else None
         return element_id
 
-    # Look for section markers in text content
     text = element.get_text()
 
-    # Pattern for Norwegian legal sections: § 8-1, § 9-2, etc.
     section_pattern = r"§\s*(\d+-\d+)"
     match = re.search(section_pattern, text)
     if match:
         return f"§ {match.group(1)}"
 
-    # Pattern for simple numbers: 8-1, 9-2, etc.
     number_pattern = r"(\d+-\d+)"
     match = re.search(number_pattern, text)
     if match:
@@ -147,12 +133,10 @@ def _extract_section_id(element: Tag) -> Optional[str]:
 
 def _extract_heading(element: Tag) -> str:
     """Extract heading text from element."""
-    # Look for heading tags within the element
     heading_tags = element.find_all(["h1", "h2", "h3", "h4", "h5", "h6"])
     if heading_tags:
         return str(heading_tags[0].get_text(" ", strip=True))
 
-    # If no heading tags, use first line of text
     text = str(element.get_text(" ", strip=True))
     first_line = text.split("\n")[0].strip()
     return first_line[:100] if first_line else ""
@@ -160,14 +144,10 @@ def _extract_heading(element: Tag) -> str:
 
 def _extract_text_content(element: Tag) -> str:
     """Extract clean text content from element."""
-    # Remove script and style elements
     for script in element(["script", "style"]):
         script.decompose()
 
-    # Get text content
     text = element.get_text(" ", strip=True)
-
-    # Clean up whitespace
     text = re.sub(r"\s+", " ", text)
 
     return text.strip()
@@ -175,7 +155,6 @@ def _extract_text_content(element: Tag) -> str:
 
 def _create_section_path(element: Tag, heading: str, section_id: str) -> str:
     """Create a human-readable path for the section."""
-    # Try to find chapter information
     chapter_info = _find_chapter_info(element)
 
     if chapter_info:
@@ -188,7 +167,6 @@ def _create_section_path(element: Tag, heading: str, section_id: str) -> str:
 
 def _find_chapter_info(element: Tag) -> Optional[str]:
     """Find chapter information from element or its parents."""
-    # Look for chapter markers in parent elements
     current = element.parent
     while current:
         text = current.get_text()
@@ -206,10 +184,8 @@ def _extract_sections_from_main_content(
     """Fallback method to extract sections from main content when no specific structure found."""
     sections = []
 
-    # Look for all text that contains section markers
     text = soup.get_text()
 
-    # Split by section markers and create sections
     section_pattern = r"(§\s*\d+-\d+[^§]*)"
     matches = re.findall(section_pattern, text, re.DOTALL)
 
@@ -218,7 +194,6 @@ def _extract_sections_from_main_content(
         if len(lines) < 2:
             continue
 
-        # First line should contain the section ID
         first_line = lines[0].strip()
         section_id_match = re.search(r"§\s*(\d+-\d+)", first_line)
         if not section_id_match:
