@@ -1,12 +1,17 @@
 """
-Simplified validation system for Silver layer data.
-Replaces the complex validation system with simple, focused validation.
+Silver layer data quality validation.
+Validates data quality aspects like URLs, hashes, domains, and generates quality scores.
 """
 
 from typing import Dict, List, Any
 from datetime import datetime
 import re
 from urllib.parse import urlparse
+
+MAX_SHOWN_ERRORS = 5
+MAX_QUALITY_SCORE = 10
+QUALITY_SCORE_EXCELLENT = 8
+QUALITY_SCORE_ACCEPTABLE = 6
 
 
 def validate_silver_data(data: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -35,7 +40,6 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
     issues = []
     recommendations = []
 
-    # Check required fields (data quality, not type checking)
     required_fields = ["source_url", "sha256", "domain", "publisher"]
     missing_fields = []
 
@@ -45,13 +49,11 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
                 missing_fields.append(f"Record {i} missing {field}")
 
     if missing_fields:
-        issues.extend(missing_fields[:5])  # Show first 5
+        issues.extend(missing_fields[:MAX_SHOWN_ERRORS])
         recommendations.append("Fill in missing required fields")
 
-    # Check data quality
     quality_issues = []
 
-    # Check URLs
     invalid_urls = 0
     for record in data:
         if "source_url" in record and record["source_url"]:
@@ -62,7 +64,6 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
         quality_issues.append(f"Found {invalid_urls} invalid URLs")
         recommendations.append("Fix invalid URLs")
 
-    # Check SHA256 hashes
     invalid_hashes = 0
     for record in data:
         if "sha256" in record and record["sha256"]:
@@ -73,7 +74,6 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
         quality_issues.append(f"Found {invalid_hashes} invalid SHA256 hashes")
         recommendations.append("Fix invalid SHA256 hashes")
 
-    # Check domains
     invalid_domains = 0
     valid_domains = {"tax", "accounting", "reporting"}
     for record in data:
@@ -85,21 +85,20 @@ def _validate_data_content(data: List[Dict[str, Any]]) -> Dict[str, Any]:
         quality_issues.append(f"Found {invalid_domains} invalid domains")
         recommendations.append("Use valid domains: tax, accounting, reporting")
 
-    # Calculate quality score
     total_issues = len(issues) + len(quality_issues)
-    max_issues = len(data) * 2  # Rough estimate
+    max_issues = len(data) * 2
     quality_score = (
-        max(0, 10 - (total_issues / max_issues) * 10) if max_issues > 0 else 10
+        max(0, MAX_QUALITY_SCORE - (total_issues / max_issues) * MAX_QUALITY_SCORE)
+        if max_issues > 0
+        else MAX_QUALITY_SCORE
     )
 
-    # Add quality issues to main issues
     issues.extend(quality_issues)
 
-    # Generate recommendations if no specific issues
     if not recommendations:
-        if quality_score >= 8:
+        if quality_score >= QUALITY_SCORE_EXCELLENT:
             recommendations.append("Data quality is good")
-        elif quality_score >= 6:
+        elif quality_score >= QUALITY_SCORE_ACCEPTABLE:
             recommendations.append(
                 "Data quality is acceptable with minor improvements needed"
             )
