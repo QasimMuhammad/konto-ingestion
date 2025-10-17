@@ -55,9 +55,9 @@ def test_legal_text_pipeline_smoke():
         if len(data) > 0:
             section = data[0]
             assert "sha256" in section, "Should have sha256 field"
-            assert (
-                section["sha256"] != "bronze_hash"
-            ), "Should have real hash, not placeholder"
+            assert section["sha256"] != "bronze_hash", (
+                "Should have real hash, not placeholder"
+            )
             assert len(section["sha256"]) == 64, "SHA256 should be 64 hex chars"
 
 

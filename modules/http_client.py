@@ -46,9 +46,7 @@ def create_session_with_retries(
     return session
 
 
-def http_get(
-    url: str, timeout: int | None = None, max_retries: int = 3
-) -> bytes:
+def http_get(url: str, timeout: int | None = None, max_retries: int = 3) -> bytes:
     """
     Fetch content from URL with retry logic and proper error handling.
 
