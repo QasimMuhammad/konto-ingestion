@@ -1,0 +1,970 @@
+{
+  "metadata": {
+    "model": "mock",
+    "total_samples": 49,
+    "timestamp": "2025-10-17T21:32:49.197136"
+  },
+  "aggregate_metrics": {
+    "overall_score": 0.9195578231292512,
+    "accuracy": 1.0,
+    "citation_coverage": 1.0,
+    "avg_length_tokens": 27.46938775510204,
+    "pass_rate": 0.8775510204081632
+  },
+  "by_task": {
+    "glossary_define": {
+      "count": 49,
+      "overall_score": 0.9195578231292512,
+      "accuracy": 1.0,
+      "pass_rate": 0.8775510204081632
+    }
+  },
+  "by_domain": {
+    "tax": {
+      "count": 29,
+      "overall_score": 0.9175287356321842,
+      "accuracy": 1.0,
+      "pass_rate": 0.8275862068965517
+    },
+    "accounting": {
+      "count": 20,
+      "overall_score": 0.9225000000000003,
+      "accuracy": 1.0,
+      "pass_rate": 0.95
+    }
+  },
+  "sample_results": [
+    {
+      "sample_id": "glossary_define_0",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er merverdiavgift?",
+      "expected": "Merverdiavgift er en avgift til staten som skal beregnes ved omsetning, uttak og innførsel av varer og tjenester. [§ 1-1 Lov om merverdiavgift]",
+      "predicted": "Merverdiavgift er en avgift til staten som skal beregnes ved omsetning, uttak og innførsel av varer og tjenester. [§ 1-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 23,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_1",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Når må en virksomhet registrere seg i Merverdiavgiftsregisteret?",
+      "expected": "Næringsdrivende og offentlig virksomhet skal registreres i Merverdiavgiftsregisteret når omsetning og uttak som er omfattet av loven til sammen har oversteget 50.000 kroner i løpet av en 12-måneders periode. [§ 2-1 Lov om merverdiavgift]",
+      "predicted": "Næringsdrivende og offentlig virksomhet skal registreres i Merverdiavgiftsregisteret når omsetning og uttak som er omfattet av loven til sammen har oversteget 50.000 kroner i løpet av en 12-måneders periode. [§ 2-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 34,
+        "keywords": 0.5,
+        "keywords_found": 1,
+        "keywords_total": 2,
+        "overall": 0.875,
+        "status": "acceptable"
+      }
+    },
+    {
+      "sample_id": "glossary_define_2",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva betyr omvendt avgiftsplikt?",
+      "expected": "Omvendt avgiftsplikt betyr at kjøperen (ikke selgeren) skal beregne og betale merverdiavgiften. Dette gjelder typisk ved kjøp av tjenester fra utlandet eller ved kjøp av varer og tjenester som omfattes av særlige regler. [§ 11-1 Lov om merverdiavgift]",
+      "predicted": "Omvendt avgiftsplikt betyr at kjøperen (ikke selgeren) skal beregne og betale merverdiavgiften. Dette gjelder typisk ved kjøp av tjenester fra utlandet eller ved kjøp av varer og tjenester som omfattes av særlige regler. [§ 11-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 38,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_3",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hvilken MVA-sats gjelder for næringsmidler?",
+      "expected": "Næringsmidler har generelt 15% merverdiavgift (redusert sats). Dette gjelder mat og drikkevarer, unntatt alkoholholdige drikkevarer som har 25% sats.",
+      "predicted": "Næringsmidler har generelt 15% merverdiavgift (redusert sats). Dette gjelder mat og drikkevarer, unntatt alkoholholdige drikkevarer som har 25% sats.",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 19,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_4",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er fradragsrett for inngående merverdiavgift?",
+      "expected": "Et registrert avgiftssubjekt har rett til fradrag for inngående merverdiavgift på anskaffelser av varer og tjenester som er til bruk i den registrerte virksomheten. [§ 8-1 Lov om merverdiavgift]",
+      "predicted": "Et registrert avgiftssubjekt har rett til fradrag for inngående merverdiavgift på anskaffelser av varer og tjenester som er til bruk i den registrerte virksomheten. [§ 8-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 29,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_5",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva betyr omsetning i MVA-sammenheng?",
+      "expected": "Omsetning er levering av varer og tjenester mot vederlag. Det skal beregnes merverdiavgift ved omsetning av varer og tjenester. [§ 3-1 Lov om merverdiavgift]",
+      "predicted": "Omsetning er levering av varer og tjenester mot vederlag. Det skal beregnes merverdiavgift ved omsetning av varer og tjenester. [§ 3-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 24,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_6",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er uttak i MVA-lovens forstand?",
+      "expected": "Uttak er når en avgiftspliktig person tar ut varer eller tjenester fra virksomheten til privat bruk eller til formål utenfor den registrerte virksomheten. Uttak likestilles med omsetning og det skal beregnes merverdiavgift. [§ 3-21 Lov om merverdiavgift]",
+      "predicted": "Uttak er når en avgiftspliktig person tar ut varer eller tjenester fra virksomheten til privat bruk eller til formål utenfor den registrerte virksomheten. Uttak likestilles med omsetning og det skal beregnes merverdiavgift. [§ 3-21 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 37,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_7",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er avgiftssubjekt?",
+      "expected": "Avgiftssubjekt er den som driver næringsvirksomhet og har plikt til å beregne merverdiavgift. Dette inkluderer både næringsdrivende og offentlig virksomhet som omsetter varer og tjenester. [§ 1-2 Lov om merverdiavgift]",
+      "predicted": "Avgiftssubjekt er den som driver næringsvirksomhet og har plikt til å beregne merverdiavgift. Dette inkluderer både næringsdrivende og offentlig virksomhet som omsetter varer og tjenester. [§ 1-2 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 30,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_8",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er beregningsgrunnlaget for merverdiavgift?",
+      "expected": "Beregningsgrunnlaget for merverdiavgift er vederlaget som selger mottar eller vil motta for varen eller tjenesten, inkludert alle kostnader som kjøper skal betale, men eksklusive merverdiavgiften selv. [§ 4-1 Lov om merverdiavgift]",
+      "predicted": "Beregningsgrunnlaget for merverdiavgift er vederlaget som selger mottar eller vil motta for varen eller tjenesten, inkludert alle kostnader som kjøper skal betale, men eksklusive merverdiavgiften selv. [§ 4-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 31,
+        "keywords": 0.5,
+        "keywords_found": 1,
+        "keywords_total": 2,
+        "overall": 0.875,
+        "status": "acceptable"
+      }
+    },
+    {
+      "sample_id": "glossary_define_9",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er avgiftspliktig omsetning?",
+      "expected": "Avgiftspliktig omsetning er salg av varer og tjenester som ikke er unntatt fra merverdiavgiftsplikt. Det er omsetning hvor selger skal beregne og betale merverdiavgift til staten. [§ 3-1 Lov om merverdiavgift]",
+      "predicted": "Avgiftspliktig omsetning er salg av varer og tjenester som ikke er unntatt fra merverdiavgiftsplikt. Det er omsetning hvor selger skal beregne og betale merverdiavgift til staten. [§ 3-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 31,
+        "keywords": 0.5,
+        "keywords_found": 1,
+        "keywords_total": 2,
+        "overall": 0.875,
+        "status": "acceptable"
+      }
+    },
+    {
+      "sample_id": "glossary_define_10",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er frivillig registrering?",
+      "expected": "Frivillig registrering er når en virksomhet velger å registrere seg i Merverdiavgiftsregisteret selv om omsetningen ikke har nådd registreringsterskelen på 50.000 kroner. Dette gir rett til fradrag for inngående merverdiavgift. [§ 2-3 Lov om merverdiavgift]",
+      "predicted": "Frivillig registrering er når en virksomhet velger å registrere seg i Merverdiavgiftsregisteret selv om omsetningen ikke har nådd registreringsterskelen på 50.000 kroner. Dette gir rett til fradrag for inngående merverdiavgift. [§ 2-3 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 35,
+        "keywords": 0.6666666666666666,
+        "keywords_found": 2,
+        "keywords_total": 3,
+        "overall": 0.8916666666666666,
+        "status": "acceptable"
+      }
+    },
+    {
+      "sample_id": "glossary_define_11",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er inngående merverdiavgift?",
+      "expected": "Inngående merverdiavgift er den merverdiavgiften som en virksomhet betaler på innkjøp av varer og tjenester. Registrerte avgiftssubjekter har rett til fradrag for denne avgiften når innkjøpene er til bruk i virksomheten. [§ 8-1 Lov om merverdiavgift]",
+      "predicted": "Inngående merverdiavgift er den merverdiavgiften som en virksomhet betaler på innkjøp av varer og tjenester. Registrerte avgiftssubjekter har rett til fradrag for denne avgiften når innkjøpene er til bruk i virksomheten. [§ 8-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 36,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_12",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er utgående merverdiavgift?",
+      "expected": "Utgående merverdiavgift er den merverdiavgiften som en virksomhet beregner og krever inn ved salg av varer og tjenester. Denne avgiften skal innbetales til staten, fratrukket inngående merverdiavgift. [§ 11-1 Lov om merverdiavgift]",
+      "predicted": "Utgående merverdiavgift er den merverdiavgiften som en virksomhet beregner og krever inn ved salg av varer og tjenester. Denne avgiften skal innbetales til staten, fratrukket inngående merverdiavgift. [§ 11-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 32,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_13",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er nullsats for merverdiavgift?",
+      "expected": "Nullsats (0%) anvendes ved omsetning av visse varer og tjenester hvor virksomheten har fradragsrett for inngående merverdiavgift, men ikke skal beregne utgående merverdiavgift. Dette gjelder typisk ved eksport av varer og tjenester.",
+      "predicted": "Nullsats (0%) anvendes ved omsetning av visse varer og tjenester hvor virksomheten har fradragsrett for inngående merverdiavgift, men ikke skal beregne utgående merverdiavgift. Dette gjelder typisk ved eksport av varer og tjenester.",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 32,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_14",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er avgiftsfritt salg?",
+      "expected": "Avgiftsfritt salg er omsetning av varer og tjenester som er unntatt fra merverdiavgiftsplikt. Ved avgiftsfritt salg har virksomheten normalt ikke fradragsrett for inngående merverdiavgift. Eksempler er helse- og undervisningstjenester. [§ 6-1 Lov om merverdiavgift]",
+      "predicted": "Avgiftsfritt salg er omsetning av varer og tjenester som er unntatt fra merverdiavgiftsplikt. Ved avgiftsfritt salg har virksomheten normalt ikke fradragsrett for inngående merverdiavgift. Eksempler er helse- og undervisningstjenester. [§ 6-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 34,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_15",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er avgiftsområdet for merverdiavgift?",
+      "expected": "Avgiftsområdet for merverdiavgift er Norges landterritorium, norsk territorialfarvann og norsk kontinentalsokkel. Svalbard er unntatt fra avgiftsområdet. [§ 1-3 Lov om merverdiavgift]",
+      "predicted": "Avgiftsområdet for merverdiavgift er Norges landterritorium, norsk territorialfarvann og norsk kontinentalsokkel. Svalbard er unntatt fra avgiftsområdet. [§ 1-3 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 21,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_16",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er leveringstidspunktet for merverdiavgift?",
+      "expected": "Leveringstidspunktet er når avgiftsplikten inntrer, altså når merverdiavgiften skal beregnes og innberettes. For varer er dette normalt når varen leveres til kjøper, og for tjenester når tjenesten er utført. [§ 10-1 Lov om merverdiavgift]",
+      "predicted": "Leveringstidspunktet er når avgiftsplikten inntrer, altså når merverdiavgiften skal beregnes og innberettes. For varer er dette normalt når varen leveres til kjøper, og for tjenester når tjenesten er utført. [§ 10-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 34,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_17",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er terminomsetning?",
+      "expected": "Terminomsetning er omsetningen i en avgiftsperiode (termin). Merverdiavgift beregnes og innberettes for hver termin, som normalt er to måneder for de fleste virksomheter. [§ 15-1 Lov om merverdiavgift]",
+      "predicted": "Terminomsetning er omsetningen i en avgiftsperiode (termin). Merverdiavgift beregnes og innberettes for hver termin, som normalt er to måneder for de fleste virksomheter. [§ 15-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 28,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_18",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er justering av inngående merverdiavgift?",
+      "expected": "Justering av inngående merverdiavgift er korrigering av tidligere fradratt merverdiavgift når bruken av en anskaffelse endres. Hvis en vare eller tjeneste går fra avgiftspliktig til avgiftsfri bruk, må fradraget justeres tilbake. [§ 9-1 Lov om merverdiavgift]",
+      "predicted": "Justering av inngående merverdiavgift er korrigering av tidligere fradratt merverdiavgift når bruken av en anskaffelse endres. Hvis en vare eller tjeneste går fra avgiftspliktig til avgiftsfri bruk, må fradraget justeres tilbake. [§ 9-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 36,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_19",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er blandingsforhold i MVA-sammenheng?",
+      "expected": "Blandingsforhold oppstår når en virksomhet har både avgiftspliktig og avgiftsfri omsetning. Da må inngående merverdiavgift fordeles forholdsmessig, og full fradragsrett gjelder bare for den avgiftspliktige delen. [§ 8-2 Lov om merverdiavgift]",
+      "predicted": "Blandingsforhold oppstår når en virksomhet har både avgiftspliktig og avgiftsfri omsetning. Da må inngående merverdiavgift fordeles forholdsmessig, og full fradragsrett gjelder bare for den avgiftspliktige delen. [§ 8-2 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 31,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_20",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er kapitalvarer i MVA-lovens forstand?",
+      "expected": "Kapitalvarer er driftsmidler og andre eiendeler med varig verdi som har en anskaffelseskost over en viss grense. For kapitalvarer gjelder særregler om justering av fradrag over flere år hvis bruken endres. [§ 9-2 Lov om merverdiavgift]",
+      "predicted": "Kapitalvarer er driftsmidler og andre eiendeler med varig verdi som har en anskaffelseskost over en viss grense. For kapitalvarer gjelder særregler om justering av fradrag over flere år hvis bruken endres. [§ 9-2 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 36,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_21",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er dokumentasjonsplikt for merverdiavgift?",
+      "expected": "Dokumentasjonsplikt betyr at avgiftssubjekter skal oppbevare regnskapsmateriale og dokumentasjon som viser grunnlaget for beregning av merverdiavgift. Dette inkluderer fakturaer, kontrakter og andre relevante dokumenter. [§ 15-10 Lov om merverdiavgift]",
+      "predicted": "Dokumentasjonsplikt betyr at avgiftssubjekter skal oppbevare regnskapsmateriale og dokumentasjon som viser grunnlaget for beregning av merverdiavgift. Dette inkluderer fakturaer, kontrakter og andre relevante dokumenter. [§ 15-10 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 29,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_22",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er innførsel av varer?",
+      "expected": "Innførsel av varer er når varer bringes inn i avgiftsområdet fra utlandet. Ved innførsel skal det betales merverdiavgift, som normalt beregnes sammen med toll. [§ 7-1 Lov om merverdiavgift]",
+      "predicted": "Innførsel av varer er når varer bringes inn i avgiftsområdet fra utlandet. Ved innførsel skal det betales merverdiavgift, som normalt beregnes sammen med toll. [§ 7-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 29,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_23",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er merverdiavgiftskompensasjon?",
+      "expected": "Merverdiavgiftskompensasjon er en ordning hvor kommuner, fylkeskommuner og visse andre virksomheter kan få refundert merverdiavgift på kjøp til avgiftsfri virksomhet. Dette kompenserer for manglende fradragsrett.",
+      "predicted": "Merverdiavgiftskompensasjon er en ordning hvor kommuner, fylkeskommuner og visse andre virksomheter kan få refundert merverdiavgift på kjøp til avgiftsfri virksomhet. Dette kompenserer for manglende fradragsrett.",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 25,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_24",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er differansen mellom utgående og inngående merverdiavgift?",
+      "expected": "Differansen mellom utgående merverdiavgift (på salg) og inngående merverdiavgift (på kjøp) er det beløpet virksomheten skal betale til eller få tilbake fra staten for en avgiftsperiode. [§ 11-1 Lov om merverdiavgift]",
+      "predicted": "Differansen mellom utgående merverdiavgift (på salg) og inngående merverdiavgift (på kjøp) er det beløpet virksomheten skal betale til eller få tilbake fra staten for en avgiftsperiode. [§ 11-1 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 31,
+        "keywords": 0.6666666666666666,
+        "keywords_found": 2,
+        "keywords_total": 3,
+        "overall": 0.8916666666666666,
+        "status": "acceptable"
+      }
+    },
+    {
+      "sample_id": "glossary_define_25",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er faktureringsplikt?",
+      "expected": "Faktureringsplikt betyr at avgiftssubjekter skal utstede faktura for avgiftspliktig omsetning til andre næringsdrivende. Fakturaen skal inneholde spesifikke opplysninger om merverdiavgift, inkludert avgiftssats og avgiftsbeløp. [§ 15-2 Lov om merverdiavgift]",
+      "predicted": "Faktureringsplikt betyr at avgiftssubjekter skal utstede faktura for avgiftspliktig omsetning til andre næringsdrivende. Fakturaen skal inneholde spesifikke opplysninger om merverdiavgift, inkludert avgiftssats og avgiftsbeløp. [§ 15-2 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 29,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_26",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er kreditnota?",
+      "expected": "Kreditnota er et dokument som utstedes når en tidligere utstedt faktura skal korrigeres nedover, for eksempel ved retur av varer eller prisreduksjon. Kreditnotaen skal redusere den utgående merverdiavgiften tilsvarende. [§ 15-3 Lov om merverdiavgift]",
+      "predicted": "Kreditnota er et dokument som utstedes når en tidligere utstedt faktura skal korrigeres nedover, for eksempel ved retur av varer eller prisreduksjon. Kreditnotaen skal redusere den utgående merverdiavgiften tilsvarende. [§ 15-3 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 34,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_27",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er pro rata-fradrag?",
+      "expected": "Pro rata-fradrag er en forholdsmessig beregning av fradragsrett når en virksomhet har både avgiftspliktig og avgiftsfri omsetning. Fradraget beregnes basert på forholdet mellom avgiftspliktig omsetning og total omsetning. [§ 8-2 Lov om merverdiavgift]",
+      "predicted": "Pro rata-fradrag er en forholdsmessig beregning av fradragsrett når en virksomhet har både avgiftspliktig og avgiftsfri omsetning. Fradraget beregnes basert på forholdet mellom avgiftspliktig omsetning og total omsetning. [§ 8-2 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 33,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_28",
+      "domain": "tax",
+      "task": "glossary_define",
+      "question": "Hva er tap på krav og tilbakeføring av inngående merverdiavgift?",
+      "expected": "Ved tap på krav (kundefordring) skal den inngående merverdiavgiften som ble fradratt på den opprinnelige fakturaen tilbakeføres hvis kravet blir konstatert tapt. Dette skjer ved å redusere fradragsført inngående avgift. [§ 4-7 Lov om merverdiavgift]",
+      "predicted": "Ved tap på krav (kundefordring) skal den inngående merverdiavgiften som ble fradratt på den opprinnelige fakturaen tilbakeføres hvis kravet blir konstatert tapt. Dette skjer ved å redusere fradragsført inngående avgift. [§ 4-7 Lov om merverdiavgift]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 35,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_29",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 1000?",
+      "expected": "Konto 1000 er Forskning og utvikling. Dette er en eiendelskon for aktiverte kostnader til forskning og utvikling, som FoU-prosjekter og produktutvikling. [NS 4102]",
+      "predicted": "Konto 1000 er Forskning og utvikling. Dette er en eiendelskon for aktiverte kostnader til forskning og utvikling, som FoU-prosjekter og produktutvikling. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 23,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_30",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 1500?",
+      "expected": "Konto 1500 er Varelager. Dette er en eiendelskon for verdien av varer som er tilgjengelig for salg, inkludert råvarer, varer i produksjon og ferdigvarer. [NS 4102]",
+      "predicted": "Konto 1500 er Varelager. Dette er en eiendelskon for verdien av varer som er tilgjengelig for salg, inkludert råvarer, varer i produksjon og ferdigvarer. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 26,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_31",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 1920?",
+      "expected": "Konto 1920 er Bank innskudd. Dette er en eiendelskon for midler på bankkontoer, inkludert driftskonto og andre innskuddskontoer. [NS 4102]",
+      "predicted": "Konto 1920 er Bank innskudd. Dette er en eiendelskon for midler på bankkontoer, inkludert driftskonto og andre innskuddskontoer. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 20,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_32",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 2000?",
+      "expected": "Konto 2000 er Egenkapital. Dette er en egenkapital og gjeld konto som representerer eierens egenkapital i virksomheten, inkludert innskutt kapital og opptjent egenkapital. [NS 4102]",
+      "predicted": "Konto 2000 er Egenkapital. Dette er en egenkapital og gjeld konto som representerer eierens egenkapital i virksomheten, inkludert innskutt kapital og opptjent egenkapital. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 25,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_33",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 2400?",
+      "expected": "Konto 2400 er Leverandørgjeld. Dette er en gjeldskonto for skyldige beløp til leverandører for varer og tjenester som er mottatt men ikke betalt. [NS 4102]",
+      "predicted": "Konto 2400 er Leverandørgjeld. Dette er en gjeldskonto for skyldige beløp til leverandører for varer og tjenester som er mottatt men ikke betalt. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 25,
+        "keywords": 1.0,
+        "keywords_found": 3,
+        "keywords_total": 3,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_34",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 2700?",
+      "expected": "Konto 2700 er Skyldige offentlige avgifter. Dette er en gjeldskonto for avgifter som skal betales til det offentlige, inkludert merverdiavgift og arbeidsgiveravgift. [NS 4102]",
+      "predicted": "Konto 2700 er Skyldige offentlige avgifter. Dette er en gjeldskonto for avgifter som skal betales til det offentlige, inkludert merverdiavgift og arbeidsgiveravgift. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 24,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_35",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 3000?",
+      "expected": "Konto 3000 er Salgsinntekt. Dette er en inntektskonto for inntekter fra salg av varer og tjenester som er hovedvirksomheten til bedriften. [NS 4102]",
+      "predicted": "Konto 3000 er Salgsinntekt. Dette er en inntektskonto for inntekter fra salg av varer og tjenester som er hovedvirksomheten til bedriften. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 23,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_36",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 3100?",
+      "expected": "Konto 3100 er Annen driftsinntekt. Dette er en inntektskonto for driftsinntekter som ikke er salgsinntekt, som utleieinntekter og provisjonsinntekter. [NS 4102]",
+      "predicted": "Konto 3100 er Annen driftsinntekt. Dette er en inntektskonto for driftsinntekter som ikke er salgsinntekt, som utleieinntekter og provisjonsinntekter. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 21,
+        "keywords": 0.5,
+        "keywords_found": 1,
+        "keywords_total": 2,
+        "overall": 0.875,
+        "status": "acceptable"
+      }
+    },
+    {
+      "sample_id": "glossary_define_37",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 4000?",
+      "expected": "Konto 4000 er Varekostnad. Dette er en kostnadskonto for innkjøp og produksjon av varer som selges, inkludert råvarer og produksjonskostnader. [NS 4102]",
+      "predicted": "Konto 4000 er Varekostnad. Dette er en kostnadskonto for innkjøp og produksjon av varer som selges, inkludert råvarer og produksjonskostnader. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 22,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_38",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 5000?",
+      "expected": "Konto 5000 er Lønnskostnad. Dette er en kostnadskonto for lønn og annen godtgjørelse til ansatte, inkludert feriepenger og overtid. [NS 4102]",
+      "predicted": "Konto 5000 er Lønnskostnad. Dette er en kostnadskonto for lønn og annen godtgjørelse til ansatte, inkludert feriepenger og overtid. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 21,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_39",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 5400?",
+      "expected": "Konto 5400 er Arbeidsgiveravgift. Dette er en kostnadskonto for arbeidsgiveravgift som beregnes av lønnskostnader og andre ytelser til ansatte. [NS 4102]",
+      "predicted": "Konto 5400 er Arbeidsgiveravgift. Dette er en kostnadskonto for arbeidsgiveravgift som beregnes av lønnskostnader og andre ytelser til ansatte. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 21,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_40",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 6300?",
+      "expected": "Konto 6300 er Kontorkostnad. Dette er en kostnadskonto for kontorrekvisita, printerkostnader og andre mindre kontorforbruk. [NS 4102]",
+      "predicted": "Konto 6300 er Kontorkostnad. Dette er en kostnadskonto for kontorrekvisita, printerkostnader og andre mindre kontorforbruk. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 17,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_41",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 6540?",
+      "expected": "Konto 6540 er Reisekostnad. Dette er en kostnadskonto for reiseutgifter i forbindelse med forretningsreiser, inkludert transport, hotell og diett. [NS 4102]",
+      "predicted": "Konto 6540 er Reisekostnad. Dette er en kostnadskonto for reiseutgifter i forbindelse med forretningsreiser, inkludert transport, hotell og diett. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 21,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_42",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 6800?",
+      "expected": "Konto 6800 er Avskrivning. Dette er en kostnadskonto for verdiforringelse av varige driftsmidler over tid, beregnet som årlige avskrivninger. [NS 4102]",
+      "predicted": "Konto 6800 er Avskrivning. Dette er en kostnadskonto for verdiforringelse av varige driftsmidler over tid, beregnet som årlige avskrivninger. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 21,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_43",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 7140?",
+      "expected": "Konto 7140 er Gevinst ved salg av varige driftsmidler. Dette er en finanspost for gevinst når et driftsmiddel selges for mer enn bokført verdi. [NS 4102]",
+      "predicted": "Konto 7140 er Gevinst ved salg av varige driftsmidler. Dette er en finanspost for gevinst når et driftsmiddel selges for mer enn bokført verdi. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 26,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_44",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 8050?",
+      "expected": "Konto 8050 er Renteinntekt. Dette er en finanspost for inntekter fra rentebærende plasseringer og bankinnskudd. [NS 4102]",
+      "predicted": "Konto 8050 er Renteinntekt. Dette er en finanspost for inntekter fra rentebærende plasseringer og bankinnskudd. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 17,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_45",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er konto 8150?",
+      "expected": "Konto 8150 er Rentekostnad. Dette er en finanspost for renteutgifter på lån og kreditter. [NS 4102]",
+      "predicted": "Konto 8150 er Rentekostnad. Dette er en finanspost for renteutgifter på lån og kreditter. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 16,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_46",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hva er forskjellen mellom konto 1500 og konto 4000?",
+      "expected": "Konto 1500 (Varelager) er en eiendelskon som viser verdien av varer bedriften har på lager. Konto 4000 (Varekostnad) er en kostnadskonto som viser kostnaden for varer som er solgt. [NS 4102]",
+      "predicted": "Konto 1500 (Varelager) er en eiendelskon som viser verdien av varer bedriften har på lager. Konto 4000 (Varekostnad) er en kostnadskonto som viser kostnaden for varer som er solgt. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 31,
+        "keywords": 1.0,
+        "keywords_found": 4,
+        "keywords_total": 4,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_47",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hvilken kontoklasse brukes for eiendeler?",
+      "expected": "Kontoklasse 1 (kontoer som starter med 1) brukes for eiendeler. Dette inkluderer både anleggsmidler som bygninger og maskiner, og omløpsmidler som varelager og bankinnskudd. [NS 4102]",
+      "predicted": "Kontoklasse 1 (kontoer som starter med 1) brukes for eiendeler. Dette inkluderer både anleggsmidler som bygninger og maskiner, og omløpsmidler som varelager og bankinnskudd. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 26,
+        "keywords": 1.0,
+        "keywords_found": 2,
+        "keywords_total": 2,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    },
+    {
+      "sample_id": "glossary_define_48",
+      "domain": "accounting",
+      "task": "glossary_define",
+      "question": "Hvilken kontoklasse brukes for kostnader?",
+      "expected": "Kontoklassene 4, 5 og 6 brukes for kostnader. Klasse 4 er varekostnad, klasse 5 er lønnskostnader, og klasse 6 er andre driftskostnader. [NS 4102]",
+      "predicted": "Kontoklassene 4, 5 og 6 brukes for kostnader. Klasse 4 er varekostnad, klasse 5 er lønnskostnader, og klasse 6 er andre driftskostnader. [NS 4102]",
+      "scores": {
+        "accuracy": 1.0,
+        "citation": 1.0,
+        "length": 0.5,
+        "token_count": 24,
+        "keywords": 1.0,
+        "keywords_found": 4,
+        "keywords_total": 4,
+        "overall": 0.9249999999999999,
+        "status": "pass"
+      }
+    }
+  ],
+  "failed_samples": []
+}

@@ -133,7 +133,7 @@ class AmeldingProcessingPipeline(ProcessingPipeline):
             try:
                 html_content = file_path.read_text(encoding="utf-8")
                 from ..hash_utils import sha256_bytes
-                
+
                 bronze_hash = sha256_bytes(file_path.read_bytes())
 
                 if "overview" in source_id.lower():
@@ -235,7 +235,7 @@ class SaftProcessingPipeline(ProcessingPipeline):
             try:
                 html_content = file_path.read_text(encoding="utf-8")
                 from ..hash_utils import sha256_bytes
-                
+
                 bronze_hash = sha256_bytes(file_path.read_bytes())
                 nodes = parse_saft_documentation(
                     html_content, "1.30", source["url"], bronze_hash
@@ -334,7 +334,7 @@ class LegalTextProcessingPipeline(ProcessingPipeline):
             try:
                 html_content = file_path.read_text(encoding="utf-8")
                 from ..hash_utils import sha256_bytes
-                
+
                 bronze_hash = sha256_bytes(file_path.read_bytes())
                 sections = parse_lovdata_html(
                     html_content, source_id, source["url"], bronze_hash
