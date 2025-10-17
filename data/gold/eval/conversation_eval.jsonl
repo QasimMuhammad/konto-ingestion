@@ -1,0 +1,4 @@
+# Placeholder for conversation eval dataset (to be created in Phase 4)
+# This file will contain 10 eval samples for multi-turn conversational interactions
+# Format: Multi-turn message arrays with expected assistant responses
+

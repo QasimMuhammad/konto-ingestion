@@ -108,6 +108,24 @@ uv run scripts/export_gold_glossary.py --split-ratio 0.85
 uv run scripts/validate_gold_sample.py
 ```
 
+### Gold Layer Evaluation
+```bash
+# Evaluate trained model on eval dataset
+uv run scripts/eval_glossary.py \
+  --model_name <model_path_or_name> \
+  --eval_dir data/gold/eval \
+  --output results/eval_report.json
+
+# Evaluate specific dataset only
+uv run scripts/eval_glossary.py \
+  --eval_files data/gold/eval/tax_glossary_eval.jsonl \
+  --model_name gpt-4 \
+  --output results/tax_eval.json
+
+# Test eval harness with expected outputs (perfect score test)
+uv run scripts/eval_glossary.py --use_expected --output results/eval_test.json
+```
+
 ### Debug Tools
 ```bash
 # Show summary statistics
