@@ -106,6 +106,12 @@ uv run scripts/export_gold_glossary.py --split-ratio 0.85
 
 # Validate generated JSONL samples
 uv run scripts/validate_gold_sample.py
+
+# Export rule-based posting proposals (30 rules × 15 variations)
+uv run scripts/export_gold_rules.py
+
+# Custom variations per rule
+uv run scripts/export_gold_rules.py --variations-per-rule 20
 ```
 
 ### Gold Layer Evaluation
