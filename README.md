@@ -92,6 +92,14 @@ uv run scripts/export_json_schemas.py
 
 ### Gold Layer Training Data Export
 ```bash
+# Export ALL Gold layer training data (orchestrated - recommended)
+uv run scripts/export_gold_all.py
+
+# Export all with custom parameters
+uv run scripts/export_gold_all.py --variations-per-rule 20
+
+# Individual exporters (if needed):
+
 # Export glossaries for LLM fine-tuning (tax + accounting)
 uv run scripts/export_gold_glossary.py
 
@@ -101,23 +109,11 @@ uv run scripts/export_gold_glossary.py --export-type tax
 # Export only accounting glossary
 uv run scripts/export_gold_glossary.py --export-type accounting
 
-# Custom train/val split ratio (default: 0.8)
-uv run scripts/export_gold_glossary.py --split-ratio 0.85
-
-# Validate generated JSONL samples
-uv run scripts/validate_gold_sample.py
-
 # Export rule-based posting proposals (30 rules × 15 variations)
 uv run scripts/export_gold_rules.py
 
-# Custom variations per rule
-uv run scripts/export_gold_rules.py --variations-per-rule 20
-
-# Export synthetic conversations (6 templates × 250 conversations)
-uv run scripts/export_gold_synthetic.py
-
-# Custom conversations per template
-uv run scripts/export_gold_synthetic.py --conversations-per-template 300
+# Validate generated JSONL samples
+uv run scripts/validate_gold_sample.py
 ```
 
 ### Gold Layer Evaluation
