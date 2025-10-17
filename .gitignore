@@ -142,3 +142,6 @@ Thumbs.db
 
 # Data files
 data/
+
+# Local planning docs
+docs/week_5_6_plan.md
