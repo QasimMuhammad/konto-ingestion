@@ -131,24 +131,25 @@ class AmeldingProcessingPipeline(ProcessingPipeline):
                 continue
 
             try:
-                # Parse rules from HTML
                 html_content = file_path.read_text(encoding="utf-8")
+                from ..hash_utils import sha256_bytes
+                
+                bronze_hash = sha256_bytes(file_path.read_bytes())
 
                 if "overview" in source_id.lower():
                     rules = parse_amelding_overview(
-                        html_content, source["url"], "bronze_hash"
+                        html_content, source["url"], bronze_hash
                     )
                 elif "forms" in source_id.lower():
                     rules = parse_amelding_forms(
-                        html_content, source["url"], "bronze_hash"
+                        html_content, source["url"], bronze_hash
                     )
                 else:
-                    # Try both parsers
                     rules = parse_amelding_overview(
-                        html_content, source["url"], "bronze_hash"
+                        html_content, source["url"], bronze_hash
                     )
                     rules.extend(
-                        parse_amelding_forms(html_content, source["url"], "bronze_hash")
+                        parse_amelding_forms(html_content, source["url"], bronze_hash)
                     )
 
                 # Convert to dict format for JSON serialization
@@ -232,10 +233,12 @@ class SaftProcessingPipeline(ProcessingPipeline):
                 continue
 
             try:
-                # Parse SAF-T nodes from HTML
                 html_content = file_path.read_text(encoding="utf-8")
+                from ..hash_utils import sha256_bytes
+                
+                bronze_hash = sha256_bytes(file_path.read_bytes())
                 nodes = parse_saft_documentation(
-                    html_content, "1.30", source["url"], "bronze_hash"
+                    html_content, "1.30", source["url"], bronze_hash
                 )
 
                 # Convert to dict format for JSON serialization
@@ -330,8 +333,11 @@ class LegalTextProcessingPipeline(ProcessingPipeline):
 
             try:
                 html_content = file_path.read_text(encoding="utf-8")
+                from ..hash_utils import sha256_bytes
+                
+                bronze_hash = sha256_bytes(file_path.read_bytes())
                 sections = parse_lovdata_html(
-                    html_content, source_id, source["url"], "bronze_hash"
+                    html_content, source_id, source["url"], bronze_hash
                 )
 
                 for section in sections:

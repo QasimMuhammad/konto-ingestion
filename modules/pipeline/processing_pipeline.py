@@ -156,10 +156,12 @@ def process_lovdata_sources(
             continue
 
         try:
-            # Parse HTML content
             html_content = file_path.read_text(encoding="utf-8")
+            from modules.hash_utils import sha256_bytes
+            
+            bronze_hash = sha256_bytes(file_path.read_bytes())
             sections = parse_lovdata_html(
-                html_content, source_id, source["url"], "bronze_hash"
+                html_content, source_id, source["url"], bronze_hash
             )
 
             # Clean and normalize sections
