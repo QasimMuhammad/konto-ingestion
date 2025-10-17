@@ -1,8 +1,7 @@
 """
-Base exporter class with train/val split logic and quality checks.
+Base exporter class with train/val split logic.
 """
 
-import hashlib
 import json
 import random
 from abc import ABC, abstractmethod
@@ -40,11 +39,8 @@ class BaseExporter(ABC):
 
         self.stats = {
             "total_generated": 0,
-            "total_filtered": 0,
             "train_samples": 0,
             "val_samples": 0,
-            "duplicates_removed": 0,
-            "quality_issues": 0,
         }
 
     @abstractmethod
@@ -120,85 +116,6 @@ class BaseExporter(ABC):
 
         return train_samples, val_samples
 
-    def remove_duplicates(self, samples: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        """
-        Remove duplicate samples based on content hash.
-
-        Args:
-            samples: List of samples
-
-        Returns:
-            Deduplicated list of samples
-        """
-        seen_hashes: set[str] = set()
-        unique_samples: list[dict[str, Any]] = []
-
-        for sample in samples:
-            content_str = json.dumps(sample["messages"], sort_keys=True)
-            content_hash = hashlib.sha256(content_str.encode()).hexdigest()
-
-            if content_hash not in seen_hashes:
-                seen_hashes.add(content_hash)
-                unique_samples.append(sample)
-            else:
-                self.stats["duplicates_removed"] += 1
-
-        return unique_samples
-
-    def validate_sample_quality(self, sample: dict[str, Any]) -> bool:
-        """
-        Validate sample quality.
-
-        Args:
-            sample: Sample to validate
-
-        Returns:
-            True if sample passes quality checks
-        """
-        try:
-            messages = sample.get("messages", [])
-            metadata = sample.get("metadata", {})
-
-            if not messages or len(messages) < 2:
-                return False
-
-            if not metadata.get("source_ids"):
-                return False
-
-            for msg in messages:
-                content = msg.get("content", "")
-                if not content or len(content.strip()) < 10:
-                    return False
-
-                if len(content) > 4000:
-                    return False
-
-            return True
-
-        except Exception as e:
-            logger.warning(f"Quality validation error: {e}")
-            return False
-
-    def filter_quality(self, samples: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        """
-        Filter samples by quality checks.
-
-        Args:
-            samples: List of samples
-
-        Returns:
-            Filtered list of samples
-        """
-        filtered: list[dict[str, Any]] = []
-
-        for sample in samples:
-            if self.validate_sample_quality(sample):
-                filtered.append(sample)
-            else:
-                self.stats["quality_issues"] += 1
-
-        return filtered
-
     def write_jsonl(
         self, samples: list[dict[str, Any]], filename: str, split: str
     ) -> None:
@@ -246,19 +163,6 @@ class BaseExporter(ABC):
         samples = self.generate_samples(source_data)
         self.stats["total_generated"] = len(samples)
         logger.info(f"Generated {len(samples)} samples")
-
-        samples = self.remove_duplicates(samples)
-        logger.info(
-            f"After deduplication: {len(samples)} samples "
-            f"({self.stats['duplicates_removed']} removed)"
-        )
-
-        samples = self.filter_quality(samples)
-        self.stats["total_filtered"] = len(samples)
-        logger.info(
-            f"After quality filter: {len(samples)} samples "
-            f"({self.stats['quality_issues']} removed)"
-        )
 
         train_samples, val_samples = self.split_by_family(samples)
         self.stats["train_samples"] = len(train_samples)
