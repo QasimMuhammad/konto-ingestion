@@ -323,6 +323,50 @@ class BusinessRule(BaseModel):
     model_config = ConfigDict(json_encoders={})
 
 
+class GoldMessage(BaseModel):
+    """Single message in OpenAI chat format for training data."""
+
+    role: Literal["system", "user", "assistant"]
+    content: str = Field(..., min_length=1, description="Message content")
+
+    model_config = ConfigDict(json_encoders={})
+
+
+class GoldMetadata(BaseModel):
+    """Metadata for Gold training samples."""
+
+    domain: Literal["tax", "accounting", "reporting", "payroll"]
+    task: Literal["glossary_define", "posting_proposal", "conversation", "vat_question"]
+    source_ids: list[str] = Field(..., min_length=1, description="Source document IDs")
+    locale: Literal["nb-NO", "en-US"] = "nb-NO"
+    split: Literal["train", "val"] = "train"
+    rule_ids: list[str] | None = None
+    conversation_type: str | None = None
+    turns: int | None = None
+    created_at: str | None = None
+
+    model_config = ConfigDict(json_encoders={})
+
+
+class GoldTrainingSample(BaseModel):
+    """Complete Gold layer training sample in JSONL format."""
+
+    messages: list[GoldMessage] = Field(..., min_length=2, description="Chat messages")
+    metadata: GoldMetadata
+
+    @field_validator("messages")
+    @classmethod
+    def validate_message_flow(cls, v: list[GoldMessage]) -> list[GoldMessage]:
+        """Ensure messages follow system -> user -> assistant pattern."""
+        if len(v) < 2:
+            raise ValueError("Must have at least 2 messages")
+        if v[0].role != "system":
+            raise ValueError("First message must be system")
+        return v
+
+    model_config = ConfigDict(json_encoders={})
+
+
 __all__ = [
     "LawSection",
     "VatRate",
@@ -337,4 +381,7 @@ __all__ = [
     "ExampleOutput",
     "RuleExample",
     "BusinessRule",
+    "GoldMessage",
+    "GoldMetadata",
+    "GoldTrainingSample",
 ]

@@ -87,24 +87,31 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 
 ## 5. Current Progress Summary
 
-### ✅ **Completed (Week 1-2 + Week 3-4)**
+### ✅ **Completed (Week 1-2 + Week 3-4 + Week 5 Phase 1)**
 - **Bronze Layer**: HTML/PDF sources with SHA256 tracking
 - **Silver Layer**: 8 JSON files with 2,049+ validated records
   - `law_sections.json`: 1,804 legal sections (tax + accounting laws)
   - `saft_v1_3_nodes.json`: 142 SAF-T specification nodes
   - `rate_table.json`: 4 VAT rates with categories
   - `amelding_rules.json`: 50 A-meldingen business rules
-  - `chart_of_accounts.json`: 42 NS 4102 accounts ✨ NEW
-  - `business_rules.json`: 30 seed rules with citations ✨ NEW
+  - `chart_of_accounts.json`: 42 NS 4102 accounts
+  - `business_rules.json`: 30 seed rules with citations
   - `quality_report.json`: Processing statistics
+- **Gold Layer (Phase 1)**: Training data export infrastructure ✨ NEW
+  - `tax_glossary.jsonl`: 430 samples (351 train / 79 val)
+  - `accounting_glossary.jsonl`: 42 samples (25 train / 17 val)
+  - Base exporter with split-by-family logic (no leakage)
+  - Pydantic schemas: GoldMessage, GoldMetadata, GoldTrainingSample
+  - 100% JSONL validation with citations
 - **Parsers**: Lovdata HTML, SAF-T PDF, VAT rates, A-meldingen
 - **Validation**: 100% Pydantic schema validation success
 - **Rules Seeding**: 30 hand-written baseline rules (Week 6-7 expands to 200-300)
 - **Data Quality**: Real technical specifications from official sources
 
 ### 🔄 **Next Steps (Week 5-7)**
-- Week 5-6: Generate Gold layer JSONL training datasets
-- Week 6-7: LLM-assisted rule extraction (30 → 200-300 rules) ✨ NEW
+- Week 5 (Phase 2-4): Rule application + synthetic conversations (target: +2,200 samples)
+- Week 5 (Phase 5): Eval harness + LoRA training baseline
+- Week 6-7: LLM-assisted rule extraction (30 → 200-300 rules)
 - Week 7-8: RAG + Rules API with dual-engine architecture
 
 ---
@@ -126,10 +133,19 @@ Schemas will be defined using Pydantic models and exported as JSON Schema.
 - ✅ Integrate seed stage into unified ingestion pipeline.
 - **Note**: Seed rules provide MVP baseline; Week 6-7 extends to 200-300 rules via LLM-assisted extraction.
 
-### Week 5–6: Training Data & Fine-Tuning
-- Export Gold datasets: `tax_glossary.jsonl`, `accounting_glossary.jsonl`, `client_synth_chat.jsonl`.
-- Generate 20–50k samples (mix synthetic & curated).
-- Train LoRA adapters on base model (Phi-3 mini / Mistral-7B).
+### Week 5–6: Training Data & Fine-Tuning 🔄 IN PROGRESS
+- ✅ **Phase 1 Complete**: Export infrastructure + glossary datasets (472 samples)
+  - Tax glossary: 430 samples (351 train / 79 val)
+  - Accounting glossary: 42 samples (25 train / 17 val)
+  - Base exporter with family-based splitting
+  - Pydantic validation schemas
+- 🔄 **Phase 2-4**: Rule application + synthetic conversations
+  - Target: +2,200 samples (500 rule-based + 1,700 synthetic)
+  - Total target: ~2,700 samples for Milestone A
+- 🔄 **Phase 5**: Eval harness + LoRA training
+  - 80-item eval set
+  - Train baseline LoRA adapter (Phi-3 mini / Mistral-7B)
+  - Gate Milestone B on ≥90% glossary accuracy
 
 ### Week 6–7: LLM-Assisted Rule Extraction & Validation (HYBRID APPROACH)
 **Goal**: Expand Rules Registry from 30 seed rules to 200-300 validated rules using LLM-assisted extraction from law sections.
