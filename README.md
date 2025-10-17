@@ -90,6 +90,24 @@ uv run scripts/validate_silver.py
 uv run scripts/export_json_schemas.py
 ```
 
+### Gold Layer Training Data Export
+```bash
+# Export glossaries for LLM fine-tuning (tax + accounting)
+uv run scripts/export_gold_glossary.py
+
+# Export only tax glossary
+uv run scripts/export_gold_glossary.py --export-type tax
+
+# Export only accounting glossary
+uv run scripts/export_gold_glossary.py --export-type accounting
+
+# Custom train/val split ratio (default: 0.8)
+uv run scripts/export_gold_glossary.py --split-ratio 0.85
+
+# Validate generated JSONL samples
+uv run scripts/validate_gold_sample.py
+```
+
 ### Debug Tools
 ```bash
 # Show summary statistics
