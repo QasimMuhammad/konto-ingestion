@@ -92,46 +92,24 @@ uv run scripts/export_json_schemas.py
 
 ### Gold Layer Training Data Export
 ```bash
-# Export ALL Gold layer training data (orchestrated - recommended)
-uv run scripts/export_gold_all.py
+# Export ALL training data (glossaries + rules + conversations)
+uv run export_gold_data.py all
 
 # Export all with custom parameters
-uv run scripts/export_gold_all.py --variations-per-rule 20
+uv run export_gold_data.py all --variations-per-rule 20 --conversations-per-template 300
 
-# Individual exporters (if needed):
-
-# Export glossaries for LLM fine-tuning (tax + accounting)
-uv run scripts/export_gold_glossary.py
-
-# Export only tax glossary
-uv run scripts/export_gold_glossary.py --export-type tax
-
-# Export only accounting glossary
-uv run scripts/export_gold_glossary.py --export-type accounting
-
-# Export rule-based posting proposals (30 rules × 15 variations)
-uv run scripts/export_gold_rules.py
+# Export individual datasets:
+uv run export_gold_data.py glossary                    # Tax + accounting glossaries
+uv run export_gold_data.py glossary --export-type tax  # Tax only
+uv run export_gold_data.py rules                       # Rule-based posting proposals
+uv run export_gold_data.py synthetic                   # Synthetic conversations
 
 # Validate generated JSONL samples
-uv run scripts/validate_gold_sample.py
-```
+uv run export_gold_data.py validate
 
-### Gold Layer Evaluation
-```bash
-# Evaluate trained model on eval dataset
-uv run scripts/eval_glossary.py \
-  --model_name <model_path_or_name> \
-  --eval_dir data/gold/eval \
-  --output results/eval_report.json
-
-# Evaluate specific dataset only
-uv run scripts/eval_glossary.py \
-  --eval_files data/gold/eval/tax_glossary_eval.jsonl \
-  --model_name gpt-4 \
-  --output results/tax_eval.json
-
-# Test eval harness with expected outputs (perfect score test)
-uv run scripts/eval_glossary.py --use_expected --output results/eval_test.json
+# Run evaluation harness
+uv run export_gold_data.py eval --model_name <model_path> --output results/eval_report.json
+uv run export_gold_data.py eval --use_expected  # Test harness with perfect scores
 ```
 
 ### Debug Tools
