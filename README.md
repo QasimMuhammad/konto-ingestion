@@ -112,6 +112,12 @@ uv run scripts/export_gold_rules.py
 
 # Custom variations per rule
 uv run scripts/export_gold_rules.py --variations-per-rule 20
+
+# Export synthetic conversations (6 templates × 250 conversations)
+uv run scripts/export_gold_synthetic.py
+
+# Custom conversations per template
+uv run scripts/export_gold_synthetic.py --conversations-per-template 300
 ```
 
 ### Gold Layer Evaluation
