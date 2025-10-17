@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from modules.exporters.base_exporter import BaseExporter
+from modules.exporters.utils import SYSTEM_PROMPTS, calculate_vat
 from modules.logger import get_logger
 
 logger = get_logger(__name__)
@@ -34,18 +35,6 @@ class RuleExporter(BaseExporter):
             if len(parts) >= 2:
                 return f"{parts[0]}_{parts[1]}"
         return "unknown"
-
-    def calculate_vat(
-        self, amount_incl_vat: float, vat_rate: float
-    ) -> tuple[float, float]:
-        """
-        Calculate VAT breakdown from amount including VAT.
-
-        Returns: (amount_ex_vat, vat_amount)
-        """
-        amount_ex_vat = amount_incl_vat / (1 + vat_rate / 100)
-        vat_amount = amount_incl_vat - amount_ex_vat
-        return round(amount_ex_vat, 2), round(vat_amount, 2)
 
     def generate_description_variations(
         self, base_description: str, category: str, amount: float
@@ -115,7 +104,7 @@ class RuleExporter(BaseExporter):
         citation: str | None = None,
     ) -> str:
         """Format a posting proposal with VAT calculation."""
-        amount_ex_vat, vat_amount = self.calculate_vat(amount_incl_vat, vat_rate)
+        amount_ex_vat, vat_amount = calculate_vat(amount_incl_vat, vat_rate)
 
         citation_text = f"\n\n[{citation}]" if citation else f"\n\n[Regel: {rule_id}]"
 
@@ -226,11 +215,7 @@ class RuleExporter(BaseExporter):
         """Generate training samples from business rules."""
         samples: list[dict[str, Any]] = []
 
-        system_prompt = (
-            "Du er Konto AI, en regnskapsassistent for norske bedrifter. "
-            "Du hjelper med å kontere transaksjoner korrekt med riktig konto, "
-            "MVA-kode og beregning av merverdiavgift."
-        )
+        system_prompt = SYSTEM_PROMPTS["posting_proposal"]
 
         for rule in source_data:
             if not rule.get("is_active", True):

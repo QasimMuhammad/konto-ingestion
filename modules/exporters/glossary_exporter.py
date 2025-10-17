@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from modules.exporters.base_exporter import BaseExporter
+from modules.exporters.utils import SYSTEM_PROMPTS
 from modules.logger import logger
 
 
@@ -31,11 +32,6 @@ class GlossaryExporter(BaseExporter):
         """
         super().__init__(output_dir, split_ratio, seed)
         self.domain = domain
-
-        self.system_prompts = {
-            "tax": "Du er en norsk regnskapsassistent med ekspertise innen skatt og merverdiavgift. Svar kort og presist med kildehenvisninger.",
-            "accounting": "Du er en norsk regnskapsassistent med ekspertise innen regnskap og bokføring. Svar kort og presist med kildehenvisninger.",
-        }
 
         self.procedural_keywords = {
             "søknad",
@@ -181,7 +177,7 @@ class GlossaryExporter(BaseExporter):
             "messages": [
                 {
                     "role": "system",
-                    "content": self.system_prompts["tax"],
+                    "content": SYSTEM_PROMPTS["tax_glossary"],
                 },
                 {
                     "role": "user",
@@ -232,7 +228,7 @@ class GlossaryExporter(BaseExporter):
             "messages": [
                 {
                     "role": "system",
-                    "content": self.system_prompts["accounting"],
+                    "content": SYSTEM_PROMPTS["accounting_glossary"],
                 },
                 {
                     "role": "user",
@@ -274,7 +270,7 @@ class GlossaryExporter(BaseExporter):
             "messages": [
                 {
                     "role": "system",
-                    "content": self.system_prompts["accounting"],
+                    "content": SYSTEM_PROMPTS["accounting_glossary"],
                 },
                 {
                     "role": "user",

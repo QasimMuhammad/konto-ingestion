@@ -9,11 +9,12 @@ from pathlib import Path
 from typing import Any
 
 from modules.exporters.base_exporter import BaseExporter
-from modules.gold_templates import (
+from modules.exporters.templates import (
     ALL_TEMPLATES,
     CATEGORY_VARIATIONS,
     CONTEXT_VARIATIONS,
 )
+from modules.exporters.utils import calculate_vat
 from modules.logger import get_logger
 
 logger = get_logger(__name__)
@@ -35,14 +36,6 @@ class SyntheticExporter(BaseExporter):
     def extract_family_key(self, item: dict[str, Any]) -> str:
         """Extract family key from conversation_type for train/val splitting."""
         return item.get("metadata", {}).get("conversation_type", "unknown")
-
-    def calculate_vat(
-        self, amount_incl_vat: float, vat_rate: float
-    ) -> tuple[float, float]:
-        """Calculate VAT breakdown from amount including VAT."""
-        amount_ex_vat = amount_incl_vat / (1 + vat_rate / 100)
-        vat_amount = amount_incl_vat - amount_ex_vat
-        return round(amount_ex_vat, 2), round(vat_amount, 2)
 
     def get_rule_data(self, rules: list[dict[str, Any]]) -> dict[str, Any]:
         """Extract random rule data for placeholder values."""
@@ -118,7 +111,7 @@ class SyntheticExporter(BaseExporter):
         amount = random.choice(amounts)
 
         # Calculate VAT
-        amount_ex_vat, vat_amount = self.calculate_vat(amount, rule1_data["vat_rate"])
+        amount_ex_vat, vat_amount = calculate_vat(amount, rule1_data["vat_rate"])
 
         # Get category variations
         category, category_label = self.get_category_info(rule1_data["rule_id"])
@@ -147,9 +140,7 @@ class SyntheticExporter(BaseExporter):
         # For multi-item templates
         if template_id == "multi_item":
             amount2 = random.choice(amounts)
-            amount2_ex_vat, vat_amount2 = self.calculate_vat(
-                amount2, rule2_data["vat_rate"]
-            )
+            amount2_ex_vat, vat_amount2 = calculate_vat(amount2, rule2_data["vat_rate"])
             category2, category2_label = self.get_category_info(rule2_data["rule_id"])
 
             values.update(
